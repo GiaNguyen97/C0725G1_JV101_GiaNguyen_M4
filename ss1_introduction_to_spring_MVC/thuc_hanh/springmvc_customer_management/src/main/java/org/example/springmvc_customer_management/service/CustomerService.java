@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class CustomerService implements ICustomerService{
-    @Autowired
+
     private ICustomerRepository customerRepository;
+    @Autowired
+    public CustomerService(CustomerRepository customerRepository){
+        this.customerRepository=customerRepository;
+    }
 
     @Override
     public List<Customer> findAll() {

@@ -12,8 +12,12 @@ import java.util.List;
 
 @Controller
 public class CustomerController {
-    @Autowired
+
     private CustomerService customerService;
+    @Autowired
+    public CustomerController(CustomerService customerService){
+        this.customerService=customerService;
+    }
 
     @GetMapping("/customers")
     public ModelAndView showList() {
