@@ -1,12 +1,13 @@
 package org.example.springmvc_customer_management.repository;
 
 import org.example.springmvc_customer_management.model.Customer;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Repository
 public class CustomerRepository implements ICustomerRepository{
     private static Map<Integer, Customer> customers;
     static {
@@ -17,7 +18,6 @@ public class CustomerRepository implements ICustomerRepository{
         customers.put(4, new Customer(4, "Nguyen Thuy Duong", "duong.nguyen@codegym.vn", "Sai Gon"));
         customers.put(5, new Customer(5, "CodeGym", "codegym@codegym.vn", "Viet Nam"));
     }
-
     @Override
     public List<Customer> findAll() {
         return new ArrayList<>(customers.values());
