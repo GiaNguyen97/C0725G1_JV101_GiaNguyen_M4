@@ -1,8 +1,7 @@
 package org.example.springmvc_customer_management.controller;
 
 import org.example.springmvc_customer_management.model.Customer;
-import org.example.springmvc_customer_management.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.springmvc_customer_management.service.ICustomerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,9 +12,9 @@ import java.util.List;
 @Controller
 public class CustomerController {
 
-    private CustomerService customerService;
-    @Autowired
-    public CustomerController(CustomerService customerService){
+    private final ICustomerService customerService;
+
+    public CustomerController(ICustomerService customerService){
         this.customerService=customerService;
     }
 
