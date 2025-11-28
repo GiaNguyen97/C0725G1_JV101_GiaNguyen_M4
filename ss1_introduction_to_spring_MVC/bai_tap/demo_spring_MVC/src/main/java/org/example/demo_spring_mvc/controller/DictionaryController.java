@@ -19,19 +19,19 @@ public class DictionaryController {
         this.dictionaryService = dictionaryService;
     }
 
-    @GetMapping({"/dictionary"})
+    @GetMapping({""})
     public String index() {
         return "dictionary/home-dictionary";
     }
 
-    @PostMapping("/dictionary/translate")
+    @PostMapping("/translate")
     public String translate(@RequestParam("word") String word, Model model) {
         if (word == null || word.trim().isEmpty()) {
             model.addAttribute("error", "Vui lòng nhập từ cần tra.");
             return "dictionary/result-dictionary";
         }
 
-        Word w = dictionaryService.translate(word.trim());
+        Word w = dictionaryService.findByKey(word.trim());
         if (w == null) {
             model.addAttribute("error", "Không tìm thấy từ: " + word);
         } else {
