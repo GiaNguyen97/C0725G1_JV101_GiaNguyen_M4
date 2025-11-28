@@ -1,15 +1,14 @@
 package org.example.springmvc_customer_management.repository;
 
 import org.example.springmvc_customer_management.model.Customer;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-@Repository
+
 public class CustomerRepository implements ICustomerRepository{
-    private static Map<Integer, Customer> customers;
+    private static final Map<Integer, Customer> customers;
     static {
         customers = new HashMap<>();
         customers.put(1, new Customer(1, "Nguyen Khac Nhat", "nhat@codegym.vn", "Ha Noi"));
