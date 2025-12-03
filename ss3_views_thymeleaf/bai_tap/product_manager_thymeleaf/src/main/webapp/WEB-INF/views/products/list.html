@@ -44,7 +44,7 @@
                 <td th:text="${st.index + 1}"></td>
                 <td hidden th:text="${p.id}"></td>
                 <td th:text="${p.name}"></td>
-                <td th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                <td th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></td>
                 <td th:text="${p.manufacturer}"></td>
                 <td>
                     <a class="btn btn-sm btn-info" th:href="@{/products/{id}(id=${p.id})}">Chi tiết</a>

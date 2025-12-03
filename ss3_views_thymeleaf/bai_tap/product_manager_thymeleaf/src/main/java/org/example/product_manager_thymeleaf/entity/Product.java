@@ -1,7 +1,14 @@
 package org.example.product_manager_thymeleaf.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "products")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
     private double price;
     private String description;
@@ -56,5 +63,16 @@ public class Product {
 
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name=" + name +
+                ", price=" + price +
+                ", description=" + description +
+                ", manufacturer=" + manufacturer +
+                '}';
     }
 }
