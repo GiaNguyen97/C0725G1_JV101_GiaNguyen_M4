@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: html(content=~{::section})}">
+<body>
+
+<section>
+    <h2>Thêm blog</h2>
+
+    <form th:action="@{/blogs/create}" th:object="${blog}" method="post" class="mt-3">
+
+        <label>Tiêu đề</label>
+        <input type="text" th:field="*{title}" class="form-control">
+
+        <label class="mt-2">Nội dung</label>
+        <textarea th:field="*{content}" class="form-control" rows="5"></textarea>
+
+        <button class="btn btn-success mt-3">Tạo mới</button>
+    </form>
+</div>
+
+</section>
+</body>
+</html>

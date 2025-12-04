@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: html(content=~{::section})}">
+<body>
+
+<section>
+    <h2 class="mb-3">Danh sách blog</h2>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Tiêu đề</th>
+            <th width="180">Thao tác</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="b : ${blogs}">
+            <td th:text="${b.id}"></td>
+            <td>
+                <a th:href="@{/blogs/{id}(id=${b.id})}" th:text="${b.title}"></a>
+            </td>
+            <td>
+                <a th:href="@{/blogs/edit/{id}(id=${b.id})}" class="btn btn-primary btn-sm">Sửa</a>
+                <button class="btn btn-danger btn-sm"
+                        th:data-id="${b.id}"
+                        th:data-title="${b.title}"
+                        onclick="confirmDelete(this)">
+                    Delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</section>
+
+</body>
+</html>
