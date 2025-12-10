@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Danh sách Sách</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/books">📚 Thư viện</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item me-2">
+                    <a class="btn btn-info" th:href="@{/books/borrowed}">📑 Sách Đã Mượn</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-warning" th:href="@{/books/return}">↩️ Trả Sách</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h1 class="mb-4 text-primary">Danh sách Sách</h1>
+
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${successMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span th:text="${errorMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col" th:each="b : ${books}">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a th:href="@{/books/{id}(id=${b.id})}" th:text="${b.title}" class="text-decoration-none text-dark"></a>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted" th:text="'Tác giả: ' + ${b.author}"></h6>
+                    <p class="card-text mt-3">
+                        Còn:
+                        <span th:text="${b.quantity}"
+                              th:class="${b.quantity > 0} ? 'badge bg-success' : 'badge bg-danger'">
+                            (Số lượng)
+                        </span>
+                    </p>
+                    <a th:href="@{/books/{id}(id=${b.id})}" class="btn btn-sm btn-outline-primary">Xem Chi Tiết</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

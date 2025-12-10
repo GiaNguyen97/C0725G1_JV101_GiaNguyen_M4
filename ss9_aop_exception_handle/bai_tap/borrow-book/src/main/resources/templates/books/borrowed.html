@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sách Đã Mượn</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/books">📚 Thư viện</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item me-2">
+          <a class="btn btn-info" th:href="@{/books/borrowed}">📑 Sách Đã Mượn</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-warning" th:href="@{/books/return}">↩️ Trả Sách</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <h1 class="mb-4 text-info">📑 Danh Sách Sách Đã Mượn</h1>
+  <p class="lead text-muted">Vui lòng sử dụng Mã mượn (**Borrow Code**) để hoàn tất quá trình trả sách.</p>
+  <hr>
+
+  <div th:if="${records.isEmpty()}" class="alert alert-light text-center" role="alert">
+    🎉 Bạn hiện không mượn cuốn sách nào.
+  </div>
+
+  <div th:unless="${records.isEmpty()}" class="table-responsive shadow-sm">
+    <table class="table table-hover table-striped">
+      <thead class="table-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Mã Mượn</th>
+        <th scope="col">Tên Sách</th>
+        <th scope="col" class="text-center">Thao Tác</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="record, iStat : ${records}">
+        <th scope="row" th:text="${iStat.index + 1}">1</th>
+        <td>
+          <span class="badge bg-primary fs-6" th:text="${record.borrowCode}">LIB-12345</span>
+        </td>
+        <td th:text="${record.bookTitle}">Tên Sách</td>
+        <td class="text-center">
+          <form th:action="@{/books/return}" method="post" style="display:inline;">
+            <input type="hidden" name="code" th:value="${record.borrowCode}" />
+            <button type="submit" class="btn btn-sm btn-outline-success">
+              Trả ngay
+            </button>
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-4">
+    <a href="/books" class="btn btn-outline-secondary">← Quay lại danh sách sách</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
