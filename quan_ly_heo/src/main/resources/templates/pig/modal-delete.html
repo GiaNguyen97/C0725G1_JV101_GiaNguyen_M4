@@ -1,0 +1,34 @@
+<div th:fragment="deleteModal">
+  <div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title">Xác nhận xóa</h5>
+        </div>
+
+        <div class="modal-body">
+          Bạn có chắc muốn xóa heo này?
+          <input type="hidden" id="deleteId">
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button class="btn btn-danger" onclick="confirmDelete()">Xóa</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function confirmDelete() {
+      let id = $('#deleteId').val();
+      $.ajax({
+        url: '/pigs/' + id,
+        type: 'DELETE',
+        success: () => location.reload()
+      });
+    }
+  </script>
+</div>

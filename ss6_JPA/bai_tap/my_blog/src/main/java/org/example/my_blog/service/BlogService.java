@@ -2,7 +2,11 @@ package org.example.my_blog.service;
 
 import org.example.my_blog.entity.Blog;
 import org.example.my_blog.repository.IBlogRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+
 
 import java.util.List;
 
@@ -14,9 +18,20 @@ public class BlogService implements IBlogService {
         this.blogRepository = blogRepository;
     }
 
+
     @Override
-    public List<Blog> findAll() {
-        return blogRepository.findAll();
+    public Page<Blog> findAll(Pageable pageable) {
+        return blogRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Blog> findByTitleContaining(String keyword, Pageable pageable) {
+        return blogRepository.findByTitleContaining(keyword,pageable);
+    }
+
+    @Override
+    public Page<Blog> findByCategory_Id(Long categoryId, Pageable pageable) {
+        return blogRepository.findByCategory_Id(categoryId,pageable);
     }
 
     @Override

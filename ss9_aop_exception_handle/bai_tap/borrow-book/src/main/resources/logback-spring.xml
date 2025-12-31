@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<configuration>
 
-</beans>
+    <property name="LOGS_HOME" value="./logs" />
+
+    <property name="SIMPLE_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5level | %msg%n"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} %highlight(%-5level) %cyan(%logger{15}) - %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_AUDIT" class="ch.qos.logback.core.FileAppender">
+        <file>${LOGS_HOME}/application-log.txt</file>
+        <encoder>
+            <Pattern>${SIMPLE_PATTERN}</Pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE_AUDIT" />
+    </root>
+
+</configuration>

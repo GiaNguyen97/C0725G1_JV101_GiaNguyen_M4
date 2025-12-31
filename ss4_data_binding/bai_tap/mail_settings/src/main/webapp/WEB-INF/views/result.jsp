@@ -33,7 +33,7 @@
     <hr>
 
     <p><strong><spring:message code="language"/>:</strong> ${mailSettings.language}</p>
-    <p><strong><spring:message code="page.size"/>:</strong> ${mailSettings.pageSize}</p>
+    <p><strong><spring:message code="page.size"/>:</strong> ${mailSettings.pageSize} <spring:message code="emails.per.page"/></p>
 
     <p><strong><spring:message code="spam.filter"/>:</strong>
         <c:choose>

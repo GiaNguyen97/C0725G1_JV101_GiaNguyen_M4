@@ -1,4 +1,4 @@
-package org.example.validateinforuser.Dto;
+package org.example.validateinforuser.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;

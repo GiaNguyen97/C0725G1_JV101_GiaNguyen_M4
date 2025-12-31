@@ -7,7 +7,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.time.LocalDateTime;
 
 @Aspect
 @Component
@@ -19,18 +18,24 @@ public class AuditAspect {
     public Object aroundStateChange(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
         StateChanging annotation = signature.getMethod().getAnnotation(StateChanging.class);
+        // Lấy tên hành động, ví dụ: "Mượn sách", "Trả sách"
         String action = annotation.value().isBlank() ? signature.getName() : annotation.value();
 
-        // trước khi thay đổi: log cục bộ
-        logger.info("[AUDIT] BEFORE {} at {} - method: {}",
-                action, LocalDateTime.now(), signature.getName());
         Object result;
         try {
+            // Log TRƯỚC khi thực hiện hành động
+            // Nội dung đơn giản: Bắt đầu hành động...
+            logger.info("[AUDIT] BẮT ĐẦU: Thực hiện hành động \"{}\"...", action);
+
             result = proceedingJoinPoint.proceed();
-            // sau khi thành công:
-            logger.info("[AUDIT] SUCCESS {} at {}", action, LocalDateTime.now());
+
+            // Log SAU KHI thành công
+            // Nội dung: Hành động... đã thành công.
+            logger.info("[AUDIT] THÀNH CÔNG: Hành động \"{}\" đã hoàn tất.", action);
         } catch (Throwable ex) {
-            logger.error("[AUDIT] FAILED {} at {} - cause: {}", action, LocalDateTime.now(), ex.getMessage());
+            // Log KHI THẤT BẠI
+            // Nội dung: Hành động... thất bại. Lỗi: ...
+            logger.error("[AUDIT] THẤT BẠI: Hành động \"{}\" không thành công. Nguyên nhân: {}", action, ex.getMessage());
             throw ex;
         }
         return result;

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{/layout :: html_head}"></head>
+<body>
+<div th:replace="~{/layout :: header}"></div>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold m-0">Danh sách cầu thủ</h3>
+        <a href="soccers/add" class="btn btn-success btn-sm">+ Thêm cầu thủ</a>
+    </div>
+
+    <div class="card p-3">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th>Ảnh</th>
+                    <th>Họ và tên</th>
+                    <th>Mã số</th>
+                    <th>Ngày sinh</th>
+                    <th>Vị trí</th>
+                    <th>Kinh nghiệm</th>
+                    <th class="text-center">Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="row,rowStat : ${soccers}">
+                    <td class="text-center fw-bold" th:text="${rowStat.index+1}"></td>
+                    <td>
+                        <img th:src="${row.urlImage}" width="50" height="65" class="player-img">
+                    </td>
+                    <td>
+                        <span class="fw-semibold" th:text="${row.namePlayer}"></span>
+                    </td>
+                    <td th:text="${row.codePlayer}" class="text-muted"></td>
+                    <td th:text="${#temporals.format(row.dayOfBirth,'dd/MM/yyyy')}"></td>
+                    <td><span class="badge bg-info text-dark" th:text="${row.position}"></span></td>
+                    <td th:text="${row.experience + ' năm'}"></td>
+                    <td class="text-center">
+                        <a th:href="@{/soccers/{id}/detail(id=${row.id})}" class="btn btn-detail btn-sm px-3">
+                            Chi tiết
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--TOAST-->
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1060;">
+    <div id="toastMessage" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <span id="toastIcon" class="me-2 fs-5"></span>
+            <strong class="me-auto" id="toastTitle"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body" id="toastBody"></div>
+        <div id="progressBar" class="toast-progress"></div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy dữ liệu từ FlashAttribute (Thymeleaf Inline)
+        const successMsg = [[${success}]];
+        const errorMsg = [[${error}]];
+
+        const toastEl = document.getElementById("toastMessage");
+        const toastIcon = document.getElementById("toastIcon");
+        const toastTitle = document.getElementById("toastTitle");
+        const toastBody = document.getElementById("toastBody");
+        const progressBar = document.getElementById("progressBar");
+
+        let show = false;
+
+        if (successMsg) {
+            toastTitle.innerText = "Thành công";
+            toastTitle.className = "me-auto text-success";
+            toastBody.innerText = successMsg;
+            toastIcon.innerHTML = "✅"; // Hoặc dùng icon Bootstrap: <i class="bi bi-check-circle"></i>
+            progressBar.style.backgroundColor = "#198754";
+            show = true;
+        } else if (errorMsg) {
+            toastTitle.innerText = "Thông báo lỗi";
+            toastTitle.className = "me-auto text-danger";
+            toastBody.innerText = errorMsg;
+            toastIcon.innerHTML = "❌";
+            progressBar.style.backgroundColor = "#dc3545";
+            show = true;
+        }
+
+        if (show) {
+            const duration = 4000; // 4 giây
+            progressBar.style.animationDuration = duration + "ms";
+            const bsToast = new bootstrap.Toast(toastEl, { delay: duration });
+            bsToast.show();
+        }
+    });
+</script>
+
+
+<div th:replace="~{/layout :: footer}"></div>
+</body>
+</html>

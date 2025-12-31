@@ -1,0 +1,75 @@
+2025-12-10T11:31:17.269+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.e.borrowbook.BorrowBookApplication     : Starting BorrowBookApplication using Java 17.0.12 with PID 19628 (E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book\build\classes\java\main started by Hi in E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book)
+2025-12-10T11:31:17.272+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.e.borrowbook.BorrowBookApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-12-10T11:31:17.308+07:00  INFO 19628 --- [borrow-book] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-10T11:31:17.309+07:00  INFO 19628 --- [borrow-book] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-12-10T11:31:17.750+07:00  INFO 19628 --- [borrow-book] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-10T11:31:17.787+07:00  INFO 19628 --- [borrow-book] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30 ms. Found 2 JPA repository interfaces.
+2025-12-10T11:31:18.274+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2025-12-10T11:31:18.282+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-10T11:31:18.282+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.14]
+2025-12-10T11:31:18.313+07:00  INFO 19628 --- [borrow-book] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1004 ms
+2025-12-10T11:31:18.440+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-10T11:31:18.471+07:00  INFO 19628 --- [borrow-book] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-12-10T11:31:18.779+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-10T11:31:18.809+07:00  INFO 19628 --- [borrow-book] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-10T11:31:19.011+07:00  INFO 19628 --- [borrow-book] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5a1245f
+2025-12-10T11:31:19.013+07:00  INFO 19628 --- [borrow-book] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-10T11:31:19.073+07:00  INFO 19628 --- [borrow-book] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/db_book?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: db_book/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-10T11:31:19.700+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-10T11:31:19.758+07:00  INFO 19628 --- [borrow-book] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-10T11:31:19.862+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-10T11:31:20.088+07:00  WARN 19628 --- [borrow-book] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-10T11:31:20.466+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2025-12-10T11:31:20.471+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.e.borrowbook.BorrowBookApplication     : Started BorrowBookApplication in 3.523 seconds (process running for 4.061)
+2025-12-10T11:31:29.306+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-10T11:31:29.307+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-12-10T11:31:29.308+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-12-10T11:31:29.350+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-2] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #1 - org.example.borrowbook.controller.BookController#detail
+2025-12-10T11:31:30.876+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-1] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #2 - org.example.borrowbook.controller.BookController#borrow
+2025-12-10T11:31:30.883+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-1] o.example.borrowbook.aspect.AuditAspect  : [AUDIT] BEFORE borrow at 2025-12-10T11:31:30.883939 - method: borrow
+2025-12-10T11:31:30.927+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-1] o.example.borrowbook.aspect.AuditAspect  : [AUDIT] SUCCESS borrow at 2025-12-10T11:31:30.927889700
+2025-12-10T11:31:30.978+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-3] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #3 - org.example.borrowbook.controller.BookController#list
+2025-12-10T11:31:33.954+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-5] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #4 - org.example.borrowbook.controller.BookController#borrowedList
+2025-12-10T11:31:34.929+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-6] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #5 - org.example.borrowbook.controller.BookController#doReturn
+2025-12-10T11:31:34.931+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-6] o.example.borrowbook.aspect.AuditAspect  : [AUDIT] BEFORE return at 2025-12-10T11:31:34.931342200 - method: returnBook
+2025-12-10T11:31:34.967+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-6] o.example.borrowbook.aspect.AuditAspect  : [AUDIT] SUCCESS return at 2025-12-10T11:31:34.967873300
+2025-12-10T11:31:34.982+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-4] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #6 - org.example.borrowbook.controller.BookController#list
+2025-12-10T11:31:37.694+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-7] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #7 - org.example.borrowbook.controller.BookController#detail
+2025-12-10T11:31:38.557+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-8] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #8 - org.example.borrowbook.controller.BookController#borrow
+2025-12-10T11:31:38.559+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-8] o.example.borrowbook.aspect.AuditAspect  : [AUDIT] BEFORE borrow at 2025-12-10T11:31:38.559054 - method: borrow
+2025-12-10T11:31:38.564+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-8] o.example.borrowbook.aspect.AuditAspect  : [AUDIT] SUCCESS borrow at 2025-12-10T11:31:38.564400400
+2025-12-10T11:31:38.576+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-9] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #9 - org.example.borrowbook.controller.BookController#list
+2025-12-10T11:31:39.679+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-10] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #10 - org.example.borrowbook.controller.BookController#borrowedList
+2025-12-10T11:31:40.910+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-2] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #11 - org.example.borrowbook.controller.BookController#doReturn
+2025-12-10T11:31:40.912+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-2] o.example.borrowbook.aspect.AuditAspect  : [AUDIT] BEFORE return at 2025-12-10T11:31:40.912517400 - method: returnBook
+2025-12-10T11:31:40.916+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-2] o.example.borrowbook.aspect.AuditAspect  : [AUDIT] SUCCESS return at 2025-12-10T11:31:40.916787700
+2025-12-10T11:31:40.935+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-1] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #12 - org.example.borrowbook.controller.BookController#list
+2025-12-10T11:31:41.898+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-3] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #13 - org.example.borrowbook.controller.BookController#detail
+2025-12-10T11:31:42.957+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-5] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #14 - org.example.borrowbook.controller.BookController#borrow
+2025-12-10T11:31:42.960+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-5] o.example.borrowbook.aspect.AuditAspect  : [AUDIT] BEFORE borrow at 2025-12-10T11:31:42.960707700 - method: borrow
+2025-12-10T11:31:42.965+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-5] o.example.borrowbook.aspect.AuditAspect  : [AUDIT] SUCCESS borrow at 2025-12-10T11:31:42.965707500
+2025-12-10T11:31:42.979+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-6] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #15 - org.example.borrowbook.controller.BookController#list
+2025-12-10T11:31:46.508+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-4] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #16 - org.example.borrowbook.controller.BookController#detail
+2025-12-10T11:31:48.940+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-7] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #17 - org.example.borrowbook.controller.BookController#list
+2025-12-10T11:31:49.770+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-8] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #18 - org.example.borrowbook.controller.BookController#returnForm
+2025-12-10T11:31:51.077+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-9] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #19 - org.example.borrowbook.controller.BookController#doReturn
+2025-12-10T11:31:51.078+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-9] o.example.borrowbook.aspect.AuditAspect  : [AUDIT] BEFORE return at 2025-12-10T11:31:51.078786 - method: returnBook
+2025-12-10T11:31:51.084+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-9] o.example.borrowbook.aspect.AuditAspect  : [AUDIT] SUCCESS return at 2025-12-10T11:31:51.084326200
+2025-12-10T11:31:51.099+07:00  INFO 19628 --- [borrow-book] [http-nio-8080-exec-10] o.e.borrowbook.aspect.VisitCountAspect   : [VISIT] Visit #20 - org.example.borrowbook.controller.BookController#list
+2025-12-10T11:35:18.976+07:00  INFO 19628 --- [borrow-book] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 6 class path changes (0 additions, 0 deletions, 6 modifications)
+2025-12-10T11:35:18.981+07:00  INFO 19628 --- [borrow-book] [Thread-1] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-10T11:35:19.491+07:00  INFO 19628 --- [borrow-book] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2025-12-10T11:35:19.497+07:00  INFO 19628 --- [borrow-book] [Thread-1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-10T11:35:19.504+07:00  INFO 19628 --- [borrow-book] [Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-10T11:35:19.515+07:00  INFO 19628 --- [borrow-book] [Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

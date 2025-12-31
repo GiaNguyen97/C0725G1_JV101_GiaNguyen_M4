@@ -37,7 +37,7 @@ public class BorrowRecordService implements IBorrowRecordService {
     //   MƯỢN SÁCH
     // ==============================
     @Override
-    @StateChanging("borrow")
+    @StateChanging("Muợn sách")
     @Transactional
     public String borrow(Long bookId) throws BookNotAvailableException {
 
@@ -67,7 +67,7 @@ public class BorrowRecordService implements IBorrowRecordService {
     //   TRẢ SÁCH
     // ==============================
     @Override
-    @StateChanging("return")
+    @StateChanging("Trả sách")
     @Transactional
     public void returnBook(String borrowCode) throws InvalidBorrowCodeException {
 

@@ -2,9 +2,18 @@ package org.example.my_blog.controller;
 
 import org.example.my_blog.entity.Blog;
 import org.example.my_blog.service.IBlogService;
+import org.example.my_blog.service.ICategoryService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import java.nio.file.*;
+import java.io.IOException;
+import java.util.UUID;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -12,34 +21,59 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class BlogController {
 
     private final IBlogService blogService;
+    private final ICategoryService categoryService;
 
-    public BlogController(IBlogService blogService) {
+    public BlogController(IBlogService blogService, ICategoryService categoryService) {
         this.blogService = blogService;
+        this.categoryService = categoryService;
     }
 
-        @GetMapping("")
-    public String list(Model model) {
-        model.addAttribute("pageTitle", "Danh sách blog");
-        model.addAttribute("blogs", blogService.findAll());
+
+    @GetMapping("")
+    public String list( @RequestParam(defaultValue = "0") int page,
+                        @RequestParam(defaultValue = "5") int size,
+                        Model model) {
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by("createdAt").descending()
+        );
+
+        Page<Blog> blogPage = blogService.findAll(pageable);
+        model.addAttribute("blogs", blogPage);
+//        model.addAttribute("categories",categoryService.findAll());
         return "blogs/list";
     }
 
 
     @GetMapping("/create")
     public String createForm(Model model) {
-        model.addAttribute("pageTitle", "Tạo blog mới");
         model.addAttribute("blog", new Blog());
+        model.addAttribute("categories", categoryService.findAll());
         return "blogs/create";
     }
 
 
     @PostMapping("/create")
-    public String save(@ModelAttribute Blog blog,
-                       RedirectAttributes redirectAttributes) {
+    public String create(@ModelAttribute Blog blog,
+                         @RequestParam("imageFile") MultipartFile imageFile) {
+
+        if (!imageFile.isEmpty()) {
+            try {
+                String fileName = System.currentTimeMillis() + "_" +
+                        imageFile.getOriginalFilename();
+
+                Path path = Paths.get("E:/CODEGYM/bai_tap_code_gym/module_4/ss6_JPA/bai_tap/my_blog/img/" + fileName);
+                Files.createDirectories(path.getParent());
+                Files.write(path, imageFile.getBytes());
+
+                blog.setImg("/img/" + fileName); // 🔑 URL dùng để hiển thị
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         blogService.save(blog);
-        redirectAttributes.addFlashAttribute("message", "Tạo blog thành công!");
-
         return "redirect:/blogs";
     }
 
@@ -53,8 +87,6 @@ public class BlogController {
             redirectAttributes.addFlashAttribute("message", "Blog không tồn tại!");
             return "redirect:/blogs";
         }
-
-        model.addAttribute("pageTitle", "Chi tiết: " + blog.getTitle());
         model.addAttribute("blog", blog);
 
         return "blogs/detail";
@@ -70,20 +102,46 @@ public class BlogController {
             return "redirect:/blogs";
         }
 
-        model.addAttribute("pageTitle", "Sửa: " + blog.getTitle());
         model.addAttribute("blog", blog);
-
+        model.addAttribute("categories", categoryService.findAll());
         return "blogs/edit";
     }
 
 
     @PostMapping("/edit")
     public String update(@ModelAttribute Blog blog,
-                         RedirectAttributes redirectAttributes) {
+                         @RequestParam("imageFile") MultipartFile imageFile) {
 
-        blogService.save(blog);
-        redirectAttributes.addFlashAttribute("message", "Cập nhật blog thành công!");
+        Blog oldBlog = blogService.findById(blog.getId());
 
+        // 👉 Chỉ xử lý ảnh khi có upload mới
+        if (!imageFile.isEmpty()) {
+            try {
+                // (tuỳ chọn) xóa ảnh cũ
+                if (oldBlog.getImg() != null) {
+                    Path oldPath = Paths.get("E:/CODEGYM/bai_tap_code_gym/module_4/ss6_JPA/bai_tap/my_blog/img/" +
+                            oldBlog.getImg().replace("/img/", ""));
+                    Files.deleteIfExists(oldPath);
+                }
+
+                String fileName = System.currentTimeMillis() + "_" +
+                        imageFile.getOriginalFilename();
+
+                Path newPath = Paths.get("E:/CODEGYM/bai_tap_code_gym/module_4/ss6_JPA/bai_tap/my_blog/img/" + fileName);
+                Files.write(newPath, imageFile.getBytes());
+
+                oldBlog.setImg("/img/" + fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // 👉 Update dữ liệu khác
+        oldBlog.setTitle(blog.getTitle());
+        oldBlog.setContent(blog.getContent());
+        oldBlog.setCategory(blog.getCategory());
+
+        blogService.save(oldBlog);
         return "redirect:/blogs";
     }
 
@@ -101,5 +159,19 @@ public class BlogController {
         redirectAttributes.addFlashAttribute("message", "Đã xóa blog: " + blog.getTitle());
 
         return "redirect:/blogs";
+    }
+
+    @GetMapping("/search")
+    public String search(
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            Model model) {
+
+        Pageable pageable = PageRequest.of(page, 5);
+        Page<Blog> blogPage = blogService.findByTitleContaining(keyword, pageable);
+
+        model.addAttribute("blogs", blogPage);
+        model.addAttribute("keyword", keyword);
+        return "post/list";
     }
 }

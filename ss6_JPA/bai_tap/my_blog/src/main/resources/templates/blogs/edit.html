@@ -6,13 +6,36 @@
 <section>
     <h2>Sửa blog</h2>
 
-    <form th:action="@{/blogs/edit}" th:object="${blog}" method="post" class="mt-3">
+    <form th:action="@{/blogs/edit}"
+          th:object="${blog}"
+          method="post"
+          enctype="multipart/form-data"
+          class="mt-3">
 
         <input type="hidden" th:field="*{id}">
 
         <label>Tiêu đề</label>
         <input type="text" th:field="*{title}" class="form-control">
+        <label class="mt-2">Thể loại</label>
+        <select class="form-select"
+                th:field="*{category}"
+                required>
+            <option value="">-- Chọn thể loại --</option>
 
+            <option th:each="c : ${categories}"
+                    th:value="${c.id}"
+                    th:text="${c.name}">
+            </option>
+        </select>
+        <div th:if="${blog.img != null}" class="mt-2">
+            <p>Ảnh hiện tại:</p>
+            <img th:src="@{${blog.img}}"
+                 style="max-height: 200px"
+                 class="img-thumbnail">
+        </div>
+
+        <label class="mt-2">Đổi ảnh</label>
+        <input type="file" name="imageFile" class="form-control">
         <label class="mt-2">Nội dung</label>
         <textarea th:field="*{content}" class="form-control" rows="5"></textarea>
 

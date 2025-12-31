@@ -1,0 +1,80 @@
+<div th:fragment="createModal">
+  <div class="modal fade" id="createModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">➕ Thêm heo mới</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+
+        <form id="createForm" method="post" action="/pigs">
+          <div class="modal-body">
+            
+            <div class="mb-3">
+              <label class="form-label">Mã heo <span class="text-danger">*</span></label>
+              <input name="code" id="createCode" class="form-control" required 
+                     placeholder="Ví dụ: H001">
+              <div class="invalid-feedback">Vui lòng nhập mã heo</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Ngày nhập <span class="text-danger">*</span></label>
+              <input type="datetime-local" name="importTime" id="createImportTime" 
+                     class="form-control" required>
+              <div class="invalid-feedback">Vui lòng chọn ngày nhập</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Trọng lượng nhập (kg) <span class="text-danger">*</span></label>
+              <input type="number" name="importWeight" id="createImportWeight" 
+                     class="form-control" min="10" step="0.1" required
+                     placeholder="Tối thiểu 10kg">
+              <div class="invalid-feedback">Trọng lượng phải >= 10kg</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Xuất xứ <span class="text-danger">*</span></label>
+              <select name="origin.id" id="createOriginId" class="form-select" required>
+                <option value="">-- Chọn xuất xứ --</option>
+                <option th:each="o : ${origins}" 
+                        th:value="${o.id}" 
+                        th:text="${o.name}">
+                </option>
+              </select>
+              <div class="invalid-feedback">Vui lòng chọn xuất xứ</div>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              ❌ Hủy
+            </button>
+            <button type="submit" class="btn btn-primary">
+              ✅ Thêm mới
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Validation khi submit form
+    (function() {
+      'use strict';
+      const form = document.getElementById('createForm');
+      if (form) {
+        form.addEventListener('submit', function(event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      }
+    })();
+  </script>
+</div>

@@ -1,6 +1,6 @@
 package org.example.validateinforuser.controller;
 
-import org.example.validateinforuser.Dto.UserDto;
+import org.example.validateinforuser.dto.UserDto;
 import org.example.validateinforuser.entity.User;
 import org.example.validateinforuser.validation.Step1;
 import org.example.validateinforuser.validation.Step2;

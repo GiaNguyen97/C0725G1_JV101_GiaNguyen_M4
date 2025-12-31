@@ -1,4 +1,6 @@
 package org.example.springdata2025.service;
 
-public interface ICustomerService {
+import org.example.springdata2025.entity.Customer;
+
+public interface ICustomerService extends IGenerateService<Customer> {
 }

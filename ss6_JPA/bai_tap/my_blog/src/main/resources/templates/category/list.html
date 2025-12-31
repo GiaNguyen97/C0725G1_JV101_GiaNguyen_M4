@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: html(content=~{::section})}">
+<body>
+
+<section>
+  <h2 class="mb-4">Danh sách danh mục</h2>
+
+  <a href="/categories/create" class="btn btn-primary mb-3">
+    + Thêm danh mục
+  </a>
+
+  <table class="table table-bordered table-hover">
+    <thead class="table-light">
+    <tr>
+      <th>#</th>
+      <th>Tên danh mục</th>
+      <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c, st : ${categories}">
+      <td th:text="${st.count}"></td>
+      <td th:text="${c.name}"></td>
+      <td>
+        <a th:href="@{/categories/delete/{id}(id=${c.id})}"
+           class="btn btn-sm btn-danger"
+           onclick="return confirm('Bạn có chắc muốn xóa?')">
+          Xóa
+        </a>
+      </td>
+    </tr>
+
+    <tr th:if="${#lists.isEmpty(categories)}">
+      <td colspan="3" class="text-center text-muted">
+        Chưa có danh mục nào
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+
+</body>
+</html>

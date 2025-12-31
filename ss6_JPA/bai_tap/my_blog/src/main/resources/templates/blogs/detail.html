@@ -7,11 +7,18 @@
 
     <h2 th:text="${blog.title}"></h2>
 
+    <!-- Ảnh blog -->
+    <div class="mt-3" th:if="${blog.img != null}">
+        <img th:src="@{${blog.img}}"
+             class="img-fluid rounded shadow"
+             alt="Blog image">
+    </div>
+
     <p class="mt-3" th:text="${blog.content}"></p>
 
     <a href="/blogs" class="btn btn-secondary mt-3">◀ Quay lại</a>
 
-</div>
 </section>
+
 </body>
 </html>

@@ -1,17 +1,20 @@
-2025-12-10T11:35:19.643+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.e.borrowbook.BorrowBookApplication     : Starting BorrowBookApplication using Java 17.0.12 with PID 19628 (E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book\build\classes\java\main started by Hi in E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book)
-2025-12-10T11:35:19.644+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.e.borrowbook.BorrowBookApplication     : No active profile set, falling back to 1 default profile: "default"
-2025-12-10T11:35:19.861+07:00  INFO 19628 --- [borrow-book] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-10T11:35:19.877+07:00  INFO 19628 --- [borrow-book] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 2 JPA repository interfaces.
-2025-12-10T11:35:20.014+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2025-12-10T11:35:20.015+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-10T11:35:20.015+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.14]
-2025-12-10T11:35:20.044+07:00  INFO 19628 --- [borrow-book] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 397 ms
-2025-12-10T11:35:20.112+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-10T11:35:20.151+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-10T11:35:20.152+07:00  INFO 19628 --- [borrow-book] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2025-12-10T11:35:20.168+07:00  INFO 19628 --- [borrow-book] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@51e4f424
-2025-12-10T11:35:20.168+07:00  INFO 19628 --- [borrow-book] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2025-12-10T11:35:20.170+07:00  INFO 19628 --- [borrow-book] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2025-12-10T11:50:15.654+07:00  INFO 14512 --- [borrow-book] [restartedMain] o.e.borrowbook.BorrowBookApplication     : Starting BorrowBookApplication using Java 17.0.12 with PID 14512 (E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book\build\classes\java\main started by Hi in E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book)
+2025-12-10T11:50:15.657+07:00  INFO 14512 --- [borrow-book] [restartedMain] o.e.borrowbook.BorrowBookApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-12-10T11:50:15.693+07:00  INFO 14512 --- [borrow-book] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-10T11:50:15.693+07:00  INFO 14512 --- [borrow-book] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-12-10T11:50:16.121+07:00  INFO 14512 --- [borrow-book] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-10T11:50:16.158+07:00  INFO 14512 --- [borrow-book] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 2 JPA repository interfaces.
+2025-12-10T11:50:16.629+07:00  INFO 14512 --- [borrow-book] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2025-12-10T11:50:16.639+07:00  INFO 14512 --- [borrow-book] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-10T11:50:16.640+07:00  INFO 14512 --- [borrow-book] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.14]
+2025-12-10T11:50:16.669+07:00  INFO 14512 --- [borrow-book] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 976 ms
+2025-12-10T11:50:16.788+07:00  INFO 14512 --- [borrow-book] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-10T11:50:16.817+07:00  INFO 14512 --- [borrow-book] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-12-10T11:50:17.137+07:00  INFO 14512 --- [borrow-book] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-10T11:50:17.159+07:00  INFO 14512 --- [borrow-book] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-10T11:50:17.369+07:00  INFO 14512 --- [borrow-book] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3ca40ac2
+2025-12-10T11:50:17.370+07:00  INFO 14512 --- [borrow-book] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-10T11:50:17.430+07:00  INFO 14512 --- [borrow-book] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:mysql://localhost:3306/db_book?createDatabaseIfNotExist=true]
 	Database driver: MySQL Connector/J
 	Database dialect: MySQLDialect
@@ -23,14 +26,14 @@
 	Pool: DatasourceConnectionProviderImpl
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-12-10T11:35:20.227+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-10T11:35:20.247+07:00  INFO 19628 --- [borrow-book] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-10T11:35:20.421+07:00  WARN 19628 --- [borrow-book] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-12-10T11:35:20.666+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2025-12-10T11:35:20.669+07:00  INFO 19628 --- [borrow-book] [restartedMain] o.e.borrowbook.BorrowBookApplication     : Started BorrowBookApplication in 1.073 seconds (process running for 244.26)
-2025-12-10T11:35:20.671+07:00  INFO 19628 --- [borrow-book] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-12-10T11:36:25.852+07:00  INFO 19628 --- [borrow-book] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2025-12-10T11:36:26.086+07:00  INFO 19628 --- [borrow-book] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2025-12-10T11:36:26.087+07:00  INFO 19628 --- [borrow-book] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-12-10T11:36:26.088+07:00  INFO 19628 --- [borrow-book] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
-2025-12-10T11:36:26.092+07:00  INFO 19628 --- [borrow-book] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2025-12-10T11:50:18.079+07:00  INFO 14512 --- [borrow-book] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-10T11:50:18.144+07:00  INFO 14512 --- [borrow-book] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-10T11:50:18.252+07:00  INFO 14512 --- [borrow-book] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-10T11:50:18.489+07:00  WARN 14512 --- [borrow-book] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-10T11:50:18.853+07:00  INFO 14512 --- [borrow-book] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2025-12-10T11:50:18.857+07:00  INFO 14512 --- [borrow-book] [restartedMain] o.e.borrowbook.BorrowBookApplication     : Started BorrowBookApplication in 3.554 seconds (process running for 4.086)
+2025-12-10T11:50:25.859+07:00  INFO 14512 --- [borrow-book] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-10T11:50:26.111+07:00  INFO 14512 --- [borrow-book] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2025-12-10T11:50:26.115+07:00  INFO 14512 --- [borrow-book] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-10T11:50:26.118+07:00  INFO 14512 --- [borrow-book] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-10T11:50:26.149+07:00  INFO 14512 --- [borrow-book] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

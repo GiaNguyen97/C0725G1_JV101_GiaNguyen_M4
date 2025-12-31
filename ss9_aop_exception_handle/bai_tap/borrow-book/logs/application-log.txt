@@ -1,0 +1,454 @@
+2025-12-10 11:49:39.896 | INFO  | HV000001: Hibernate Validator 9.0.1.Final
+2025-12-10 11:49:39.933 | INFO  | Starting BorrowBookApplication using Java 17.0.12 with PID 17604 (E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book\build\classes\java\main started by Hi in E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book)
+2025-12-10 11:49:39.934 | INFO  | No active profile set, falling back to 1 default profile: "default"
+2025-12-10 11:49:39.967 | INFO  | Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-10 11:49:39.967 | INFO  | For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-12-10 11:49:40.382 | INFO  | Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-10 11:49:40.417 | INFO  | Finished Spring Data repository scanning in 30 ms. Found 2 JPA repository interfaces.
+2025-12-10 11:49:40.867 | INFO  | Tomcat initialized with port 8080 (http)
+2025-12-10 11:49:40.875 | INFO  | Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-10 11:49:40.876 | INFO  | Starting service [Tomcat]
+2025-12-10 11:49:40.876 | INFO  | Starting Servlet engine: [Apache Tomcat/11.0.14]
+2025-12-10 11:49:40.916 | INFO  | Root WebApplicationContext: initialization completed in 948 ms
+2025-12-10 11:49:41.046 | INFO  | HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-10 11:49:41.081 | INFO  | HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-12-10 11:49:41.402 | INFO  | No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-10 11:49:41.427 | INFO  | HikariPool-1 - Starting...
+2025-12-10 11:49:41.622 | INFO  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7f1edb48
+2025-12-10 11:49:41.623 | INFO  | HikariPool-1 - Start completed.
+2025-12-10 11:49:41.681 | INFO  | HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/db_book?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: db_book/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-10 11:49:42.302 | INFO  | HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-10 11:49:42.355 | INFO  | Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-10 11:49:42.458 | INFO  | Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-10 11:49:42.681 | WARN  | spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-10 11:49:43.029 | INFO  | Starting ProtocolHandler ["http-nio-8080"]
+2025-12-10 11:49:43.042 | INFO  | Tomcat started on port 8080 (http) with context path '/'
+2025-12-10 11:49:43.046 | INFO  | Started BorrowBookApplication in 3.524 seconds (process running for 4.05)
+2025-12-10 11:49:56.259 | INFO  | Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-10 11:49:56.495 | INFO  | Graceful shutdown complete
+2025-12-10 11:49:56.498 | INFO  | Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-10 11:49:56.500 | INFO  | HikariPool-1 - Shutdown initiated...
+2025-12-10 11:49:56.509 | INFO  | HikariPool-1 - Shutdown completed.
+2025-12-10 11:49:58.396 | INFO  | HV000001: Hibernate Validator 9.0.1.Final
+2025-12-10 11:49:58.437 | INFO  | Starting BorrowBookApplication using Java 17.0.12 with PID 1036 (E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book\build\classes\java\main started by Hi in E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book)
+2025-12-10 11:49:58.438 | INFO  | No active profile set, falling back to 1 default profile: "default"
+2025-12-10 11:49:58.477 | INFO  | Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-10 11:49:58.477 | INFO  | For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-12-10 11:49:58.913 | INFO  | Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-10 11:49:58.952 | INFO  | Finished Spring Data repository scanning in 32 ms. Found 2 JPA repository interfaces.
+2025-12-10 11:49:59.414 | INFO  | Tomcat initialized with port 8080 (http)
+2025-12-10 11:49:59.421 | INFO  | Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-10 11:49:59.422 | INFO  | Starting service [Tomcat]
+2025-12-10 11:49:59.423 | INFO  | Starting Servlet engine: [Apache Tomcat/11.0.14]
+2025-12-10 11:49:59.454 | INFO  | Root WebApplicationContext: initialization completed in 976 ms
+2025-12-10 11:49:59.584 | INFO  | HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-10 11:49:59.616 | INFO  | HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-12-10 11:49:59.914 | INFO  | No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-10 11:49:59.941 | INFO  | HikariPool-1 - Starting...
+2025-12-10 11:50:00.140 | INFO  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@44016ce6
+2025-12-10 11:50:00.141 | INFO  | HikariPool-1 - Start completed.
+2025-12-10 11:50:00.202 | INFO  | HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/db_book?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: db_book/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-10 11:50:00.823 | INFO  | HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-10 11:50:00.880 | INFO  | Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-10 11:50:00.986 | INFO  | Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-10 11:50:01.215 | WARN  | spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-10 11:50:01.559 | INFO  | Starting ProtocolHandler ["http-nio-8080"]
+2025-12-10 11:50:01.572 | INFO  | Tomcat started on port 8080 (http) with context path '/'
+2025-12-10 11:50:01.577 | INFO  | Started BorrowBookApplication in 3.498 seconds (process running for 4.035)
+2025-12-10 11:50:06.629 | INFO  | Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-10 11:50:06.864 | INFO  | Graceful shutdown complete
+2025-12-10 11:50:06.868 | INFO  | Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-10 11:50:06.870 | INFO  | HikariPool-1 - Shutdown initiated...
+2025-12-10 11:50:06.881 | INFO  | HikariPool-1 - Shutdown completed.
+2025-12-10 11:52:09.748 | INFO  | HV000001: Hibernate Validator 9.0.1.Final
+2025-12-10 11:52:09.798 | INFO  | Starting BorrowBookApplication using Java 17.0.12 with PID 36152 (E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book\build\classes\java\main started by Hi in E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book)
+2025-12-10 11:52:09.798 | INFO  | No active profile set, falling back to 1 default profile: "default"
+2025-12-10 11:52:09.837 | INFO  | Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-10 11:52:09.837 | INFO  | For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-12-10 11:52:10.295 | INFO  | Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-10 11:52:10.335 | INFO  | Finished Spring Data repository scanning in 34 ms. Found 2 JPA repository interfaces.
+2025-12-10 11:52:10.788 | INFO  | Tomcat initialized with port 8080 (http)
+2025-12-10 11:52:10.797 | INFO  | Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-10 11:52:10.799 | INFO  | Starting service [Tomcat]
+2025-12-10 11:52:10.800 | INFO  | Starting Servlet engine: [Apache Tomcat/11.0.14]
+2025-12-10 11:52:10.837 | INFO  | Root WebApplicationContext: initialization completed in 999 ms
+2025-12-10 11:52:10.970 | INFO  | HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-10 11:52:11.005 | INFO  | HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-12-10 11:52:11.361 | INFO  | No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-10 11:52:11.385 | INFO  | HikariPool-1 - Starting...
+2025-12-10 11:52:11.610 | INFO  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@700bc6fc
+2025-12-10 11:52:11.611 | INFO  | HikariPool-1 - Start completed.
+2025-12-10 11:52:11.676 | INFO  | HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/db_book?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: db_book/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-10 11:52:12.378 | INFO  | HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-10 11:52:12.435 | INFO  | Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-10 11:52:12.561 | INFO  | Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-10 11:52:12.835 | WARN  | spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-10 11:52:13.190 | INFO  | Starting ProtocolHandler ["http-nio-8080"]
+2025-12-10 11:52:13.203 | INFO  | Tomcat started on port 8080 (http) with context path '/'
+2025-12-10 11:52:13.208 | INFO  | Started BorrowBookApplication in 3.755 seconds (process running for 4.279)
+2025-12-10 11:52:19.756 | INFO  | Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-10 11:52:19.756 | INFO  | Initializing Servlet 'dispatcherServlet'
+2025-12-10 11:52:19.757 | INFO  | Completed initialization in 1 ms
+2025-12-10 11:52:19.801 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 1
+2025-12-10 11:52:21.932 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 2
+2025-12-10 11:52:22.711 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 3
+2025-12-10 11:52:22.718 | INFO  | [AUDIT] Bắt đầu hành động: "Muợn sách" với Sách ID: 1
+2025-12-10 11:52:22.762 | INFO  | [AUDIT] THÀNH CÔNG: Hành động "Muợn sách" với Sách ID: 1 đã hoàn tất.
+2025-12-10 11:52:22.822 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 4
+2025-12-10 11:52:23.899 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 5
+2025-12-10 11:52:25.346 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 6
+2025-12-10 11:52:25.348 | INFO  | [AUDIT] Bắt đầu hành động: "Trả sách" với Sách ISBN: 18912
+2025-12-10 11:52:25.388 | INFO  | [AUDIT] THÀNH CÔNG: Hành động "Trả sách" với Sách ISBN: 18912 đã hoàn tất.
+2025-12-10 11:52:25.406 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 7
+2025-12-10 11:52:26.660 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 8
+2025-12-10 11:52:27.604 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 9
+2025-12-10 11:52:27.607 | INFO  | [AUDIT] Bắt đầu hành động: "Muợn sách" với Sách ID: 3
+2025-12-10 11:52:27.611 | INFO  | [AUDIT] THÀNH CÔNG: Hành động "Muợn sách" với Sách ID: 3 đã hoàn tất.
+2025-12-10 11:52:27.625 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 10
+2025-12-10 11:52:28.832 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 11
+2025-12-10 11:52:30.639 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 12
+2025-12-10 11:52:30.641 | INFO  | [AUDIT] Bắt đầu hành động: "Trả sách" với Sách ISBN: sad1
+2025-12-10 11:52:30.643 | ERROR | [AUDIT] THẤT BẠI: Hành động "Trả sách" với Sách ISBN: sad1 không thành công. Lỗi: Mã mượn không hợp lệ hoặc đã trả.
+2025-12-10 11:52:30.652 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 13
+2025-12-10 11:52:31.510 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 14
+2025-12-10 11:52:33.368 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 15
+2025-12-10 11:52:34.897 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 16
+2025-12-10 11:52:35.640 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 17
+2025-12-10 11:52:37.902 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 18
+2025-12-10 11:52:41.358 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 19
+2025-12-10 11:52:43.836 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 20
+2025-12-10 11:52:45.245 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 21
+2025-12-10 11:52:45.247 | INFO  | [AUDIT] Bắt đầu hành động: "Trả sách" với Sách ISBN: 53744
+2025-12-10 11:52:45.253 | INFO  | [AUDIT] THÀNH CÔNG: Hành động "Trả sách" với Sách ISBN: 53744 đã hoàn tất.
+2025-12-10 11:52:45.273 | INFO  | [VISIT] Tổng số lượt truy cập đã ghi nhận: 22
+2025-12-10 11:52:49.653 | INFO  | Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-10 11:52:49.908 | INFO  | Graceful shutdown complete
+2025-12-10 11:52:49.919 | INFO  | Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-10 11:52:49.922 | INFO  | HikariPool-1 - Shutdown initiated...
+2025-12-10 11:52:49.927 | INFO  | HikariPool-1 - Shutdown completed.
+2025-12-11 13:36:35.820 | INFO  | HV000001: Hibernate Validator 9.0.1.Final
+2025-12-11 13:36:35.865 | INFO  | Starting BorrowBookApplication using Java 17.0.12 with PID 15680 (E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book\build\classes\java\main started by Hi in E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book)
+2025-12-11 13:36:35.866 | INFO  | No active profile set, falling back to 1 default profile: "default"
+2025-12-11 13:36:35.915 | INFO  | Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-11 13:36:35.915 | INFO  | For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-12-11 13:36:36.467 | INFO  | Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-11 13:36:36.511 | INFO  | Finished Spring Data repository scanning in 37 ms. Found 2 JPA repository interfaces.
+2025-12-11 13:36:37.089 | INFO  | Tomcat initialized with port 8080 (http)
+2025-12-11 13:36:37.103 | INFO  | Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-11 13:36:37.104 | INFO  | Starting service [Tomcat]
+2025-12-11 13:36:37.105 | INFO  | Starting Servlet engine: [Apache Tomcat/11.0.14]
+2025-12-11 13:36:37.151 | INFO  | Root WebApplicationContext: initialization completed in 1233 ms
+2025-12-11 13:36:37.314 | INFO  | HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-11 13:36:37.390 | INFO  | HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-12-11 13:36:37.844 | INFO  | No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-11 13:36:37.884 | INFO  | HikariPool-1 - Starting...
+2025-12-11 13:36:38.177 | INFO  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@16e836ae
+2025-12-11 13:36:38.178 | INFO  | HikariPool-1 - Start completed.
+2025-12-11 13:36:38.271 | INFO  | HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/db_book?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: db_book/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-11 13:36:39.125 | INFO  | HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-11 13:36:39.222 | INFO  | Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-11 13:36:39.360 | INFO  | Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-11 13:36:39.667 | WARN  | spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-11 13:36:40.058 | INFO  | Starting ProtocolHandler ["http-nio-8080"]
+2025-12-11 13:36:40.072 | INFO  | Tomcat started on port 8080 (http) with context path '/'
+2025-12-11 13:36:40.076 | INFO  | Started BorrowBookApplication in 4.652 seconds (process running for 5.313)
+2025-12-11 13:37:02.868 | INFO  | Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-11 13:37:02.869 | INFO  | Initializing Servlet 'dispatcherServlet'
+2025-12-11 13:37:02.871 | INFO  | Completed initialization in 2 ms
+2025-12-11 13:37:03.034 | WARN  | Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource  for request '/'.]
+2025-12-11 13:37:03.337 | WARN  | Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource  for request '/'.]
+2025-12-11 13:37:03.508 | WARN  | Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico for request '/favicon.ico'.]
+2025-12-11 13:39:03.659 | INFO  | Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-11 13:39:03.909 | INFO  | Graceful shutdown complete
+2025-12-11 13:39:03.913 | INFO  | Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-11 13:39:03.915 | INFO  | HikariPool-1 - Shutdown initiated...
+2025-12-11 13:39:03.923 | INFO  | HikariPool-1 - Shutdown completed.
+2025-12-11 13:43:10.814 | INFO  | HV000001: Hibernate Validator 9.0.1.Final
+2025-12-11 13:43:10.851 | INFO  | Starting BorrowBookApplication using Java 17.0.12 with PID 28436 (E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book\build\classes\java\main started by Hi in E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book)
+2025-12-11 13:43:10.852 | INFO  | No active profile set, falling back to 1 default profile: "default"
+2025-12-11 13:43:10.891 | INFO  | Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-11 13:43:10.891 | INFO  | For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-12-11 13:43:11.338 | INFO  | Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-11 13:43:11.377 | INFO  | Finished Spring Data repository scanning in 32 ms. Found 2 JPA repository interfaces.
+2025-12-11 13:43:11.821 | INFO  | Tomcat initialized with port 8080 (http)
+2025-12-11 13:43:11.828 | INFO  | Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-11 13:43:11.829 | INFO  | Starting service [Tomcat]
+2025-12-11 13:43:11.830 | INFO  | Starting Servlet engine: [Apache Tomcat/11.0.14]
+2025-12-11 13:43:11.872 | INFO  | Root WebApplicationContext: initialization completed in 978 ms
+2025-12-11 13:43:12.003 | INFO  | HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-11 13:43:12.036 | INFO  | HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-12-11 13:43:12.328 | INFO  | No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-11 13:43:12.354 | INFO  | HikariPool-1 - Starting...
+2025-12-11 13:43:12.565 | INFO  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1f40919f
+2025-12-11 13:43:12.567 | INFO  | HikariPool-1 - Start completed.
+2025-12-11 13:43:12.621 | INFO  | HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/db_book?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: db_book/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-11 13:43:13.270 | INFO  | HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-11 13:43:13.324 | INFO  | Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-11 13:43:13.433 | INFO  | Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-11 13:43:13.659 | WARN  | spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-11 13:43:13.993 | INFO  | Starting ProtocolHandler ["http-nio-8080"]
+2025-12-11 13:43:14.010 | INFO  | Tomcat started on port 8080 (http) with context path '/'
+2025-12-11 13:43:14.015 | INFO  | Started BorrowBookApplication in 3.523 seconds (process running for 4.079)
+2025-12-11 13:43:18.900 | INFO  | Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-11 13:43:18.900 | INFO  | Initializing Servlet 'dispatcherServlet'
+2025-12-11 13:43:18.902 | INFO  | Completed initialization in 1 ms
+2025-12-11 13:43:19.009 | WARN  | Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource  for request '/'.]
+2025-12-11 13:43:20.744 | WARN  | Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource  for request '/'.]
+2025-12-11 13:44:25.575 | INFO  | Restarting due to 9 class path changes (1 addition, 1 deletion, 7 modifications)
+2025-12-11 13:44:25.584 | INFO  | Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-11 13:44:25.586 | INFO  | Pausing ProtocolHandler ["http-nio-8080"]
+2025-12-11 13:44:26.086 | INFO  | Graceful shutdown complete
+2025-12-11 13:44:26.087 | INFO  | Stopping ProtocolHandler ["http-nio-8080"]
+2025-12-11 13:44:26.092 | INFO  | Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-11 13:44:26.097 | INFO  | HikariPool-1 - Shutdown initiated...
+2025-12-11 13:44:26.109 | INFO  | HikariPool-1 - Shutdown completed.
+2025-12-11 13:44:26.265 | INFO  | Starting BorrowBookApplication using Java 17.0.12 with PID 28436 (E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book\build\classes\java\main started by Hi in E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book)
+2025-12-11 13:44:26.266 | INFO  | No active profile set, falling back to 1 default profile: "default"
+2025-12-11 13:44:26.495 | INFO  | Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-11 13:44:26.515 | INFO  | Finished Spring Data repository scanning in 18 ms. Found 2 JPA repository interfaces.
+2025-12-11 13:44:26.693 | INFO  | Tomcat initialized with port 8080 (http)
+2025-12-11 13:44:26.694 | INFO  | Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-11 13:44:26.695 | INFO  | Starting service [Tomcat]
+2025-12-11 13:44:26.696 | INFO  | Starting Servlet engine: [Apache Tomcat/11.0.14]
+2025-12-11 13:44:26.734 | INFO  | Root WebApplicationContext: initialization completed in 464 ms
+2025-12-11 13:44:26.822 | INFO  | HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-11 13:44:26.867 | INFO  | No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-11 13:44:26.869 | INFO  | HikariPool-2 - Starting...
+2025-12-11 13:44:26.889 | INFO  | HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3ed7c091
+2025-12-11 13:44:26.889 | INFO  | HikariPool-2 - Start completed.
+2025-12-11 13:44:26.891 | INFO  | HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/db_book?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: db_book/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-11 13:44:26.981 | INFO  | HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-11 13:44:27.006 | INFO  | Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-11 13:44:27.246 | WARN  | spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-11 13:44:27.508 | INFO  | Starting ProtocolHandler ["http-nio-8080"]
+2025-12-11 13:44:27.512 | INFO  | Tomcat started on port 8080 (http) with context path '/'
+2025-12-11 13:44:27.515 | INFO  | Started BorrowBookApplication in 1.289 seconds (process running for 77.579)
+2025-12-11 13:44:27.519 | INFO  | Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   ErrorMvcAutoConfiguration.WhitelabelErrorViewConfiguration:
+      Did not match:
+         - ErrorTemplate Missing found template from org.springframework.boot.thymeleaf.autoconfigure.ThymeleafTemplateAvailabilityProvider@360f97b6 (ErrorMvcAutoConfiguration.ErrorTemplateMissingCondition)
+      Matched:
+         - @ConditionalOnBooleanProperty (spring.web.error.whitelabel.enabled=true) matched (OnPropertyCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2025-12-11 13:44:27.557 | INFO  | Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-11 13:44:27.557 | INFO  | Initializing Servlet 'dispatcherServlet'
+2025-12-11 13:44:27.558 | INFO  | Completed initialization in 1 ms
+2025-12-11 13:44:27.564 | WARN  | Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource  for request '/'.]
+2025-12-11 13:44:29.241 | WARN  | Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource  for request '/'.]
+2025-12-11 13:44:37.395 | INFO  | Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-11 13:44:37.618 | INFO  | Graceful shutdown complete
+2025-12-11 13:44:37.620 | INFO  | Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-11 13:44:37.621 | INFO  | HikariPool-2 - Shutdown initiated...
+2025-12-11 13:44:37.624 | INFO  | HikariPool-2 - Shutdown completed.
+2025-12-11 13:44:40.098 | INFO  | HV000001: Hibernate Validator 9.0.1.Final
+2025-12-11 13:44:40.135 | INFO  | Starting BorrowBookApplication using Java 17.0.12 with PID 27308 (E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book\build\classes\java\main started by Hi in E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book)
+2025-12-11 13:44:40.136 | INFO  | No active profile set, falling back to 1 default profile: "default"
+2025-12-11 13:44:40.177 | INFO  | Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-11 13:44:40.177 | INFO  | For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-12-11 13:44:40.652 | INFO  | Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-11 13:44:40.693 | INFO  | Finished Spring Data repository scanning in 34 ms. Found 2 JPA repository interfaces.
+2025-12-11 13:44:41.205 | INFO  | Tomcat initialized with port 8080 (http)
+2025-12-11 13:44:41.214 | INFO  | Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-11 13:44:41.216 | INFO  | Starting service [Tomcat]
+2025-12-11 13:44:41.216 | INFO  | Starting Servlet engine: [Apache Tomcat/11.0.14]
+2025-12-11 13:44:41.253 | INFO  | Root WebApplicationContext: initialization completed in 1076 ms
+2025-12-11 13:44:41.393 | INFO  | HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-11 13:44:41.426 | INFO  | HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-12-11 13:44:41.736 | INFO  | No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-11 13:44:41.764 | INFO  | HikariPool-1 - Starting...
+2025-12-11 13:44:41.978 | INFO  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@77eddc56
+2025-12-11 13:44:41.979 | INFO  | HikariPool-1 - Start completed.
+2025-12-11 13:44:42.044 | INFO  | HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/db_book?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: db_book/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-11 13:44:42.691 | INFO  | HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-11 13:44:42.753 | INFO  | Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-11 13:44:42.864 | INFO  | Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-11 13:44:43.125 | WARN  | spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-11 13:44:43.474 | INFO  | Starting ProtocolHandler ["http-nio-8080"]
+2025-12-11 13:44:43.488 | INFO  | Tomcat started on port 8080 (http) with context path '/'
+2025-12-11 13:44:43.493 | INFO  | Started BorrowBookApplication in 3.698 seconds (process running for 4.218)
+2025-12-11 13:44:46.366 | INFO  | Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-11 13:44:46.367 | INFO  | Initializing Servlet 'dispatcherServlet'
+2025-12-11 13:44:46.368 | INFO  | Completed initialization in 1 ms
+2025-12-11 13:44:46.500 | WARN  | Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource  for request '/'.]
+2025-12-11 13:44:49.462 | INFO  | [VISIT] Visit #1 - org.example.borrowbook.controller.BookController#list
+2025-12-11 13:44:53.440 | INFO  | [VISIT] Visit #2 - org.example.borrowbook.controller.BookController#borrowedList
+2025-12-11 13:44:59.773 | INFO  | [VISIT] Visit #3 - org.example.borrowbook.controller.BookController#list
+2025-12-11 13:45:01.043 | INFO  | [VISIT] Visit #4 - org.example.borrowbook.controller.BookController#detail
+2025-12-11 13:45:03.283 | INFO  | [VISIT] Visit #5 - org.example.borrowbook.controller.BookController#borrow
+2025-12-11 13:45:03.295 | INFO  | [AUDIT] BẮT ĐẦU: Thực hiện hành động "Muợn sách"...
+2025-12-11 13:45:03.361 | INFO  | [AUDIT] THÀNH CÔNG: Hành động "Muợn sách" đã hoàn tất.
+2025-12-11 13:45:03.496 | INFO  | [VISIT] Visit #6 - org.example.borrowbook.controller.BookController#list
+2025-12-11 13:45:07.498 | INFO  | [VISIT] Visit #7 - org.example.borrowbook.controller.BookController#borrowedList
+2025-12-11 13:45:09.769 | INFO  | [VISIT] Visit #8 - org.example.borrowbook.controller.BookController#doReturn
+2025-12-11 13:45:09.770 | INFO  | [AUDIT] BẮT ĐẦU: Thực hiện hành động "Trả sách"...
+2025-12-11 13:45:09.812 | INFO  | [AUDIT] THÀNH CÔNG: Hành động "Trả sách" đã hoàn tất.
+2025-12-11 13:45:09.826 | INFO  | [VISIT] Visit #9 - org.example.borrowbook.controller.BookController#list
+2025-12-11 13:45:15.393 | INFO  | Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-11 13:45:15.642 | INFO  | Graceful shutdown complete
+2025-12-11 13:45:15.646 | INFO  | Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-11 13:45:15.648 | INFO  | HikariPool-1 - Shutdown initiated...
+2025-12-11 13:45:15.667 | INFO  | HikariPool-1 - Shutdown completed.
+2025-12-23 11:08:50.873 | INFO  | HV000001: Hibernate Validator 9.0.1.Final
+2025-12-23 11:08:50.917 | INFO  | Starting BorrowBookApplication using Java 17.0.12 with PID 16568 (E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book\build\classes\java\main started by Hi in E:\CODEGYM\bai_tap_code_gym\module_4\ss9_aop_exception_handle\bai_tap\borrow-book)
+2025-12-23 11:08:50.918 | INFO  | No active profile set, falling back to 1 default profile: "default"
+2025-12-23 11:08:50.958 | INFO  | Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-23 11:08:50.959 | INFO  | For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-12-23 11:08:51.535 | INFO  | Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-23 11:08:51.584 | INFO  | Finished Spring Data repository scanning in 40 ms. Found 2 JPA repository interfaces.
+2025-12-23 11:08:52.169 | INFO  | Tomcat initialized with port 8080 (http)
+2025-12-23 11:08:52.182 | INFO  | Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-23 11:08:52.183 | INFO  | Starting service [Tomcat]
+2025-12-23 11:08:52.185 | INFO  | Starting Servlet engine: [Apache Tomcat/11.0.14]
+2025-12-23 11:08:52.227 | INFO  | Root WebApplicationContext: initialization completed in 1268 ms
+2025-12-23 11:08:52.377 | INFO  | HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-23 11:08:52.455 | INFO  | HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-12-23 11:08:52.908 | INFO  | No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-23 11:08:52.947 | INFO  | HikariPool-1 - Starting...
+2025-12-23 11:08:53.189 | INFO  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@599d47b5
+2025-12-23 11:08:53.190 | INFO  | HikariPool-1 - Start completed.
+2025-12-23 11:08:53.270 | INFO  | HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/db_book?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.44
+	Default catalog/schema: db_book/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-23 11:08:54.139 | INFO  | HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-23 11:08:54.219 | INFO  | Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-23 11:08:54.358 | INFO  | Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-23 11:08:54.656 | WARN  | spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-23 11:08:55.045 | INFO  | Starting ProtocolHandler ["http-nio-8080"]
+2025-12-23 11:08:55.059 | INFO  | Tomcat started on port 8080 (http) with context path '/'
+2025-12-23 11:08:55.064 | INFO  | Started BorrowBookApplication in 4.618 seconds (process running for 5.481)
+2025-12-23 11:09:00.845 | INFO  | Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-23 11:09:00.846 | INFO  | Initializing Servlet 'dispatcherServlet'
+2025-12-23 11:09:00.847 | INFO  | Completed initialization in 1 ms
+2025-12-23 11:09:00.995 | WARN  | Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource  for request '/'.]
+2025-12-23 11:09:01.221 | WARN  | Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource  for request '/'.]
+2025-12-23 11:09:13.930 | INFO  | [VISIT] Visit #1 - org.example.borrowbook.controller.BookController#list
+2025-12-23 11:09:19.138 | INFO  | [VISIT] Visit #2 - org.example.borrowbook.controller.BookController#list
+2025-12-23 11:09:20.098 | INFO  | [VISIT] Visit #3 - org.example.borrowbook.controller.BookController#detail
+2025-12-23 11:09:21.816 | INFO  | [VISIT] Visit #4 - org.example.borrowbook.controller.BookController#borrow
+2025-12-23 11:09:21.826 | INFO  | [AUDIT] BẮT ĐẦU: Thực hiện hành động "Muợn sách"...
+2025-12-23 11:09:21.892 | INFO  | [AUDIT] THÀNH CÔNG: Hành động "Muợn sách" đã hoàn tất.
+2025-12-23 11:09:22.030 | INFO  | [VISIT] Visit #5 - org.example.borrowbook.controller.BookController#list
+2025-12-23 11:09:25.212 | INFO  | [VISIT] Visit #6 - org.example.borrowbook.controller.BookController#borrowedList
+2025-12-23 11:09:27.055 | INFO  | [VISIT] Visit #7 - org.example.borrowbook.controller.BookController#doReturn
+2025-12-23 11:09:27.057 | INFO  | [AUDIT] BẮT ĐẦU: Thực hiện hành động "Trả sách"...
+2025-12-23 11:09:27.097 | INFO  | [AUDIT] THÀNH CÔNG: Hành động "Trả sách" đã hoàn tất.
+2025-12-23 11:09:27.110 | INFO  | [VISIT] Visit #8 - org.example.borrowbook.controller.BookController#list
+2025-12-23 11:09:27.989 | INFO  | [VISIT] Visit #9 - org.example.borrowbook.controller.BookController#returnForm
+2025-12-23 11:09:29.991 | INFO  | [VISIT] Visit #10 - org.example.borrowbook.controller.BookController#list
+2025-12-23 11:09:34.512 | INFO  | [VISIT] Visit #11 - org.example.borrowbook.controller.BookController#list

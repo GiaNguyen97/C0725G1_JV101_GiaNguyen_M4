@@ -4,37 +4,93 @@
 <body>
 
 <section>
-    <h2 class="mb-3">Danh sách blog</h2>
 
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Tiêu đề</th>
-            <th width="180">Thao tác</th>
-        </tr>
-        </thead>
+    <h2 class="mb-4">Danh sách blog</h2>
 
-        <tbody>
-        <tr th:each="b : ${blogs}">
-            <td th:text="${b.id}"></td>
-            <td>
-                <a th:href="@{/blogs/{id}(id=${b.id})}" th:text="${b.title}"></a>
-            </td>
-            <td>
-                <a th:href="@{/blogs/edit/{id}(id=${b.id})}" class="btn btn-primary btn-sm">Sửa</a>
-                <button class="btn btn-danger btn-sm"
-                        th:data-id="${b.id}"
-                        th:data-title="${b.title}"
-                        onclick="confirmDelete(this)">
-                    Delete
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
+        <div class="col" th:each="b, st : ${blogs.content}">
+            <div class="card shadow-sm h-100">
 
+                <!-- ẢNH BLOG -->
+                <img th:if="${b.img != null}"
+                     th:src="@{${b.img}}"
+                     class="card-img-top"
+                     style="height: 180px; object-fit: cover;"
+                     alt="Blog image">
+
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a th:href="@{/blogs/{id}(id=${b.id})}"
+                           th:text="${b.title}"></a>
+                    </h5>
+                    <p class="card-text text-muted mb-1">
+                        <i class="bi bi-calendar-event"></i>
+                        <span th:text="${#temporals.format(b.createdAt, 'dd/MM/yyyy HH:mm')}"></span>
+                    </p>
+                    <p class="card-text text-muted">
+                        Blog số <span th:text="${st.index + 1}"></span>
+                    </p>
+                </div>
+
+                <div class="card-footer d-flex justify-content-between align-items-center">
+            <span class="badge bg-secondary"
+                  th:text="${b.category != null ? b.category.name : 'Chưa phân loại'}">
+            </span>
+
+                    <div class="d-flex gap-2">
+                        <a th:href="@{/blogs/edit/{id}(id=${b.id})}"
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+
+                        <button class="btn btn-outline-danger btn-sm"
+                                th:data-id="${b.id}"
+                                th:data-title="${b.title}"
+                                onclick="confirmDelete(this)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+
+            <!-- Previous -->
+            <li class="page-item"
+                th:classappend="${blogs.first} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/blogs(page=${blogs.number - 1})}">
+                    «
+                </a>
+            </li>
+
+            <!-- Page numbers -->
+            <li class="page-item"
+                th:each="i : ${#numbers.sequence(0, blogs.totalPages - 1)}"
+                th:classappend="${i == blogs.number} ? 'active'">
+                <a class="page-link"
+                   th:text="${i + 1}"
+                   th:href="@{/blogs(page=${i})}">
+                </a>
+            </li>
+
+            <!-- Next -->
+            <li class="page-item"
+                th:classappend="${blogs.last} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/blogs(page=${blogs.number + 1})}">
+                    »
+                </a>
+            </li>
+
+        </ul>
+    </nav>
 </section>
 
 </body>
