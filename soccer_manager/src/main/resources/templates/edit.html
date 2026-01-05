@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="~{/layout :: html_head}"></head>
+
+<body>
+  <div th:replace="~{/layout :: header}"></div>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-sm">
+          <div class="card-header bg-warning py-3">
+            <h5 class="card-title fw-bold mb-0 text-white">📝 CHỈNH SỬA THÔNG TIN</h5>
+          </div>
+          <div class="card-body p-4">
+            <form th:action="@{/soccers/edit}" th:object="${soccer_player}" method="post">
+              <input type="hidden" th:field="*{id}">
+              <!-- Hidden inputs to preserve search state -->
+              <input type="hidden" name="name" th:value="${name}" />
+              <input type="hidden" name="dobFrom" th:value="${dobFrom}" />
+              <input type="hidden" name="dobTo" th:value="${dobTo}" />
+              <input type="hidden" name="page" th:value="${page}" />
+              <input type="hidden" name="size" th:value="${size}" />
+
+              <div class="row g-3">
+                <div class="col-md-4 text-center">
+                  <img th:src="*{urlImage}" class="img-thumbnail mb-2"
+                    style="height: 150px; width: 120px; object-fit: cover;">
+                  <p class="small text-muted">Ảnh hiện tại</p>
+                </div>
+
+                <div class="col-md-8">
+                  <div class="row g-3">
+                    <div class="col-md-12">
+                      <label class="form-label fw-semibold">Họ và tên</label>
+                      <input type="text" th:field="*{namePlayer}" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Mã số</label>
+                      <input type="text" th:field="*{codePlayer}" class="form-control" readonly
+                        style="background-color: #f8f9fa;">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Vị trí</label>
+                      <select th:field="*{position}" class="form-select">
+                        <option value="Tiền đạo">Tiền đạo</option>
+                        <option value="Tiền vệ">Tiền vệ</option>
+                        <option value="Hậu vệ">Hậu vệ</option>
+                        <option value="Thủ môn">Thủ môn</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Ngày sinh</label>
+                  <input type="date" th:field="*{dayOfBirth}" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Kinh nghiệm (năm)</label>
+                  <input type="number" th:field="*{experience}" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Địa chỉ</label>
+                  <input type="text" th:field="*{adress}" class="form-control">
+                </div>
+                <div class="col-md-12">
+                  <label class="form-label fw-semibold">Cập nhật Link ảnh</label>
+                  <input type="text" th:field="*{urlImage}" class="form-control">
+                </div>
+              </div>
+
+              <div class="mt-4 pt-3 border-top text-end">
+                <a href="/soccers" class="btn btn-light px-4 me-2">Quay lại</a>
+                <button type="submit" class="btn btn-warning px-4 text-white">Cập nhật thay đổi</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div th:replace="~{/layout :: footer}"></div>
+</body>
+
+</html>
