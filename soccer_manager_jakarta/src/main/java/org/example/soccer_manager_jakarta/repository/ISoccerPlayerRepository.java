@@ -2,6 +2,7 @@ package org.example.soccer_manager_jakarta.repository;
 
 import org.example.soccer_manager_jakarta.entity.SoccerPlayer;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ISoccerPlayerRepository {
@@ -14,4 +15,8 @@ public interface ISoccerPlayerRepository {
     boolean editInfoPlayer(SoccerPlayer soccerPlayer);
 
     boolean deleteById(Long id);
+
+    SoccerPlayer findByCode(String code);
+
+    List<SoccerPlayer> search(String name, LocalDate dobFrom, LocalDate dobTo);
 }

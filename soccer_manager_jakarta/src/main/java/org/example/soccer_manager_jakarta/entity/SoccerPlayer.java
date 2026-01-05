@@ -1,6 +1,7 @@
 package org.example.soccer_manager_jakarta.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import org.hibernate.annotations.Parent;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,19 +14,27 @@ public class SoccerPlayer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @Pattern(regexp = "^MCT-[0-9]{3}$", message = "Sai định dạng MCT-XXX (X số từ 0-9)")
+    @Column(name = "codePlayer", unique = true)
     private String codePlayer;
+
+    @NotBlank(message = "Tên không được để trống")
     private String namePlayer;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dayOfBirth;
+
     private String experience;
+
     private String position;
+
     private String urlImage;
 
     public SoccerPlayer() {
     }
 
-    public SoccerPlayer(String codePlayer, String namePlayer, LocalDate dayOfBirth, String experience, String position, String urlImage) {
+    public SoccerPlayer(String codePlayer, String namePlayer, LocalDate dayOfBirth, String experience, String position,
+            String urlImage) {
         this.codePlayer = codePlayer;
         this.namePlayer = namePlayer;
         this.dayOfBirth = dayOfBirth;

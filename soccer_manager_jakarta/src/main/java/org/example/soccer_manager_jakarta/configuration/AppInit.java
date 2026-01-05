@@ -1,5 +1,6 @@
 package org.example.soccer_manager_jakarta.configuration;
 
+import jakarta.validation.Validator;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
@@ -16,4 +17,7 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     protected String[] getServletMappings() {
         return new String[]{"/"};
     }
+
+
+
 }
