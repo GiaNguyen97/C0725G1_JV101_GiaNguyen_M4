@@ -14,13 +14,14 @@
                         <h5 class="card-title fw-bold mb-0 text-primary">➕ THÊM CẦU THỦ MỚI</h5>
                     </div>
                     <div class="card-body p-4">
-                        <form th:action="@{/soccers/add}" th:object="${soccer_player}" method="post">
+                        <form th:action="@{/soccers/add}" th:object="${soccerPlayer}" method="post">
                             <!-- Hidden params to preserve state -->
                             <input type="hidden" name="name" th:value="${name}" />
                             <input type="hidden" name="dobFrom" th:value="${dobFrom}" />
                             <input type="hidden" name="dobTo" th:value="${dobTo}" />
                             <input type="hidden" name="page" th:value="${page}" />
                             <input type="hidden" name="size" th:value="${size}" />
+                            <input type="hidden" name="searchPosition" th:value="${searchPosition}" />
 
                             <div class="row g-3">
                                 <div class="col-md-6">
@@ -49,8 +50,17 @@
                                     <select th:field="*{position}" class="form-select">
                                         <option value="Tiền đạo">Tiền đạo</option>
                                         <option value="Tiền vệ">Tiền vệ</option>
+                                        <option value="Trung vệ">Trung vệ</option>
                                         <option value="Hậu vệ">Hậu vệ</option>
                                         <option value="Thủ môn">Thủ môn</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Đội tuyển quốc gia</label>
+                                    <select th:field="*{nationalTeam}" class="form-select">
+                                        <option value="">-- Chọn đội tuyển --</option>
+                                        <option th:each="team : ${nationalTeams}" th:value="${team.id}"
+                                            th:text="${team.nameNationalTeam}"></option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
@@ -71,7 +81,7 @@
                             </div>
 
                             <div class="mt-4 pt-3 border-top text-end">
-                                <a th:href="@{/soccers(page=${page}, size=${size}, name=${name}, dobFrom=${dobFrom}, dobTo=${dobTo})}"
+                                <a th:href="@{/soccers(page=${page}, size=${size}, name=${name}, dobFrom=${dobFrom}, dobTo=${dobTo}, searchPosition=${searchPosition})}"
                                     class="btn btn-light px-4 me-2">Hủy</a>
                                 <button type="submit" class="btn btn-primary px-4">Lưu cầu thủ</button>
                             </div>

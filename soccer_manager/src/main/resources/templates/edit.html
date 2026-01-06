@@ -14,7 +14,7 @@
             <h5 class="card-title fw-bold mb-0 text-white">📝 CHỈNH SỬA THÔNG TIN</h5>
           </div>
           <div class="card-body p-4">
-            <form th:action="@{/soccers/edit}" th:object="${soccer_player}" method="post">
+            <form th:action="@{/soccers/edit}" th:object="${soccerPlayer}" method="post">
               <input type="hidden" th:field="*{id}">
               <!-- Hidden inputs to preserve search state -->
               <input type="hidden" name="name" th:value="${name}" />
@@ -22,6 +22,7 @@
               <input type="hidden" name="dobTo" th:value="${dobTo}" />
               <input type="hidden" name="page" th:value="${page}" />
               <input type="hidden" name="size" th:value="${size}" />
+              <input type="hidden" name="searchPosition" th:value="${searchPosition}" />
 
               <div class="row g-3">
                 <div class="col-md-4 text-center">
@@ -38,16 +39,26 @@
                     </div>
                     <div class="col-md-6">
                       <label class="form-label fw-semibold">Mã số</label>
-                      <input type="text" th:field="*{codePlayer}" class="form-control" readonly
-                        style="background-color: #f8f9fa;">
+                      <input type="text" th:field="*{codePlayer}" class="form-control" required>
                     </div>
                     <div class="col-md-6">
                       <label class="form-label fw-semibold">Vị trí</label>
                       <select th:field="*{position}" class="form-select">
                         <option value="Tiền đạo">Tiền đạo</option>
                         <option value="Tiền vệ">Tiền vệ</option>
+                        <option value="Trung vệ">Trung vệ</option>
                         <option value="Hậu vệ">Hậu vệ</option>
                         <option value="Thủ môn">Thủ môn</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Đội tuyển quốc gia</label>
+                      <select th:field="*{nationalTeam}" class="form-select">
+                        <option value="">-- Chọn đội tuyển --</option>
+                        <option th:each="team : ${nationalTeams}" th:value="${team.id}"
+                          th:text="${team.nameNationalTeam}"
+                          th:selected="${soccerPlayer.nationalTeam != null && team.id == soccerPlayer.nationalTeam.id}">
+                        </option>
                       </select>
                     </div>
                   </div>

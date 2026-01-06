@@ -19,7 +19,7 @@ public class SoccerPlayer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Pattern(regexp = "^[A-Z]{3}-[0-9]{3}$", message = "Mã cầu thủ phải có định dạng 3 chữ cái viết hoa - 3 số (Ví dụ: GER-001)")
+    @Pattern(regexp = "^[A-Z]{2}-[0-9]{3}$", message = "Mã cầu thủ phải có định dạng 2 chữ cái viết hoa - 3 số (Ví dụ: VN-001)")
     @Column(unique = true)
     private String codePlayer;
 
@@ -36,4 +36,8 @@ public class SoccerPlayer {
     private String position;
 
     private String urlImage;
+
+    @ManyToOne
+    @JoinColumn(name = "national_team_id")
+    private NationalTeam nationalTeam;
 }
