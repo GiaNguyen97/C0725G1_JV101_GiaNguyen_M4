@@ -17,7 +17,8 @@
             <div class="modal-content">
 
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title">➕ Thêm mới</h5>
+                    <h5 class="modal-title">
+                        <a th:href="@{/lands/add}">➕ Thêm mới</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
 
@@ -93,22 +94,6 @@
         </div>
     </div>
 
-    <script>
-        // Validation khi submit form
-        (function() {
-            'use strict';
-            const form = document.getElementById('createForm');
-            if (form) {
-                form.addEventListener('submit', function(event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            }
-        })();
-    </script>
 </div>
 </body>
 

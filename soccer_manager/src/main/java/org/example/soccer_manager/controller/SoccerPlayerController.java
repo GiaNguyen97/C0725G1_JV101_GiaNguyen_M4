@@ -27,12 +27,12 @@ public class SoccerPlayerController {
 
     @GetMapping("")
     public String index(Model model,
-            @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "dobFrom", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
-            @RequestParam(value = "dobTo", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
-            @RequestParam(value = "searchPosition", required = false) String searchPosition,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
+                        @RequestParam(value = "name", required = false) String name,
+                        @RequestParam(value = "dobFrom", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                        @RequestParam(value = "dobTo", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                        @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                        @RequestParam(defaultValue = "0") int page,
+                        @RequestParam(defaultValue = "5") int size) {
         Pageable pageable = PageRequest.of(page, size,
                 Sort.by("codePlayer").ascending());
 
@@ -48,12 +48,12 @@ public class SoccerPlayerController {
 
     @GetMapping("/{id}/detail")
     public String showDetail(@PathVariable("id") Long id, Model model,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
-            @RequestParam(value = "searchPosition", required = false) String searchPosition,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
+                             @RequestParam(required = false) String name,
+                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                             @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                             @RequestParam(defaultValue = "0") int page,
+                             @RequestParam(defaultValue = "5") int size) {
         model.addAttribute("soccerPlayer", soccerPlayerService.findById(id));
 
         model.addAttribute("name", name);
@@ -67,16 +67,34 @@ public class SoccerPlayerController {
     }
 
     @GetMapping("/add")
-    public String formAddNewPlayer(Model model) {
+    public String formAddNewPlayer(Model model,
+                                   @RequestParam(required = false) String name,
+                                   @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                                   @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                                   @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                                   @RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(defaultValue = "5") int size) {
         model.addAttribute("soccerPlayer", new SoccerPlayer());
         model.addAttribute("nationalTeams", nationalTeamService.findAll());
+        model.addAttribute("name", name);
+        model.addAttribute("dobFrom", dobFrom);
+        model.addAttribute("dobTo", dobTo);
+        model.addAttribute("searchPosition", searchPosition);
+        model.addAttribute("page", page);
+        model.addAttribute("size", size);
         return "/add";
     }
 
     @PostMapping("/add")
     public String addNewPlayer(@Valid @ModelAttribute("soccerPlayer") SoccerPlayer soccerPlayer,
-            BindingResult result,
-            RedirectAttributes redirectAttributes) {
+                               BindingResult result,
+                               RedirectAttributes redirectAttributes,
+                               @RequestParam(required = false) String name,
+                               @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                               @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                               @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                               @RequestParam(defaultValue = "0") int page,
+                               @RequestParam(defaultValue = "5") int size) {
 
         if (soccerPlayerService.existsByCodePlayer(soccerPlayer.getCodePlayer())) {
             result.rejectValue("codePlayer", "duplicate", "Mã cầu thủ đã tồn tại");
@@ -91,17 +109,23 @@ public class SoccerPlayerController {
         } else {
             redirectAttributes.addFlashAttribute("error", "Thêm mới thất bại!");
         }
+        redirectAttributes.addAttribute("name", name);
+        redirectAttributes.addAttribute("dobFrom", dobFrom);
+        redirectAttributes.addAttribute("dobTo", dobTo);
+        redirectAttributes.addAttribute("searchPosition", searchPosition);
+        redirectAttributes.addAttribute("page", page);
+        redirectAttributes.addAttribute("size", size);
         return "redirect:/soccers";
     }
 
     @GetMapping("/{id}/edit")
     public String formEditInfoPlayer(@PathVariable("id") Long id, Model model,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
-            @RequestParam(value = "searchPosition", required = false) String searchPosition,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
+                                     @RequestParam(required = false) String name,
+                                     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                                     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                                     @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                                     @RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "5") int size) {
         model.addAttribute("soccerPlayer", soccerPlayerService.findById(id));
         model.addAttribute("nationalTeams", nationalTeamService.findAll());
         model.addAttribute("name", name);
@@ -115,14 +139,14 @@ public class SoccerPlayerController {
 
     @PostMapping("/edit")
     public String editInfoPlayer(@Valid @ModelAttribute("soccerPlayer") SoccerPlayer soccerPlayer,
-            BindingResult result,
-            RedirectAttributes redirectAttributes,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
-            @RequestParam(value = "searchPosition", required = false) String searchPosition,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
+                                 BindingResult result,
+                                 RedirectAttributes redirectAttributes,
+                                 @RequestParam(required = false) String name,
+                                 @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                                 @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                                 @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                                 @RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "5") int size) {
         if (result.hasErrors()) {
             return "/edit"; // quay lại form
         }
@@ -145,12 +169,12 @@ public class SoccerPlayerController {
 
     @PostMapping("/{id}/delete")
     public String deleteSoccerPlayer(@PathVariable("id") Long id, RedirectAttributes redirectAttributes,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
-            @RequestParam(value = "searchPosition", required = false) String searchPosition,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
+                                     @RequestParam(required = false) String name,
+                                     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                                     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                                     @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                                     @RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "5") int size) {
         if (soccerPlayerService.deleteById(id)) {
             redirectAttributes.addFlashAttribute("success", "Xóa thành công!");
         } else {

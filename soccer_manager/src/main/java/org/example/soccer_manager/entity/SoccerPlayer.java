@@ -3,7 +3,9 @@ package org.example.soccer_manager.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.example.soccer_manager.validation.annotation.ValidAge;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -23,10 +25,13 @@ public class SoccerPlayer {
     @Column(unique = true)
     private String codePlayer;
 
-    @NotBlank(message = "Tên không được để trống")
+    @Size(min = 5,max = 100,message = "Tên từ 5-100 ký tự")
+    @Pattern(regexp = "^[a-zA-ZÀ-Ỵà-ỵ\\s]+$",
+            message = "Tên không được chứa số hoặc ký tự đặc biệt")
     private String namePlayer;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @ValidAge
     private LocalDate dayOfBirth;
 
     private Integer experience;

@@ -16,7 +16,7 @@ public interface TransactionLandRepository extends JpaRepository<TransactionLand
     @Query("""
         SELECT t FROM TransactionLand t
         WHERE  (:name IS NULL OR t.customer.name LIKE %:name%)
-        AND (:service IS NULL OR t.codeTransactionLand = :service)
+        AND (:service IS NULL OR :service = '' OR t.service = :service)
     """)
     Page<TransactionLand> search(
             @Param("name") String name,

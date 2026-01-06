@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public interface ISoccerPlayerRepository extends JpaRepository<SoccerPlayer, Long> {
 
   boolean existsByCodePlayer(
-      @Pattern(regexp = "^[A-Z]{2}-[0-9]{3}$", message = "Mã cầu thủ phải có định dạng 3 chữ cái viết hoa - 3 số (Ví dụ: GER-001)") String codePlayer);
+      @Pattern(regexp = "^[A-Z]{2}-[0-9]{3}$", message = "Mã cầu thủ phải có định dạng 2 chữ cái viết hoa - 3 số (Ví dụ: GER-001)") String codePlayer);
 
   @Query("""
           SELECT s FROM SoccerPlayer s

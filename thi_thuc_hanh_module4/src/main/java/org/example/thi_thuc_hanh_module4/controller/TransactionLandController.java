@@ -32,7 +32,14 @@ public class TransactionLandController {
         return "list";
     }
 
-    @PostMapping
+    @GetMapping("/add")
+    public String showFormAdd(Model model){
+        model.addAttribute("trandsactionLand",new TransactionLand());
+        return "modal-create";
+    }
+
+
+    @PostMapping("/add")
     public String create(@Valid @ModelAttribute TransactionLand transactionLand,
                          BindingResult result,
                          RedirectAttributes redirectAttributes,

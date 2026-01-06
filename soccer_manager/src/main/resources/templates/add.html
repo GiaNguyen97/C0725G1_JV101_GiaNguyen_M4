@@ -28,7 +28,7 @@
                                     <label class="form-label fw-semibold">Mã cầu thủ </label><span
                                         style="color: red">*</span>
                                     <input type="text" th:field="*{codePlayer}" class="form-control"
-                                        placeholder="Ví dụ: MCT-001" required>
+                                        placeholder="Ví dụ: VN-001" required>
                                     <span th:if="${#fields.hasErrors('codePlayer')}" th:errors="*{codePlayer}"
                                         style="color: red"></span>
                                 </div>
@@ -44,6 +44,8 @@
                                     <label class="form-label fw-semibold">Ngày sinh</label><span
                                         style="color: red">*</span>
                                     <input type="date" th:field="*{dayOfBirth}" class="form-control" required>
+                                    <span th:if="${#fields.hasErrors('dayOfBirth')}" th:errors="*{dayOfBirth}"
+                                          style="color: red"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold">Vị trí</label>
@@ -65,13 +67,11 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold">Kinh nghiệm (năm)</label>
-                                    <input type="number" th:field="*{experience}" class="form-control"
-                                        placeholder="Ví dụ: Thi đấu cho đội trẻ">
+                                    <input type="number" th:field="*{experience}" class="form-control">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold">Địa chỉ</label>
-                                    <input type="text" th:field="*{adress}" class="form-control"
-                                        placeholder="Ví dụ: Thi đấu cho đội trẻ">
+                                    <input type="text" th:field="*{adress}" class="form-control">
                                 </div>
                                 <div class="col-md-12">
                                     <label class="form-label fw-semibold">Link ảnh đại diện</label>
