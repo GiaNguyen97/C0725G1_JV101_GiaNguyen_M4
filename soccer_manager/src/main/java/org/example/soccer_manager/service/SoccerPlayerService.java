@@ -35,8 +35,8 @@ public class SoccerPlayerService implements ISoccerPlayerService {
     }
 
     @Override
-    public boolean existsByCodePlayer(String code) {
-        return ISoccerPlayerRepository.existsByCodePlayer(code);
+    public boolean existsByCodePlayer(String codePlayer) {
+        return ISoccerPlayerRepository.existsByCodePlayer(codePlayer);
     }
 
     @Override

@@ -14,7 +14,7 @@ public interface ISoccerPlayerService {
 
     boolean deleteById(Long id);
 
-    boolean existsByCodePlayer(String code);
+    boolean existsByCodePlayer(String codePlayer);
 
     Page<SoccerPlayer> search(String name, LocalDate dobFrom, LocalDate dobTo,String searchPosition, Pageable pageable);
 }

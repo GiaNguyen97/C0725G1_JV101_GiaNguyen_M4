@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="~{common/layout :: html_head}">
+    <meta charset="UTF-8">
+    <title>400 - Bad Request</title>
+</head>
+
+<body>
+
+    <nav th:replace="~{common/layout :: header}"></nav>
+
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 60vh;">
+        <div class="text-center">
+            <h1 class="display-1 fw-bold text-warning">400</h1>
+            <h2 class="mb-4">Yêu cầu không hợp lệ</h2>
+            <p class="lead text-muted mb-5">
+                Hệ thống không thể xử lý yêu cầu của bạn do dữ liệu không hợp lệ. Vui lòng kiểm tra lại.
+            </p>
+            <a href="/soccers" class="btn btn-primary btn-lg px-5">
+                Quay về trang chủ
+            </a>
+        </div>
+    </div>
+
+    <footer th:replace="~{common/layout :: footer}"></footer>
+
+</body>
+
+</html>

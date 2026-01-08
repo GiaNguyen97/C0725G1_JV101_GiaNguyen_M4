@@ -26,7 +26,7 @@ public class SoccerPlayerController {
     private final INationalTeamService nationalTeamService;
 
     @GetMapping("")
-    public String index(Model model,
+    public String showList(Model model,
                         @RequestParam(value = "name", required = false) String name,
                         @RequestParam(value = "dobFrom", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
                         @RequestParam(value = "dobTo", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
@@ -43,7 +43,7 @@ public class SoccerPlayerController {
         model.addAttribute("dobTo", dobTo);
         model.addAttribute("size", size);
 
-        return "/index";
+        return "/soccer_players/list";
     }
 
     @GetMapping("/{id}/detail")
@@ -63,7 +63,7 @@ public class SoccerPlayerController {
         model.addAttribute("page", page);
         model.addAttribute("size", size);
 
-        return "/detail";
+        return "/soccer_players/detail";
     }
 
     @GetMapping("/add")
@@ -82,7 +82,7 @@ public class SoccerPlayerController {
         model.addAttribute("searchPosition", searchPosition);
         model.addAttribute("page", page);
         model.addAttribute("size", size);
-        return "/add";
+        return "/soccer_players/add";
     }
 
     @PostMapping("/add")
@@ -101,7 +101,7 @@ public class SoccerPlayerController {
         }
 
         if (result.hasErrors()) {
-            return "/add"; // quay lại form
+            return "/soccer_players/add"; // quay lại form
         }
 
         if (soccerPlayerService.save(soccerPlayer) != null) {
@@ -134,7 +134,7 @@ public class SoccerPlayerController {
         model.addAttribute("searchPosition", searchPosition);
         model.addAttribute("page", page);
         model.addAttribute("size", size);
-        return "/edit";
+        return "/soccer_players/edit";
     }
 
     @PostMapping("/edit")
@@ -148,7 +148,7 @@ public class SoccerPlayerController {
                                  @RequestParam(defaultValue = "0") int page,
                                  @RequestParam(defaultValue = "5") int size) {
         if (result.hasErrors()) {
-            return "/edit"; // quay lại form
+            return "/soccer_players/edit"; // quay lại form
         }
 
         if (soccerPlayerService.save(soccerPlayer) != null) {

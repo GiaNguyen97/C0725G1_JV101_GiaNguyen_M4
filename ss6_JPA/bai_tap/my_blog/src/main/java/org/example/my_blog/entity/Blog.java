@@ -24,6 +24,7 @@ public class Blog {
     private LocalDateTime createdAt;
 
     private String img;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

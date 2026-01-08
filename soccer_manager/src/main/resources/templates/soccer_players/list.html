@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-<head th:replace="~{/layout :: html_head}"></head>
+<head th:replace="~{/common/layout :: html_head}"></head>
 
 <body>
-<div th:replace="~{/layout :: header}"></div>
+<div th:replace="~{/common/layout :: header}"></div>
 
 <div class="container">
     <form method="get" action="/soccers" class="card shadow-sm p-4 mb-4 mt-4 border-0 bg-light">
@@ -60,9 +60,9 @@
                     <th class="text-center">STT</th>
                     <th>Mã cầu thủ</th>
                     <th>Họ và tên</th>
-                    <th>Ngày sinh</th>
                     <th>Vị trí</th>
                     <th>Đội tuyển</th>
+                    <th>Trạng thái</th>
                     <th class="text-center">Thao tác</th>
                 </tr>
                 </thead>
@@ -73,7 +73,6 @@
                     <td>
                         <span class="fw-semibold" th:text="${row.namePlayer}"></span>
                     </td>
-                    <td th:text="${#temporals.format(row.dayOfBirth,'dd/MM/yyyy')}"></td>
                     <td class="align-middle">
                                 <span th:switch="${row.position}">
                                     <span th:case="'Tiền đạo'"
@@ -119,6 +118,9 @@
                                 </span>
                             </th:block>
                         </div>
+                    </td>
+                    <td>
+                        <span class="fw-semibold" th:text="${row.playerStatus ? 'Đã đăng ký' : 'Dự bị'}"></span>
                     </td>
                     <td class="text-center">
                         <a th:href="@{/soccers/{id}/detail(id=${row.id}, page=${soccers.number}, size=${size}, name=${name}, dobFrom=${dobFrom}, dobTo=${dobTo}, searchPosition=${searchPosition})}"
@@ -240,8 +242,7 @@
     </script>
 
 
-    <div th:replace="~{/layout :: footer}"></div>
+    <div th:replace="~{/common/layout :: footer}"></div>
 </div>
 </body>
-
 </html>

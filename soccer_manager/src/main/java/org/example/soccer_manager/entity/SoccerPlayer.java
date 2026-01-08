@@ -3,6 +3,7 @@ package org.example.soccer_manager.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.example.soccer_manager.validation.annotation.ValidAge;
@@ -34,6 +35,7 @@ public class SoccerPlayer {
     @ValidAge
     private LocalDate dayOfBirth;
 
+    @Positive(message = "Phải là số nguyên dương")
     private Integer experience;
 
     private String adress;
@@ -41,6 +43,9 @@ public class SoccerPlayer {
     private String position;
 
     private String urlImage;
+
+    @Column(name = "player_status", columnDefinition = "TINYINT(1)")
+    private boolean playerStatus = false;
 
     @ManyToOne
     @JoinColumn(name = "national_team_id")

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-<head th:replace="~{/layout :: html_head}"></head>
+<head th:replace="~{/common/layout :: html_head}"></head>
 
 <body>
-    <div th:replace="~{/layout :: header}"></div>
+    <div th:replace="~{/common/layout :: header}"></div>
 
     <div class="container">
         <div class="row justify-content-center">
@@ -66,8 +66,11 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Kinh nghiệm (năm)</label>
-                                    <input type="number" th:field="*{experience}" class="form-control">
+                                    <label class="form-label fw-semibold">Kinh nghiệm (năm)</label><span
+                                        style="color: red">*</span>
+                                    <input type="number" th:field="*{experience}" class="form-control" required>
+                                    <span th:if="${#fields.hasErrors('experience')}" th:errors="*{experience}"
+                                          style="color: red"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold">Địa chỉ</label>
@@ -92,7 +95,7 @@
         </div>
     </div>
 
-    <div th:replace="~{/layout :: footer}"></div>
+    <div th:replace="~{/common/layout :: footer}"></div>
 </body>
 
 </html>

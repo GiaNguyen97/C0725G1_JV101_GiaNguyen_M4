@@ -13,11 +13,12 @@
             <div class="card shadow-sm h-100">
 
                 <!-- ẢNH BLOG -->
+                <a th:href="@{/blogs/{id}(id=${b.id})}">
                 <img th:if="${b.img != null}"
                      th:src="@{${b.img}}"
                      class="card-img-top"
                      style="height: 180px; object-fit: cover;"
-                     alt="Blog image">
+                     alt="Blog image"></a>
 
                 <div class="card-body">
                     <h5 class="card-title">
