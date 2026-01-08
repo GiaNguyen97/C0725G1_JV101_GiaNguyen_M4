@@ -10,12 +10,19 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface ISoccerPlayerRepository extends JpaRepository<SoccerPlayer, Long> {
 
   boolean existsByCodePlayer(
       @Pattern(regexp = "^[A-Z]{2}-[0-9]{3}$", message = "Mã cầu thủ phải có định dạng 2 chữ cái viết hoa - 3 số (Ví dụ: GER-001)") String codePlayer);
+
+  boolean existsByCodePlayerAndIdNot(@Pattern(regexp = "^[A-Z]{2}-[0-9]{3}$", message = "Mã cầu thủ phải có định dạng 2 chữ cái viết hoa - 3 số (Ví dụ: VN-001)") String codePlayer, Long id);
+
+  Integer countAllByPlayerStatus(boolean playerStatus);
+
+  List<SoccerPlayer> findAllByPlayerStatus(boolean playerStatus);
 
   @Query("""
           SELECT s FROM SoccerPlayer s
@@ -31,3 +38,4 @@ public interface ISoccerPlayerRepository extends JpaRepository<SoccerPlayer, Lon
       @Param("searchPosition") String searchPosition,
       Pageable pageable);
 }
+

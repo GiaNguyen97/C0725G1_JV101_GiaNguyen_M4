@@ -3,141 +3,298 @@
 
 <head th:replace="~{/common/layout :: html_head}"></head>
 
-<body class="bg-light"> <div th:replace="~{/common/layout :: header}"></div>
+<body class="bg-light">
+    <div th:replace="~{/common/layout :: header}"></div>
 
-<div class="container py-4">
-    <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb shadow-sm p-3 bg-white rounded">
-            <li class="breadcrumb-item">
-                <a th:href="@{/soccers(page=${page}, size=${size}, name=${name}, dobFrom=${dobFrom}, dobTo=${dobTo}, searchPosition=${searchPosition})}"
-                   class="text-decoration-none text-primary">
-                    <i class="bi bi-house-door me-1"></i>Danh sách
-                </a>
-            </li>
-            <li class="breadcrumb-item active fw-bold">Chi tiết cầu thủ</li>
-        </ol>
-    </nav>
+    <div class="container py-5">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb bg-white p-3 rounded shadow-sm">
+                <li class="breadcrumb-item">
+                    <a th:href="@{/soccers(page=${page}, size=${size}, name=${name}, dobFrom=${dobFrom}, dobTo=${dobTo}, searchPosition=${searchPosition})}"
+                        class="text-decoration-none text-secondary hover-primary">
+                        <i class="bi bi-house-door-fill me-1"></i>Trang chủ
+                    </a>
+                </li>
+                <li class="breadcrumb-item active fw-semibold text-primary" aria-current="page">Chi tiết cầu thủ</li>
+            </ol>
+        </nav>
 
-    <div class="card border-0 shadow-sm overflow-hidden">
-        <div class="row g-0">
-            <div class="col-md-4 bg-white text-center p-4 border-end">
-                <div class="position-relative d-inline-block mb-3">
-                    <img th:src="${soccerPlayer.urlImage}"
-                         class="img-fluid shadow border border-3 border-white"
-                         style="border-radius: 20px; width: 100%; max-width: 300px; height: 350px; object-fit: cover;">
-                </div>
+        <div class="row g-4">
+            <!-- Sidebar: Image & Status -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm h-100 overflow-hidden">
+                    <div class="card-body text-center p-4 bg-white">
+                        <div class="position-relative d-inline-block mb-4">
+                            <img th:src="${soccerPlayer.urlImage}" class="img-fluid shadow-lg"
+                                style="width: 100%; max-width: 300px; height: 350px; object-fit: cover; border-radius: 20px; border: 6px solid #f8f9fa;"
+                                alt="Avatar">
+                            <span
+                                class="position-absolute bottom-0 end-0 badge rounded-pill border border-2 border-white p-2"
+                                th:classappend="${soccerPlayer.playerStatus ? 'bg-success' : 'bg-secondary'}"
+                                style="transform: scale(1.2);">
+                                <i class="bi"
+                                    th:classappend="${soccerPlayer.playerStatus ? 'bi-check-circle-fill' : 'bi-pause-circle-fill'}"></i>
+                            </span>
+                        </div>
 
-                <h3 class="fw-bold text-dark mb-2" th:text="${soccerPlayer.namePlayer}"></h3>
+                        <h3 class="fw-bold mb-1" th:text="${soccerPlayer.namePlayer}"></h3>
+                        <p class="text-muted mb-3" th:text="${soccerPlayer.codePlayer}"></p>
 
-                <div th:switch="${soccerPlayer.position}" class="mb-3">
-                    <span th:case="'Tiền đạo'" class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle px-3 py-2">Tiền đạo</span>
-                    <span th:case="'Tiền vệ'" class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">Tiền vệ</span>
-                    <span th:case="'Trung vệ'" class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">Trung vệ</span>
-                    <span th:case="'Hậu vệ'" class="badge rounded-pill bg-info-subtle text-info border border-info-subtle px-3 py-2">Hậu vệ</span>
-                    <span th:case="'Thủ môn'" class="badge rounded-pill bg-warning-subtle text-warning-emphasis border border-warning-subtle px-3 py-2">Thủ môn</span>
-                    <span th:case="*" class="badge rounded-pill bg-secondary-subtle text-secondary px-3 py-2" th:text="${soccerPlayer.position}"></span>
+
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary fw-semibold" data-bs-toggle="modal"
+                                data-bs-target="#registerModal" th:data-id="${soccerPlayer.id}"
+                                th:data-name="${soccerPlayer.namePlayer}" th:data-status="${soccerPlayer.playerStatus}">
+                                <i class="bi bi-arrow-repeat me-2"></i>Thay đổi trạng thái
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-md-8 bg-white">
-                <div class="card-body p-5">
-                    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-                        <h4 class="fw-bold text-primary m-0">Thông tin cầu thủ</h4>
-                        <span class="text-muted small">Mã: <span class="fw-bold" th:text="${soccerPlayer.codePlayer}"></span></span>
+            <!-- Main Content: Info -->
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-white py-3 border-bottom-0">
+                        <h5 class="card-title fw-bold text-primary mb-0">
+                            <i class="bi bi-person-lines-fill me-2"></i>Thông tin chi tiết
+                        </h5>
                     </div>
-
-                    <div class="row mb-4 align-items-center">
-                        <div class="col-sm-4 text-muted fst-italic"><i class="bi bi-calendar-event me-2"></i>Ngày sinh</div>
-                        <div class="col-sm-8 fw-bold text-dark" th:text="${#temporals.format(soccerPlayer.dayOfBirth,'dd/MM/yyyy')}"></div>
-                    </div>
-
-                    <div class="row mb-4 align-items-center">
-                        <div class="col-sm-4 text-muted fst-italic"><i class="bi bi-star me-2"></i>Kinh nghiệm</div>
-                        <div class="col-sm-8 fw-bold">
-                            <span class="text-dark" th:text="${soccerPlayer.experience}"></span>
-                            <span class="text-dark">Năm</span>
-                        </div>
-                    </div>
-
-                    <div class="row mb-4 align-items-center">
-                        <div class="col-sm-4 text-muted fst-italic"><i class="bi bi-flag me-2"></i>Đội tuyển</div>
-                        <div class="col-sm-8">
-                            <div th:if="${soccerPlayer.nationalTeam != null}" class="d-flex align-items-center gap-2">
-                                <img th:src="${soccerPlayer.nationalTeam.logoUrl}"
-                                     class="img-thumbnail"
-                                     style="width: 45px; height: 45px; object-fit: contain; background: #f8f9fa;">
-                                <span class="fw-bold text-dark" th:text="${soccerPlayer.nationalTeam.nameNationalTeam}"></span>
+                    <div class="card-body p-4">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3 h-100 border-start border-4 border-warning">
+                                    <label class="text-muted small text-uppercase fw-bold mb-1">Vị trí thi đấu</label>
+                                    <div class="fs-5 fw-bold text-dark" th:text="${soccerPlayer.position}"></div>
+                                </div>
                             </div>
-                            <span th:if="${soccerPlayer.nationalTeam == null}" class="text-muted small">Chưa cập nhật</span>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3 h-100 border-start border-4 border-info">
+                                    <label class="text-muted small text-uppercase fw-bold mb-1">Ngày sinh</label>
+                                    <div class="fs-5 fw-bold text-dark"
+                                        th:text="${#temporals.format(soccerPlayer.dayOfBirth,'dd/MM/yyyy')}"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3 h-100 border-start border-4 border-success">
+                                    <label class="text-muted small text-uppercase fw-bold mb-1">Kinh nghiệm</label>
+                                    <div class="fs-5 fw-bold text-dark">
+                                        <span th:text="${soccerPlayer.experience}"></span> năm
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3 h-100 border-start border-4 border-danger">
+                                    <label class="text-muted small text-uppercase fw-bold mb-1">Đội tuyển quốc
+                                        gia</label>
+                                    <div class="d-flex align-items-center gap-2 mt-1">
+                                        <th:block th:if="${soccerPlayer.nationalTeam != null}">
+                                            <img th:src="${soccerPlayer.nationalTeam.logoUrl}"
+                                                style="width: 32px; height: 32px; object-fit: contain;">
+                                            <span class="fs-5 fw-bold text-dark"
+                                                th:text="${soccerPlayer.nationalTeam.nameNationalTeam}"></span>
+                                        </th:block>
+                                        <span th:if="${soccerPlayer.nationalTeam == null}"
+                                            class="fs-6 fst-italic text-muted">Chưa cập nhật</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="p-3 bg-light rounded-3 h-100 border-start border-4 border-secondary">
+                                    <label class="text-muted small text-uppercase fw-bold mb-1">Địa chỉ</label>
+                                    <div class="fs-5 fw-bold text-dark">
+                                        <i class="bi bi-geo-alt-fill me-2 text-danger"></i>
+                                        <span
+                                            th:text="${soccerPlayer.adress != null && !soccerPlayer.adress.isEmpty() ? soccerPlayer.adress : 'Chưa cập nhật'}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="p-3 bg-light rounded-3 h-100 border-start border-4 border-primary">
+                                    <label class="text-muted small text-uppercase fw-bold mb-1">Trạng thái hiện
+                                        tại</label>
+                                    <div class="fs-5 fw-bold"
+                                        th:classappend="${soccerPlayer.playerStatus ? 'text-success' : 'text-secondary'}">
+                                        <i class="bi me-2"
+                                            th:classappend="${soccerPlayer.playerStatus ? 'bi-check-circle-fill' : 'bi-pause-circle-fill'}"></i>
+                                        <span
+                                            th:text="${soccerPlayer.playerStatus ? 'Đã đăng ký thi đấu' : 'Dự bị'}"></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="row mb-4 align-items-center">
-                        <div class="col-sm-4 text-muted fst-italic"><i class="bi bi-geo-alt me-2"></i>Địa chỉ</div>
-                        <div class="col-sm-8 text-dark fw-semibold" th:text="${soccerPlayer.adress}"></div>
-                    </div>
-
-                    <div class="mt-5 d-flex gap-3 border-top pt-4">
-                        <a th:href="@{/soccers(page=${page}, size=${size}, name=${name}, dobFrom=${dobFrom}, dobTo=${dobTo}, searchPosition=${searchPosition})}"
-                           class="btn btn-light border px-4 shadow-sm">
-                            <i class="bi bi-arrow-left me-1"></i> Quay lại
-                        </a>
-
+                    <div class="card-footer bg-white p-4 border-top-0 d-flex justify-content-end gap-2">
                         <a th:href="@{/soccers/{id}/edit(id=${soccerPlayer.id}, page=${page}, size=${size}, name=${name}, dobFrom=${dobFrom}, dobTo=${dobTo}, searchPosition=${searchPosition})}"
-                           class="btn btn-warning text-white px-4 shadow-sm">
-                            <i class="bi bi-pencil-square me-1"></i> Chỉnh sửa
+                            class="btn btn-warning px-4 text-white hover-shadow">
+                            <i class="bi bi-pencil-square me-2"></i>Chỉnh sửa
                         </a>
-
-                        <button class="btn btn-outline-danger px-4 shadow-sm ms-auto" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                th:data-id="${soccerPlayer.id}" th:data-name="${soccerPlayer.namePlayer}">
-                            <i class="bi bi-trash me-1"></i> Xóa cầu thủ
+                        <button class="btn btn-danger px-4 hover-shadow" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal" th:data-id="${soccerPlayer.id}"
+                            th:data-name="${soccerPlayer.namePlayer}">
+                            <i class="bi bi-trash me-2"></i>Xóa
                         </button>
+                        <a th:href="@{/soccers(page=${page}, size=${size}, name=${name}, dobFrom=${dobFrom}, dobTo=${dobTo}, searchPosition=${searchPosition})}"
+                            class="btn btn-secondary px-4 hover-shadow">
+                            Quay lại
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="deleteModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title fw-bold"><i class="bi bi-exclamation-triangle me-2"></i>Xác nhận xóa</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body p-4 text-center">
-                <p class="mb-0 fs-5">Bạn có chắc chắn muốn xóa cầu thủ</p>
-                <h4 class="text-danger fw-bold mt-2" id="playerName"></h4>
-                <p class="text-muted small">Hành động này không thể hoàn tác.</p>
-            </div>
-            <div class="modal-footer bg-light">
-                <button class="btn btn-secondary px-4" data-bs-dismiss="modal">Hủy</button>
-                <form id="deleteForm" method="post">
-                    <input type="hidden" name="name" th:value="${name}" />
-                    <input type="hidden" name="dobFrom" th:value="${dobFrom}" />
-                    <input type="hidden" name="dobTo" th:value="${dobTo}" />
-                    <input type="hidden" name="page" th:value="${page}" />
-                    <input type="hidden" name="size" th:value="${size}" />
-                    <input type="hidden" name="searchPosition" th:value="${searchPosition}" />
-                    <button type="submit" class="btn btn-danger px-4">Đồng ý xóa</button>
-                </form>
+    <!--MODAL-->
+    <!--xóa-->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-exclamation-triangle me-2"></i>Xác nhận xóa</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4 text-center">
+                    <p class="mb-0 fs-5">Bạn có chắc chắn muốn xóa cầu thủ</p>
+                    <h4 class="text-danger fw-bold mt-2" id="playerNameDelete"></h4>
+                    <p class="text-muted small">Hành động này không thể hoàn tác.</p>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button class="btn btn-secondary px-4" data-bs-dismiss="modal">Hủy</button>
+                    <form id="deleteForm" method="post">
+                        <input type="hidden" name="name" th:value="${name}" />
+                        <input type="hidden" name="dobFrom" th:value="${dobFrom}" />
+                        <input type="hidden" name="dobTo" th:value="${dobTo}" />
+                        <input type="hidden" name="page" th:value="${page}" />
+                        <input type="hidden" name="size" th:value="${size}" />
+                        <input type="hidden" name="searchPosition" th:value="${searchPosition}" />
+                        <input type="hidden" name="namePlayer" th:value="${soccerPlayer.namePlayer}" />
+
+                        <button type="submit" class="btn btn-danger px-4">Đồng ý xóa</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <!--Thay đổi trạng thái thi đấu-->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 450px;">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
 
-<script>
-    const deleteModal = document.getElementById('deleteModal');
-    deleteModal.addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget;
-        const playerId = button.getAttribute('data-id');
-        const playerName = button.getAttribute('data-name');
-        document.getElementById("playerName").innerText = playerName;
-        document.getElementById("deleteForm").setAttribute("action", "/soccers/" + playerId + "/delete");
-    });
-</script>
+                <div class="modal-header border-0 pt-4 px-4">
+                    <h5 class="modal-title fw-bold text-dark">
+                        <i class="bi bi-arrow-left-right text-danger me-2"></i>Cập nhật trạng thái
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
 
-<div th:replace="~{/common/layout :: footer}"></div>
+                <div class="modal-body px-4 pb-4">
+                    <div class="text-center mb-4">
+                        <div class="d-inline-block p-3 bg-danger bg-opacity-10 rounded-circle mb-3">
+                            <i class="bi bi-person-badge text-danger fs-2"></i>
+                        </div>
+                        <p class="text-muted mb-1 small text-uppercase fw-semibold">Cầu thủ thi đấu</p>
+                        <h4 class="fw-bold text-dark" id="playerNameRegister"></h4>
+                    </div>
+
+                    <div class="position-relative d-flex align-items-center justify-content-between p-3 rounded-4"
+                        style="background: #f8f9fa; border: 1px dashed #dee2e6;">
+
+                        <div class="text-center w-100">
+                            <span class="d-block small text-muted mb-1">Hiện tại</span>
+                            <span class="fw-bold text-secondary" id="playerStatusOld"></span>
+                        </div>
+
+                        <div class="position-absolute start-50 top-50 translate-middle">
+                            <div class="bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center"
+                                style="width: 32px; height: 32px; border: 1px solid #eee;">
+                                <i class="bi bi-chevron-right text-danger"></i>
+                            </div>
+                        </div>
+
+                        <div class="text-center w-100">
+                            <span class="d-block small text-muted mb-1">Mới</span>
+                            <span class="fw-bold text-danger" id="playerStatusNew"></span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 rounded-3 bg-warning bg-opacity-10 border border-warning border-opacity-25">
+                        <p class="small text-warning-emphasis mb-0">
+                            <i class="bi bi-info-circle-fill me-2"></i>Lưu ý: Sau khi xác nhận, hệ thống sẽ cập nhật
+                            danh sách đăng ký thi đấu chính thức.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="modal-footer border-0 p-4 pt-0">
+                    <div class="row w-100 g-2">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-light w-100 py-2 fw-semibold text-secondary"
+                                data-bs-dismiss="modal">Để sau</button>
+                        </div>
+                        <div class="col-6">
+                            <form id="registerForm" th:object="${soccerPlayer}" method="post">
+                                <!-- thông tin tìm kiếm -->
+                                <input type="hidden" name="name" th:value="${name}" />
+                                <input type="hidden" name="dobFrom" th:value="${dobFrom}" />
+                                <input type="hidden" name="dobTo" th:value="${dobTo}" />
+                                <input type="hidden" name="page" th:value="${page}" />
+                                <input type="hidden" name="size" th:value="${size}" />
+                                <input type="hidden" name="searchPosition" th:value="${searchPosition}" />
+                                <!-- thông tin cầu thủ -->
+                                <input type="hidden" th:field="*{id}">
+                                <input type="hidden" th:field="*{namePlayer}">
+                                <input type="hidden" th:field="*{codePlayer}">
+                                <input type="hidden" th:field="*{experience}">
+                                <input type="hidden" th:field="*{nationalTeam}">
+                                <input type="hidden" th:field="*{urlImage}">
+                                <input type="hidden" th:field="*{adress}">
+                                <input type="hidden" th:field="*{dayOfBirth}">
+                                <input type="hidden" th:field="*{position}">
+                                <input type="hidden" th:field="*{playerStatus}">
+                                <button type="submit" class="btn btn-danger w-100 py-2 fw-bold shadow-sm">
+                                    Xác nhận
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const deleteModal = document.getElementById('deleteModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const playerId = button.getAttribute('data-id');
+            const playerName = button.getAttribute('data-name');
+            document.getElementById("playerNameDelete").innerText = playerName;
+            document.getElementById("deleteForm").setAttribute("action", "/soccers/" + playerId + "/delete");
+        });
+    </script>
+
+    <script>
+        const registerModal = document.getElementById('registerModal');
+        registerModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const playerId = button.getAttribute('data-id');
+            const playerName = button.getAttribute('data-name');
+            const playerStatus = button.getAttribute('data-status') === 'true';
+            document.getElementById("playerNameRegister").innerText = playerName;
+            if (playerStatus) {
+                document.getElementById("playerStatusOld").innerText = 'Đăng ký thi đấu';
+                document.getElementById("playerStatusNew").innerText = 'Dự bị';
+            } else {
+                document.getElementById("playerStatusOld").innerText = 'Dự bị';
+                document.getElementById("playerStatusNew").innerText = 'Đăng ký thi đấu';
+            }
+            document.getElementById("registerForm").setAttribute("action", "/soccers/" + playerId + "/register");
+        });
+    </script>
+
+    <div th:replace="~{/common/layout :: footer}"></div>
 </body>
+
 </html>

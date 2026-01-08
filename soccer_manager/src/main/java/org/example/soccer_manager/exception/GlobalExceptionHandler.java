@@ -38,6 +38,12 @@ public class GlobalExceptionHandler {
         return "error/404";
     }
 
+    @ExceptionHandler(MaxPlayerExceededException.class)
+    public String handleMaxPlayer(Exception ex) {
+        ex.printStackTrace();
+        return "error/limit-player";
+    }
+
     @ExceptionHandler(Exception.class)
     public String handleServerError(Exception ex) {
         ex.printStackTrace();

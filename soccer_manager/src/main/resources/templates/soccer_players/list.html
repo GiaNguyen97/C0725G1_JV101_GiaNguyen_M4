@@ -48,8 +48,10 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="fw-bold m-0">Danh sách cầu thủ</h3>
+        <a href="/soccers/lineup" class="btn btn-primary btn-sm">Đội hình thi đấu</a>
         <a th:href="@{/soccers/add(page=${soccers.number}, size=${size}, name=${name}, dobFrom=${dobFrom}, dobTo=${dobTo}, searchPosition=${searchPosition})}"
            class="btn btn-success btn-sm">+ Thêm cầu thủ</a>
+
     </div>
 
     <div class="card p-3">

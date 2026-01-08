@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface ISoccerPlayerService {
 
@@ -15,6 +16,12 @@ public interface ISoccerPlayerService {
     boolean deleteById(Long id);
 
     boolean existsByCodePlayer(String codePlayer);
+
+    boolean existsByCodePlayerAndIdNot(String codePlayer, Long id);
+
+    void validateCodePlayer(String codePlayer, String countryCode);
+
+    List<SoccerPlayer> findAllByPlayerStatus(boolean playerStatus);
 
     Page<SoccerPlayer> search(String name, LocalDate dobFrom, LocalDate dobTo,String searchPosition, Pageable pageable);
 }

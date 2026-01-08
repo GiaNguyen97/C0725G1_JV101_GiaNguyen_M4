@@ -2,33 +2,40 @@ package org.example.soccer_manager.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.soccer_manager.entity.SoccerPlayer;
+import org.example.soccer_manager.exception.MaxPlayerExceededException;
 import org.example.soccer_manager.repository.ISoccerPlayerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Service
 @RequiredArgsConstructor
 public class SoccerPlayerService implements ISoccerPlayerService {
-    private final ISoccerPlayerRepository ISoccerPlayerRepository;
+    private final ISoccerPlayerRepository soccerPlayerRepository;
 
     @Override
     public SoccerPlayer findById(Long id) {
-        return ISoccerPlayerRepository.findById(id).orElse(null);
+        return soccerPlayerRepository.findById(id).orElse(null);
     }
 
     @Override
     public SoccerPlayer save(SoccerPlayer soccerPlayer) {
-        return ISoccerPlayerRepository.save(soccerPlayer);
+        if (soccerPlayer.isPlayerStatus()) {
+            if (soccerPlayerRepository.countAllByPlayerStatus(true) >= 11) {
+                throw new MaxPlayerExceededException();
+            }
+        }
+        return soccerPlayerRepository.save(soccerPlayer);
     }
 
     @Override
     public boolean deleteById(Long id) {
-        if (ISoccerPlayerRepository.existsById(id)) {
-            ISoccerPlayerRepository.deleteById(id);
+        if (soccerPlayerRepository.existsById(id)) {
+            soccerPlayerRepository.deleteById(id);
             return true;
         }
         return false;
@@ -36,11 +43,28 @@ public class SoccerPlayerService implements ISoccerPlayerService {
 
     @Override
     public boolean existsByCodePlayer(String codePlayer) {
-        return ISoccerPlayerRepository.existsByCodePlayer(codePlayer);
+        return soccerPlayerRepository.existsByCodePlayer(codePlayer);
+    }
+
+    @Override
+    public boolean existsByCodePlayerAndIdNot(String codePlayer, Long id) {
+        return soccerPlayerRepository.existsByCodePlayerAndIdNot(codePlayer, id);
+    }
+
+    @Override
+    public void validateCodePlayer(String codePlayer, String countryCode) {
+        if (!codePlayer.substring(0, 2).equals(countryCode)) {
+            throw new IllegalArgumentException("Vui lòng nhập đúng mã quốc gia bạn chọn " + countryCode);
+        }
+    }
+
+    @Override
+    public List<SoccerPlayer> findAllByPlayerStatus(boolean playerStatus) {
+        return soccerPlayerRepository.findAllByPlayerStatus(playerStatus);
     }
 
     @Override
     public Page<SoccerPlayer> search(String name, LocalDate dobFrom, LocalDate dobTo, String searchPosition, Pageable pageable) {
-        return ISoccerPlayerRepository.search(name, dobFrom, dobTo, searchPosition, pageable);
+        return soccerPlayerRepository.search(name, dobFrom, dobTo, searchPosition, pageable);
     }
 }

@@ -27,12 +27,12 @@ public class SoccerPlayerController {
 
     @GetMapping("")
     public String showList(Model model,
-            @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "dobFrom", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
-            @RequestParam(value = "dobTo", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
-            @RequestParam(value = "searchPosition", required = false) String searchPosition,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
+                           @RequestParam(value = "name", required = false) String name,
+                           @RequestParam(value = "dobFrom", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                           @RequestParam(value = "dobTo", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                           @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                           @RequestParam(defaultValue = "0") int page,
+                           @RequestParam(defaultValue = "5") int size) {
         Pageable pageable = PageRequest.of(page, size,
                 Sort.by("codePlayer").ascending());
 
@@ -48,12 +48,12 @@ public class SoccerPlayerController {
 
     @GetMapping("/{id}/detail")
     public String showDetail(@PathVariable("id") Long id, Model model,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
-            @RequestParam(value = "searchPosition", required = false) String searchPosition,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
+                             @RequestParam(required = false) String name,
+                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                             @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                             @RequestParam(defaultValue = "0") int page,
+                             @RequestParam(defaultValue = "5") int size) {
         model.addAttribute("soccerPlayer", soccerPlayerService.findById(id));
 
         model.addAttribute("name", name);
@@ -68,12 +68,12 @@ public class SoccerPlayerController {
 
     @GetMapping("/add")
     public String formAddNewPlayer(Model model,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
-            @RequestParam(value = "searchPosition", required = false) String searchPosition,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
+                                   @RequestParam(required = false) String name,
+                                   @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                                   @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                                   @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                                   @RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(defaultValue = "5") int size) {
         model.addAttribute("soccerPlayer", new SoccerPlayer());
         model.addAttribute("nationalTeams", nationalTeamService.findAll());
         model.addAttribute("name", name);
@@ -87,19 +87,30 @@ public class SoccerPlayerController {
 
     @PostMapping("/add")
     public String addNewPlayer(@Valid @ModelAttribute("soccerPlayer") SoccerPlayer soccerPlayer,
-            BindingResult result,
-            Model model,
-            RedirectAttributes redirectAttributes,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
-            @RequestParam(value = "searchPosition", required = false) String searchPosition,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
+                               BindingResult result,
+                               Model model,
+                               RedirectAttributes redirectAttributes,
+                               @RequestParam(required = false) String name,
+                               @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                               @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                               @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                               @RequestParam(defaultValue = "0") int page,
+                               @RequestParam(defaultValue = "5") int size) {
 
         if (soccerPlayerService.existsByCodePlayer(soccerPlayer.getCodePlayer())) {
             result.rejectValue("codePlayer", "duplicate", "Mã cầu thủ đã tồn tại");
         }
+
+        if (soccerPlayer.getNationalTeam() != null) {
+            try {
+                soccerPlayerService.validateCodePlayer(soccerPlayer.getCodePlayer(), soccerPlayer.getNationalTeam().getCountryCode());
+            } catch (IllegalArgumentException ex) {
+                model.addAttribute("nationalTeams", nationalTeamService.findAll());
+                result.rejectValue("codePlayer", "duplicate", ex.getMessage());
+                return "/soccer_players/add";
+            }
+        }
+
 
         if (result.hasErrors()) {
             model.addAttribute("nationalTeams", nationalTeamService.findAll());
@@ -113,9 +124,9 @@ public class SoccerPlayerController {
         }
 
         if (soccerPlayerService.save(soccerPlayer) != null) {
-            redirectAttributes.addFlashAttribute("success", "Thêm mới thành công!");
+            redirectAttributes.addFlashAttribute("success", "Thêm mới cầu thủ " + soccerPlayer.getNamePlayer() + " thành công!");
         } else {
-            redirectAttributes.addFlashAttribute("error", "Thêm mới thất bại!");
+            redirectAttributes.addFlashAttribute("error", "Thêm mới cầu thủ " + soccerPlayer.getNamePlayer() + " thất bại!");
         }
         redirectAttributes.addAttribute("name", name);
         redirectAttributes.addAttribute("dobFrom", dobFrom);
@@ -128,12 +139,12 @@ public class SoccerPlayerController {
 
     @GetMapping("/{id}/edit")
     public String formEditInfoPlayer(@PathVariable("id") Long id, Model model,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
-            @RequestParam(value = "searchPosition", required = false) String searchPosition,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
+                                     @RequestParam(required = false) String name,
+                                     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                                     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                                     @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                                     @RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "5") int size) {
         model.addAttribute("soccerPlayer", soccerPlayerService.findById(id));
         model.addAttribute("nationalTeams", nationalTeamService.findAll());
         model.addAttribute("name", name);
@@ -147,15 +158,27 @@ public class SoccerPlayerController {
 
     @PostMapping("/edit")
     public String editInfoPlayer(@Valid @ModelAttribute("soccerPlayer") SoccerPlayer soccerPlayer,
-            BindingResult result,
-            Model model,
-            RedirectAttributes redirectAttributes,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
-            @RequestParam(value = "searchPosition", required = false) String searchPosition,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
+                                 BindingResult result,
+                                 Model model,
+                                 RedirectAttributes redirectAttributes,
+                                 @RequestParam(required = false) String name,
+                                 @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                                 @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                                 @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                                 @RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "5") int size) {
+        if (soccerPlayerService.existsByCodePlayerAndIdNot(soccerPlayer.getCodePlayer(), soccerPlayer.getId())) {
+            result.rejectValue("codePlayer", "codePlayer.duplicate", "Trùng mã với cầu thủ khác");
+        }
+        if (soccerPlayer.getNationalTeam() != null) {
+            try {
+                soccerPlayerService.validateCodePlayer(soccerPlayer.getCodePlayer(), soccerPlayer.getNationalTeam().getCountryCode());
+            } catch (IllegalArgumentException ex) {
+                model.addAttribute("nationalTeams", nationalTeamService.findAll());
+                result.rejectValue("codePlayer", "codePlayer.invalidFormat", ex.getMessage());
+                return "/soccer_players/edit";
+            }
+        }
         if (result.hasErrors()) {
             model.addAttribute("nationalTeams", nationalTeamService.findAll());
             model.addAttribute("name", name);
@@ -168,9 +191,9 @@ public class SoccerPlayerController {
         }
 
         if (soccerPlayerService.save(soccerPlayer) != null) {
-            redirectAttributes.addFlashAttribute("success", "Cập nhập thông tin thành công!");
+            redirectAttributes.addFlashAttribute("success", "Cập nhập thông tin cầu thủ " + soccerPlayer.getNamePlayer() + " thành công!");
         } else {
-            redirectAttributes.addFlashAttribute("error", "Cập nhập thông tin thất bại!");
+            redirectAttributes.addFlashAttribute("error", "Cập nhập thông tin cầu thủ " + soccerPlayer.getNamePlayer() + " thất bại!");
         }
 
         redirectAttributes.addAttribute("name", name);
@@ -185,16 +208,17 @@ public class SoccerPlayerController {
 
     @PostMapping("/{id}/delete")
     public String deleteSoccerPlayer(@PathVariable("id") Long id, RedirectAttributes redirectAttributes,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
-            @RequestParam(value = "searchPosition", required = false) String searchPosition,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
+                                     @RequestParam(required = false) String name,
+                                     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                                     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                                     @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                                     @RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "5") int size,
+                                     @RequestParam String namePlayer) {
         if (soccerPlayerService.deleteById(id)) {
-            redirectAttributes.addFlashAttribute("success", "Xóa thành công!");
+            redirectAttributes.addFlashAttribute("success", "Xóa cầu thủ " + namePlayer + " thành công!");
         } else {
-            redirectAttributes.addFlashAttribute("error", "Xóa thất bại!");
+            redirectAttributes.addFlashAttribute("error", "Xóa cầu thử " + namePlayer + " thất bại!");
         }
 
         redirectAttributes.addAttribute("name", name);
@@ -205,5 +229,45 @@ public class SoccerPlayerController {
         redirectAttributes.addAttribute("size", size);
 
         return "redirect:/soccers";
+    }
+
+    @PostMapping("/{id}/register")
+    public String registerToCompete(@Valid @ModelAttribute("soccerPlayer") SoccerPlayer soccerPlayer,
+                                    RedirectAttributes redirectAttributes,
+                                    @RequestParam(required = false) String name,
+                                    @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobFrom,
+                                    @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dobTo,
+                                    @RequestParam(value = "searchPosition", required = false) String searchPosition,
+                                    @RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "5") int size) {
+        if (soccerPlayer.isPlayerStatus()) {
+            soccerPlayer.setPlayerStatus(false);
+            if (soccerPlayerService.save(soccerPlayer) != null) {
+                redirectAttributes.addFlashAttribute("success", "Chuyển trạng thái cầu thủ " + soccerPlayer.getNamePlayer() + " sang dự bị thành công!");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Chuyển trạng thái cầu thủ " + soccerPlayer.getNamePlayer() + " sang dự bị thất bại!");
+            }
+        } else {
+            soccerPlayer.setPlayerStatus(true);
+            if (soccerPlayerService.save(soccerPlayer) != null) {
+                redirectAttributes.addFlashAttribute("success", "Đăng ký thi đấu cho cầu thủ " + soccerPlayer.getNamePlayer() + " thành công!");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Đăng ký thi đấu cho cầu thủ " + soccerPlayer.getNamePlayer() + " thất bại!");
+            }
+        }
+
+        redirectAttributes.addAttribute("name", name);
+        redirectAttributes.addAttribute("dobFrom", dobFrom);
+        redirectAttributes.addAttribute("dobTo", dobTo);
+        redirectAttributes.addAttribute("searchPosition", searchPosition);
+        redirectAttributes.addAttribute("page", page);
+        redirectAttributes.addAttribute("size", size);
+        return "redirect:/soccers";
+    }
+
+    @GetMapping("/lineup")
+    public String showLineup(Model model) {
+        model.addAttribute("lineup",soccerPlayerService.findAllByPlayerStatus(true));
+        return "/soccer_players/lineup";
     }
 }
