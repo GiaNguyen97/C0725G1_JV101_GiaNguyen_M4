@@ -15,14 +15,6 @@
                     </div>
                     <div class="card-body p-4">
                         <form th:action="@{/soccers/add}" th:object="${soccerPlayer}" method="post">
-                            <!-- Hidden params to preserve state -->
-                            <input type="hidden" name="name" th:value="${name}" />
-                            <input type="hidden" name="dobFrom" th:value="${dobFrom}" />
-                            <input type="hidden" name="dobTo" th:value="${dobTo}" />
-                            <input type="hidden" name="page" th:value="${page}" />
-                            <input type="hidden" name="size" th:value="${size}" />
-                            <input type="hidden" name="searchPosition" th:value="${searchPosition}" />
-
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold">Mã cầu thủ </label><span
@@ -45,7 +37,7 @@
                                         style="color: red">*</span>
                                     <input type="date" th:field="*{dayOfBirth}" class="form-control" required>
                                     <span th:if="${#fields.hasErrors('dayOfBirth')}" th:errors="*{dayOfBirth}"
-                                          style="color: red"></span>
+                                        style="color: red"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold">Vị trí</label>
@@ -70,7 +62,7 @@
                                         style="color: red">*</span>
                                     <input type="number" th:field="*{experience}" class="form-control" required>
                                     <span th:if="${#fields.hasErrors('experience')}" th:errors="*{experience}"
-                                          style="color: red"></span>
+                                        style="color: red"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold">Địa chỉ</label>
@@ -84,8 +76,7 @@
                             </div>
 
                             <div class="mt-4 pt-3 border-top text-end">
-                                <a th:href="@{/soccers(page=${page}, size=${size}, name=${name}, dobFrom=${dobFrom}, dobTo=${dobTo}, searchPosition=${searchPosition})}"
-                                    class="btn btn-light px-4 me-2">Hủy</a>
+                                <a th:href="@{/soccers}" class="btn btn-light px-4 me-2">Hủy</a>
                                 <button type="submit" class="btn btn-primary px-4">Lưu cầu thủ</button>
                             </div>
                         </form>

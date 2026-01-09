@@ -23,5 +23,8 @@ public interface ISoccerPlayerService {
 
     List<SoccerPlayer> findAllByPlayerStatus(boolean playerStatus);
 
-    Page<SoccerPlayer> search(String name, LocalDate dobFrom, LocalDate dobTo,String searchPosition, Pageable pageable);
+    Page<SoccerPlayer> search(String name, LocalDate dobFrom, LocalDate dobTo, String searchPosition,
+            Pageable pageable);
+
+    List<SoccerPlayer> findAllById(Iterable<Long> ids);
 }

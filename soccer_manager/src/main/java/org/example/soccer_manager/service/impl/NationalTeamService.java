@@ -1,8 +1,9 @@
-package org.example.soccer_manager.service;
+package org.example.soccer_manager.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.example.soccer_manager.entity.NationalTeam;
 import org.example.soccer_manager.repository.INationalTeamRepository;
+import org.example.soccer_manager.service.INationalTeamService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

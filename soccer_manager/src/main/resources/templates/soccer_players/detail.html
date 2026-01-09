@@ -11,8 +11,7 @@
         <nav aria-label="breadcrumb" class="mb-4">
             <ol class="breadcrumb bg-white p-3 rounded shadow-sm">
                 <li class="breadcrumb-item">
-                    <a th:href="@{/soccers(page=${page}, size=${size}, name=${name}, dobFrom=${dobFrom}, dobTo=${dobTo}, searchPosition=${searchPosition})}"
-                        class="text-decoration-none text-secondary hover-primary">
+                    <a th:href="@{/soccers}" class="text-decoration-none text-secondary hover-primary">
                         <i class="bi bi-house-door-fill me-1"></i>Trang chủ
                     </a>
                 </li>
@@ -44,6 +43,14 @@
 
 
                         <div class="d-grid gap-2">
+                            <a th:href="@{/soccers/favorite/{id}(id=${soccerPlayer.id})}" class="btn fw-semibold"
+                                th:classappend="${fav_players != null && fav_players.contains(soccerPlayer.id)} ? 'btn-danger' : 'btn-outline-danger'">
+                                <i class="bi"
+                                    th:classappend="${fav_players != null && fav_players.contains(soccerPlayer.id)} ? 'bi-heart-fill' : 'bi-heart'"></i>
+                                <span
+                                    th:text="${fav_players != null && fav_players.contains(soccerPlayer.id)} ? 'Bỏ yêu thích' : 'Yêu thích'"></span>
+                            </a>
+
                             <button class="btn btn-outline-primary fw-semibold" data-bs-toggle="modal"
                                 data-bs-target="#registerModal" th:data-id="${soccerPlayer.id}"
                                 th:data-name="${soccerPlayer.namePlayer}" th:data-status="${soccerPlayer.playerStatus}">
@@ -127,7 +134,7 @@
                         </div>
                     </div>
                     <div class="card-footer bg-white p-4 border-top-0 d-flex justify-content-end gap-2">
-                        <a th:href="@{/soccers/{id}/edit(id=${soccerPlayer.id}, page=${page}, size=${size}, name=${name}, dobFrom=${dobFrom}, dobTo=${dobTo}, searchPosition=${searchPosition})}"
+                        <a th:href="@{/soccers/{id}/edit(id=${soccerPlayer.id})}"
                             class="btn btn-warning px-4 text-white hover-shadow">
                             <i class="bi bi-pencil-square me-2"></i>Chỉnh sửa
                         </a>
@@ -136,8 +143,7 @@
                             th:data-name="${soccerPlayer.namePlayer}">
                             <i class="bi bi-trash me-2"></i>Xóa
                         </button>
-                        <a th:href="@{/soccers(page=${page}, size=${size}, name=${name}, dobFrom=${dobFrom}, dobTo=${dobTo}, searchPosition=${searchPosition})}"
-                            class="btn btn-secondary px-4 hover-shadow">
+                        <a th:href="@{/soccers}" class="btn btn-secondary px-4 hover-shadow">
                             Quay lại
                         </a>
                     </div>
@@ -163,14 +169,7 @@
                 <div class="modal-footer bg-light">
                     <button class="btn btn-secondary px-4" data-bs-dismiss="modal">Hủy</button>
                     <form id="deleteForm" method="post">
-                        <input type="hidden" name="name" th:value="${name}" />
-                        <input type="hidden" name="dobFrom" th:value="${dobFrom}" />
-                        <input type="hidden" name="dobTo" th:value="${dobTo}" />
-                        <input type="hidden" name="page" th:value="${page}" />
-                        <input type="hidden" name="size" th:value="${size}" />
-                        <input type="hidden" name="searchPosition" th:value="${searchPosition}" />
                         <input type="hidden" name="namePlayer" th:value="${soccerPlayer.namePlayer}" />
-
                         <button type="submit" class="btn btn-danger px-4">Đồng ý xóa</button>
                     </form>
                 </div>
@@ -235,13 +234,6 @@
                         </div>
                         <div class="col-6">
                             <form id="registerForm" th:object="${soccerPlayer}" method="post">
-                                <!-- thông tin tìm kiếm -->
-                                <input type="hidden" name="name" th:value="${name}" />
-                                <input type="hidden" name="dobFrom" th:value="${dobFrom}" />
-                                <input type="hidden" name="dobTo" th:value="${dobTo}" />
-                                <input type="hidden" name="page" th:value="${page}" />
-                                <input type="hidden" name="size" th:value="${size}" />
-                                <input type="hidden" name="searchPosition" th:value="${searchPosition}" />
                                 <!-- thông tin cầu thủ -->
                                 <input type="hidden" th:field="*{id}">
                                 <input type="hidden" th:field="*{namePlayer}">
@@ -291,6 +283,57 @@
                 document.getElementById("playerStatusNew").innerText = 'Đăng ký thi đấu';
             }
             document.getElementById("registerForm").setAttribute("action", "/soccers/" + playerId + "/register");
+        });
+    </script>
+
+    <!--TOAST-->
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1060;">
+        <div id="toastMessage" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <span id="toastIcon" class="me-2 fs-5"></span>
+                <strong class="me-auto" id="toastTitle"></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="toastBody"></div>
+            <div id="progressBar" class="toast-progress"></div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            const successMsg = [[${ success }]];
+            const errorMsg = [[${ error }]];
+
+            const toastEl = document.getElementById("toastMessage");
+            const toastIcon = document.getElementById("toastIcon");
+            const toastTitle = document.getElementById("toastTitle");
+            const toastBody = document.getElementById("toastBody");
+            const progressBar = document.getElementById("progressBar");
+
+            let show = false;
+
+            if (successMsg) {
+                toastTitle.innerText = "Thành công";
+                toastTitle.className = "me-auto text-success";
+                toastBody.innerText = successMsg;
+                toastIcon.innerHTML = "✅";
+                progressBar.style.backgroundColor = "#198754";
+                show = true;
+            } else if (errorMsg) {
+                toastTitle.innerText = "Thông báo lỗi";
+                toastTitle.className = "me-auto text-danger";
+                toastBody.innerText = errorMsg;
+                toastIcon.innerHTML = "❌";
+                progressBar.style.backgroundColor = "#dc3545";
+                show = true;
+            }
+
+            if (show) {
+                const duration = 4000;
+                progressBar.style.animationDuration = duration + "ms";
+                const bsToast = new bootstrap.Toast(toastEl, { delay: duration });
+                bsToast.show();
+            }
         });
     </script>
 
