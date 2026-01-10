@@ -44,11 +44,11 @@
 
                         <div class="d-grid gap-2">
                             <a th:href="@{/soccers/favorite/{id}(id=${soccerPlayer.id})}" class="btn fw-semibold"
-                                th:classappend="${fav_players != null && fav_players.contains(soccerPlayer.id)} ? 'btn-danger' : 'btn-outline-danger'">
+                                th:classappend="${favoritePlayerSession != null && favoritePlayerSession.contains(soccerPlayer.id)} ? 'btn-danger' : 'btn-outline-danger'">
                                 <i class="bi"
-                                    th:classappend="${fav_players != null && fav_players.contains(soccerPlayer.id)} ? 'bi-heart-fill' : 'bi-heart'"></i>
+                                    th:classappend="${favoritePlayerSession != null && favoritePlayerSession.contains(soccerPlayer.id)} ? 'bi-heart-fill' : 'bi-heart'"></i>
                                 <span
-                                    th:text="${fav_players != null && fav_players.contains(soccerPlayer.id)} ? 'Bỏ yêu thích' : 'Yêu thích'"></span>
+                                    th:text="${favoritePlayerSession != null && favoritePlayerSession.contains(soccerPlayer.id)} ? 'Bỏ yêu thích' : 'Yêu thích'"></span>
                             </a>
 
                             <button class="btn btn-outline-primary fw-semibold" data-bs-toggle="modal"

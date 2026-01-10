@@ -14,8 +14,9 @@
             <h5 class="card-title fw-bold mb-0 text-white">📝 CHỈNH SỬA THÔNG TIN</h5>
           </div>
           <div class="card-body p-4">
-            <form th:action="@{/soccers/edit}" th:object="${soccerPlayer}" method="post">
+            <form th:action="@{/soccers/edit}" th:object="${soccerPlayer}" method="post" enctype="multipart/form-data">
               <input type="hidden" th:field="*{id}">
+              <input type="hidden" th:field="*{urlImage}">
 
               <div class="row g-3">
                 <div class="col-md-4 text-center">
@@ -76,14 +77,14 @@
                   <input type="text" th:field="*{adress}" class="form-control">
                 </div>
                 <div class="col-md-12">
-                  <label class="form-label fw-semibold">Cập nhật Link ảnh</label>
-                  <input type="text" th:field="*{urlImage}" class="form-control">
+                  <label class="form-label fw-semibold">Cập nhật ảnh đại diện</label>
+                  <input type="file" name="imageFile" class="form-control" accept="image/*">
+                  <small class="text-muted">Để trống nếu không muốn thay đổi ảnh</small>
                 </div>
               </div>
 
               <div class="mt-4 pt-3 border-top text-end">
-                <a th:href="@{/soccers(page=${page}, size=${size}, name=${name}, dobFrom=${dobFrom}, dobTo=${dobTo}, searchPosition=${searchPosition})}"
-                  class="btn btn-light px-4 me-2">Quay lại</a>
+                <a th:href="@{/soccers/{id}/detail(id=${soccerPlayer.id})}" class="btn btn-light px-4 me-2">Quay lại</a>
                 <button type="submit" class="btn btn-warning px-4 text-white">Cập nhật thay đổi</button>
               </div>
             </form>

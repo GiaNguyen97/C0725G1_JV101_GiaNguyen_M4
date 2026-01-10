@@ -16,6 +16,11 @@
     font-weight: bold;
     color: #6c757d;
   }
+
+  .ratio-3x4 {
+    --bs-aspect-ratio: 133.33%;
+    /* 4/3 height/width for portrait */
+  }
 </style>
 
 <body>
@@ -84,7 +89,7 @@
 
             <div class="card-body text-center pt-2">
               <div class="mb-3">
-                <div class="ratio ratio-1x1 mb-2 bg-light rounded border overflow-hidden">
+                <div class="ratio ratio-3x4 mb-2 bg-light rounded border overflow-hidden">
                   <div class="d-flex align-items-center justify-content-center h-100">
                     <a th:href="@{/soccers/{id}/detail(id=${row.id})}">
                       <img th:if="${row.urlImage != null && !row.urlImage.isEmpty()}" th:src="${row.urlImage}"
@@ -121,6 +126,14 @@
                     class="badge rounded-pill bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-2"
                     th:text="${row.position}"></span>
                 </span>
+                <div class="mt-2">
+                  <span th:if="${row.playerStatus}"
+                    class="badge bg-success bg-opacity-10 text-success border border-success"><i
+                      class="bi bi-check-circle-fill"></i> Đang thi đấu</span>
+                  <span th:unless="${row.playerStatus}"
+                    class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary"><i
+                      class="bi bi-pause-circle-fill"></i> Dự bị</span>
+                </div>
               </div>
 
               <div class="d-flex align-items-center justify-content-center gap-2 bg-light p-2 rounded">
