@@ -17,4 +17,9 @@ public class NationalTeamService implements INationalTeamService {
     public List<NationalTeam> findAll() {
         return nationalTeamRepository.findAll();
     }
+
+    @Override
+    public NationalTeam findById(Long id) {
+        return nationalTeamRepository.findById(id).orElse(null);
+    }
 }

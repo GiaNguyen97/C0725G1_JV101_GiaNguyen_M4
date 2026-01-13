@@ -1,1 +1,12 @@
 
+[2026-01-12 09:20:35] Cầu thủ=DE-005 | Tên=Mats Hummels | Trạng thái: DỰ BỊ → THI ĐẤU
+[2026-01-12 10:23:09] Cầu thủ=DE-016 | Tên=Philipp Lahm | Trạng thái: DỰ BỊ → THI ĐẤU
+[2026-01-12 10:23:25] Cầu thủ=DE-013 | Tên=Thomas Müller | Trạng thái: DỰ BỊ → THI ĐẤU
+[2026-01-12 13:34:22] Cầu thủ=DE-017 | Tên=Jerome Boateng | Trạng thái: DỰ BỊ → THI ĐẤU
+[2026-01-12 13:38:42] Cầu thủ=DE-017 | Tên=Jerome Boateng | Trạng thái: DỰ BỊ → THI ĐẤU
+[2026-01-12 14:09:42] Cầu thủ=DE-017 | Tên=Jerome Boateng | Trạng thái: DỰ BỊ → THI ĐẤU
+[2026-01-12 14:46:19] Cầu thủ=DE-017 | Tên=Jerome Boateng | Trạng thái: DỰ BỊ → THI ĐẤU
+[2026-01-12 15:31:26] Cầu thủ=VN-001 | Tên=Nguyễn Văn An | Trạng thái: DỰ BỊ → THI ĐẤU
+[2026-01-12 15:40:51] Cầu thủ=VN-001 | Tên=Nguyễn Văn An | Trạng thái: DỰ BỊ → THI ĐẤU
+[2026-01-12 15:41:25] Cầu thủ=VN-001 | Tên=Nguyễn Văn An | Trạng thái: THI ĐẤU → DỰ BỊ
+[2026-01-12 15:42:32] Cầu thủ=DE-021 | Tên=Mesut Özil | Trạng thái: DỰ BỊ → THI ĐẤU

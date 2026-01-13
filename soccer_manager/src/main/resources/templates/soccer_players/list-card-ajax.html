@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="~{/common/layout :: html_head}"></head>
+<style>
+  .hover-shadow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+  }
+
+  .transition-all {
+    transition: all .3s ease-in-out;
+  }
+
+  .ratio-3x4 {
+    --bs-aspect-ratio: 133.33%;
+  }
+
+  .avatar-placeholder {
+    font-weight: bold;
+    color: #6c757d;
+  }
+</style>
+
+<body>
+  <div th:replace="~{/common/layout :: header}"></div>
+
+  <div class="container">
+
+    <form id="searchForm" class="card shadow-sm p-4 mb-4 mt-4 border-0 bg-light" th:object="${playerSearchDTO}">
+      <div class="row g-3 align-items-end">
+        <div class="col-lg-3 col-md-6">
+          <label class="form-label fw-semibold small text-uppercase">Tên cầu thủ</label>
+          <input type="text" class="form-control" th:field="*{name}" placeholder="VD: Messi, Ronaldo...">
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <label class="form-label fw-semibold small text-uppercase">Vị trí</label>
+          <select th:field="*{searchPosition}" id="searchPosition" class="form-select">
+            <option value="">-- Tất cả vị trí --</option>
+            <option value="Tiền đạo">Tiền đạo</option>
+            <option value="Tiền vệ">Tiền vệ</option>
+            <option value="Trung vệ">Trung vệ</option>
+            <option value="Hậu vệ">Hậu vệ</option>
+            <option value="Thủ môn">Thủ môn</option>
+          </select>
+        </div>
+
+        <div class="col-lg-4 col-md-8">
+          <label class="form-label fw-semibold small text-uppercase">Ngày sinh</label>
+          <div class="input-group">
+            <input type="date" class="form-control" th:field="*{dobFrom}">
+            <span class="input-group-text">đến</span>
+            <input type="date" class="form-control" th:field="*{dobTo}">
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-4">
+          <button type="submit" class="btn btn-primary w-100 shadow-sm">
+            <i class="bi bi-search"></i> Tìm kiếm
+          </button>
+        </div>
+
+        <input type="hidden" name="size" id="pageSize" th:value="*{size}">
+        <input type="hidden" name="page" id="currentPage" th:value="*{page}">
+      </div>
+    </form>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3 class="fw-bold m-0">Danh sách cầu thủ</h3>
+      <div>
+        <a href="/soccers/lineup" class="btn btn-primary btn-sm">Đội hình thi đấu</a>
+        <a href="/soccers/favorites" class="btn btn-danger btn-sm"><i class="bi bi-heart-fill"></i> Danh sách yêu
+          thích</a>
+        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addPlayerModal">
+          <i class="bi bi-person-plus-fill"></i> + Thêm cầu thủ
+        </button>
+      </div>
+    </div>
+
+    <div class="card p-3 border-0 bg-transparent">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4" id="playerListContainer">
+        <!-- Content loaded via AJAX -->
+        <div class="col-12 text-center py-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center py-5 d-none" id="noDataMessage">
+        <div class="text-muted fst-italic display-6 mb-3"><i class="bi bi-search"></i></div>
+        <p class="text-muted">Không tìm thấy cầu thủ nào phù hợp với điều kiện tìm kiếm.</p>
+      </div>
+
+      <!-- Pagination Controls -->
+      <div class="d-flex justify-content-between align-items-center mt-4 mb-5" id="paginationContainer"
+        style="display: none !important;">
+        <div class="text-muted small d-none d-md-block">
+          Tổng số: <strong id="totalElements">0</strong> cầu thủ
+        </div>
+
+        <nav aria-label="Page navigation">
+          <ul class="pagination mb-0" id="paginationList">
+            <!-- Helper buttons rendered by JS -->
+          </ul>
+        </nav>
+
+        <div class="d-flex align-items-center">
+          <div class="input-group input-group-sm">
+            <label class="input-group-text bg-white" for="pageSizeSelect">Hiển thị</label>
+            <select id="pageSizeSelect" class="form-select">
+              <option value="4" selected>4</option>
+              <option value="8">8</option>
+              <option value="12">12</option>
+              <option value="16">16</option>
+              <option value="20">20</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Thêm Mới -->
+    <div class="modal fade" id="addPlayerModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Thêm Mới Cầu Thủ</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="addPlayerForm" enctype="multipart/form-data">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Mã cầu thủ <span class="text-danger">*</span></label>
+                  <input type="text" name="codePlayer" class="form-control" placeholder="VN-001">
+                  <div class="invalid-feedback" id="error-codePlayer"></div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Họ và tên <span class="text-danger">*</span></label>
+                  <input type="text" name="namePlayer" class="form-control" placeholder="Nhập tên">
+                  <div class="invalid-feedback" id="error-namePlayer"></div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Ngày sinh <span class="text-danger">*</span></label>
+                  <input type="date" name="dayOfBirth" class="form-control">
+                  <div class="invalid-feedback" id="error-dayOfBirth"></div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Vị trí</label>
+                  <select name="position" class="form-select">
+                    <option value="Tiền đạo">Tiền đạo</option>
+                    <option value="Tiền vệ">Tiền vệ</option>
+                    <option value="Trung vệ">Trung vệ</option>
+                    <option value="Hậu vệ">Hậu vệ</option>
+                    <option value="Thủ môn">Thủ môn</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Đội tuyển quốc gia</label>
+                  <select name="nationalTeam" class="form-select">
+                    <option value="">-- Chọn đội tuyển --</option>
+                    <option th:each="team : ${nationalTeams}" th:value="${team.id}" th:text="${team.nameNationalTeam}">
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Kinh nghiệm (năm) <span class="text-danger">*</span></label>
+                  <input type="number" name="experience" class="form-control">
+                  <div class="invalid-feedback" id="error-experience"></div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Địa chỉ</label>
+                  <input type="text" name="adress" class="form-control">
+                </div>
+                <div class="col-md-12">
+                  <label class="form-label">Ảnh đại diện</label>
+                  <input type="file" name="imageFile" class="form-control" accept="image/*">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button type="button" class="btn btn-primary" onclick="savePlayer()">Lưu cầu thủ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Success -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content text-center">
+          <div class="modal-body">
+            <div class="text-success display-1"><i class="bi bi-check-circle"></i></div>
+            <h5 class="fw-bold mt-3">Thành Công!</h5>
+            <p>Thêm mới cầu thủ thành công.</p>
+            <button type="button" class="btn btn-success btn-sm w-100" data-bs-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Container (Added to match list-card.html) -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1060;">
+      <div id="toastMessage" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <span id="toastIcon" class="me-2 fs-5"></span>
+          <strong class="me-auto" id="toastTitle"></strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body" id="toastBody"></div>
+        <div id="progressBar" class="toast-progress"></div>
+      </div>
+    </div>
+
+    <div th:replace="~{/common/layout :: footer}"></div>
+  </div>
+
+  <!-- Template for Player Card -->
+  <template id="playerCardTemplate">
+    <div class="col">
+      <div class="card h-100 shadow-sm hover-shadow transition-all">
+        <div class="card-header bg-white border-bottom-0 pt-3 pb-0 d-flex justify-content-between">
+          <span class="badge bg-light text-dark border fw-normal player-code"></span>
+        </div>
+        <div class="card-body text-center pt-2">
+          <div class="mb-3">
+            <div class="ratio ratio-3x4 mb-2 bg-light rounded border overflow-hidden">
+              <div class="d-flex align-items-center justify-content-center h-100">
+                <a href="#" class="player-detail-link">
+                  <img src="" class="w-100 h-100 player-img" style="object-fit: cover; object-position: top;"
+                    onerror="this.src='https://via.placeholder.com/300x400?text=Error'">
+                </a>
+              </div>
+            </div>
+            <h5 class="card-title fw-bold mb-1 text-primary player-name"></h5>
+          </div>
+          <div class="mb-3">
+            <span class="player-position"></span>
+            <div class="mt-2 player-status"></div>
+          </div>
+          <div class="d-flex align-items-center justify-content-center gap-2 bg-light p-2 rounded player-team">
+
+          </div>
+        </div>
+        <div class="card-footer bg-white border-top-0 pb-3 text-center">
+          <a href="#" class="btn btn-outline-primary btn-sm w-100 player-detail-btn"><i class="bi bi-eye"></i> Xem chi
+            tiết</a>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script th:inline="javascript">
+    // Constants
+    const IMAGE_PLACEHOLDER = 'https://via.placeholder.com/300x400?text=No+Image';
+    const TOAST_DURATION = 4000;
+
+    $(document).ready(function () {
+      // Initial load: do not push state
+      loadPlayers(false);
+
+      const successMsg = /*[[${success}]]*/ null;
+      const errorMsg = /*[[${error}]]*/ null;
+
+      if (successMsg) showNotification("Thành công", successMsg, "success");
+      if (errorMsg) showNotification("Lỗi", errorMsg, "error");
+
+      // Event Listeners
+      $('#searchForm').on('submit', function (e) {
+        e.preventDefault();
+        $('#currentPage').val(0); // Reset to page 0 on search
+        loadPlayers(true); // Search: push state
+      });
+
+      $('#pageSizeSelect').on('change', function () {
+        $('#pageSize').val($(this).val());
+        $('#currentPage').val(0);
+        loadPlayers(true);
+      });
+    });
+
+
+    function loadPlayers(updateUrlHistory) {
+      const searchParams = {
+        page: $('#currentPage').val(),
+        size: $('#pageSize').val(),
+        name: $('#name').val(),
+        position: $('#searchPosition').val(),
+        dobFrom: $('#dobFrom').val(),
+        dobTo: $('#dobTo').val()
+      };
+
+      if (updateUrlHistory) {
+        updateBrowserHistory(searchParams);
+      }
+
+      $.ajax({
+        url: '/api/soccers',
+        type: 'GET',
+        data: searchParams,
+        dataType: 'json',
+        success: function (response) {
+          if (response.content) {
+            renderPlayerCards(response.content);
+            renderPaginationControls(response);
+          } else {
+            renderPlayerCards([]);
+            $('#paginationContainer').hide();
+          }
+        },
+        error: function (xhr) {
+          $('#playerListContainer').html('<div class="col-12 text-center text-danger">Lỗi tải dữ liệu</div>');
+          console.error("Load players error:", xhr);
+        }
+      });
+    }
+
+    function updateBrowserHistory(params) {
+      const url = new URL(window.location);
+
+      // Map 'searchPosition' to URL param if present, or clear it
+      if (params.position) {
+        url.searchParams.set('searchPosition', params.position);
+      } else {
+        url.searchParams.delete('searchPosition');
+      }
+      url.searchParams.delete('position'); // Cleanup legacy param
+
+      // Update other params
+      updateUrlParam(url, 'name', params.name);
+      updateUrlParam(url, 'dobFrom', params.dobFrom);
+      updateUrlParam(url, 'dobTo', params.dobTo);
+
+      // Sync page/size logic
+      if (params.page > 0) url.searchParams.set('page', params.page);
+      else url.searchParams.delete('page');
+
+      if (params.size != 4) url.searchParams.set('size', params.size);
+      else url.searchParams.delete('size');
+
+      window.history.pushState({}, '', url);
+    }
+
+    function updateUrlParam(urlObject, key, value) {
+      if (value) urlObject.searchParams.set(key, value);
+      else urlObject.searchParams.delete(key);
+    }
+
+    function changePage(pageNumber) {
+      $('#currentPage').val(pageNumber);
+      loadPlayers(true);
+    }
+
+    function renderPlayerCards(players) {
+      const $container = $('#playerListContainer');
+      $container.empty();
+
+      if (!players || players.length === 0) {
+        $('#noDataMessage').removeClass('d-none');
+        $('#paginationContainer').hide();
+        return;
+      }
+
+      $('#noDataMessage').addClass('d-none');
+      $('#paginationContainer').show();
+
+      const template = document.getElementById('playerCardTemplate');
+
+      players.forEach(player => {
+        const clone = template.content.cloneNode(true);
+        const $card = $(clone);
+
+        // Populate Data
+        $card.find('.player-code').text(player.codePlayer);
+        $card.find('.player-name').text(player.namePlayer);
+        $card.find('.player-img').attr('src', getPlayerImageUrl(player.urlImage));
+        $card.find('.player-detail-link, .player-detail-btn').attr('href', `/soccers/${player.id}/detail`);
+
+        // Position Badge
+        const positionClass = getPositionBadgeClass(player.position);
+        $card.find('.player-position')
+          .addClass(`badge rounded-pill border px-3 py-2 ${positionClass}`)
+          .text(player.position);
+
+        // Status Badge
+        $card.find('.player-status').html(getPlayerStatusHtml(player.playerStatus));
+
+        // National Team
+        $card.find('.player-team').html(getNationalTeamHtml(player.nationalTeam));
+
+        $container.append(clone);
+      });
+    }
+
+    function renderPaginationControls(pageData) {
+      if (pageData.totalPages <= 0) {
+        $('#paginationContainer').hide();
+        return;
+      }
+
+      $('#paginationContainer').css('display', 'flex').show();
+      $('#totalElements').text(pageData.totalElements);
+
+      const $paginationList = $('#paginationList');
+      $paginationList.empty();
+
+      const currentPage = pageData.number;
+      const isFirst = pageData.first;
+      const isLast = pageData.last;
+
+      // Previous Button
+      const prevClass = isFirst ? 'disabled' : '';
+      const prevAction = isFirst ? '#' : `javascript:changePage(${currentPage - 1})`;
+      $paginationList.append(`<li class="page-item ${prevClass}"><a class="page-link" href="${prevAction}">&laquo;</a></li>`);
+
+      // Next Button
+      const nextClass = isLast ? 'disabled' : '';
+      const nextAction = isLast ? '#' : `javascript:changePage(${currentPage + 1})`;
+      $paginationList.append(`<li class="page-item ${nextClass}"><a class="page-link" href="${nextAction}">&raquo;</a></li>`);
+    }
+
+    function savePlayer() {
+      // Clear previous validation errors
+      $('.form-control').removeClass('is-invalid');
+      $('.invalid-feedback').text('');
+
+      const formData = new FormData(document.getElementById('addPlayerForm'));
+
+      $.ajax({
+        url: '/api/soccers',
+        type: 'POST',
+        data: formData,
+        processData: false, // Required for FormData
+        contentType: false, // Required for FormData
+        success: function () {
+          $('#addPlayerModal').modal('hide');
+          document.getElementById('addPlayerForm').reset();
+          $('#successModal').modal('show');
+          loadPlayers(false); // Reload list without changing URL history
+        },
+        error: function (jqXHR) {
+          if (jqXHR.status === 400 && jqXHR.responseJSON) {
+            // Validation Errors
+            Object.entries(jqXHR.responseJSON).forEach(([fieldName, message]) => {
+              const $input = $(`[name="${fieldName}"]`);
+              if ($input.length > 0) {
+                $input.addClass('is-invalid');
+                $(`#error-${fieldName}`).text(message);
+              } else if (fieldName === 'message') {
+                alert(message);
+              }
+            });
+          } else {
+            // General Error
+            const errorMsg = jqXHR.responseJSON?.message || "Đã có lỗi xảy ra";
+            showNotification("Lỗi", errorMsg, "error");
+          }
+        }
+      });
+    }
+
+    function showNotification(title, message, type) {
+      const toastEl = document.getElementById("toastMessage");
+      const toastTitle = document.getElementById("toastTitle");
+      const toastBody = document.getElementById("toastBody");
+      const toastIcon = document.getElementById("toastIcon");
+      const progressBar = document.getElementById("progressBar");
+
+      toastTitle.innerText = title;
+      toastBody.innerText = message;
+
+      if (type === 'success') {
+        toastTitle.className = "me-auto text-success fw-bold";
+        toastIcon.innerHTML = "✅";
+        progressBar.style.backgroundColor = "#198754";
+      } else {
+        toastTitle.className = "me-auto text-danger fw-bold";
+        toastIcon.innerHTML = "❌";
+        progressBar.style.backgroundColor = "#dc3545";
+      }
+
+      // Reset animation
+      progressBar.style.animation = 'none';
+      progressBar.offsetHeight; /* trigger reflow */
+      progressBar.style.animation = null;
+      progressBar.style.animationDuration = `${TOAST_DURATION}ms`;
+
+      const bsToast = new bootstrap.Toast(toastEl, { delay: TOAST_DURATION });
+      bsToast.show();
+    }
+
+    // --- Helper Functions ---
+
+    function getPlayerImageUrl(urlImage) {
+      if (!urlImage) return IMAGE_PLACEHOLDER;
+      if (urlImage.startsWith('http')) return urlImage;
+      if (urlImage.startsWith('/uploads/')) return urlImage;
+      // Extract filename and prepend /uploads/
+      const fileName = urlImage.split(/[/\\]/).pop();
+      return '/uploads/' + fileName;
+    }
+
+    function getPositionBadgeClass(position) {
+      switch (position) {
+        case 'Tiền đạo': return 'bg-danger-subtle text-danger border-danger-subtle';
+        case 'Tiền vệ': return 'bg-primary-subtle text-primary border-primary-subtle';
+        case 'Trung vệ': return 'bg-success-subtle text-success border-success-subtle';
+        case 'Hậu vệ': return 'bg-info-subtle text-info border-info-subtle';
+        case 'Thủ môn': return 'bg-warning-subtle text-warning-emphasis border-warning-subtle';
+        default: return 'bg-secondary-subtle text-secondary border-secondary-subtle';
+      }
+    }
+
+    function getPlayerStatusHtml(isPlaying) {
+      return isPlaying
+        ? '<span class="badge bg-success bg-opacity-10 text-success border border-success"><i class="bi bi-check-circle-fill"></i> Đang thi đấu</span>'
+        : '<span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary"><i class="bi bi-pause-circle-fill"></i> Dự bị</span>';
+    }
+
+    function getNationalTeamHtml(nationalTeam) {
+      if (!nationalTeam) {
+        return '<span class="text-muted small fst-italic">Chưa có đội tuyển</span>';
+      }
+      return `<img src="${nationalTeam.logoUrl}" class="shadow-sm border bg-white rounded" style="width: 24px; height: 24px; object-fit: contain;"> 
+                <span class="small fw-semibold text-dark">${nationalTeam.nameNationalTeam}</span>`;
+    }
+  </script>
+</body>
+
+</html>

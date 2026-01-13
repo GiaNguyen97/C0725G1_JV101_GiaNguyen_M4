@@ -24,9 +24,11 @@ public class SoccerPlayerService implements ISoccerPlayerService {
 
     @Override
     public SoccerPlayer save(SoccerPlayer soccerPlayer) {
-        if (soccerPlayer.isPlayerStatus()) {
-            if (soccerPlayerRepository.countAllByPlayerStatus(true) >= 11) {
-                throw new MaxPlayerExceededException();
+        if (soccerPlayer.isPlayerStatus() != soccerPlayerRepository.findById(soccerPlayer.getId()).orElse(null).isPlayerStatus()) {
+            if (soccerPlayer.isPlayerStatus()) {
+                if (soccerPlayerRepository.countAllByPlayerStatus(true) >= 11) {
+                    throw new MaxPlayerExceededException();
+                }
             }
         }
         return soccerPlayerRepository.save(soccerPlayer);
@@ -65,7 +67,7 @@ public class SoccerPlayerService implements ISoccerPlayerService {
 
     @Override
     public Page<SoccerPlayer> search(String name, LocalDate dobFrom, LocalDate dobTo, String searchPosition,
-            Pageable pageable) {
+                                     Pageable pageable) {
         return soccerPlayerRepository.search(name, dobFrom, dobTo, searchPosition, pageable);
     }
 

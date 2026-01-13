@@ -30,7 +30,7 @@ import java.nio.charset.StandardCharsets;
 @Controller
 @RequestMapping("/soccers")
 @RequiredArgsConstructor
-@SessionAttributes({ "favoritePlayerSession", "playerSearchDTO" })
+@SessionAttributes({"favoritePlayerSession", "playerSearchDTO"})
 public class SoccerPlayerController {
     private final ISoccerPlayerService soccerPlayerService;
     private final INationalTeamService nationalTeamService;
@@ -48,11 +48,11 @@ public class SoccerPlayerController {
 
     @GetMapping("")
     public String showList(Model model,
-            @ModelAttribute("playerSearchDTO") SoccerPlayerSearchDTO searchDTO,
-            @ModelAttribute("favoritePlayerSession") List<Long> favoritePlayerSession,
-            @CookieValue(value = "favoritePlayerCookie", defaultValue = "") String favoritePlayersCookie,
-            @RequestParam(value = "page", required = false) Integer page,
-            @RequestParam(value = "size", required = false) Integer size) {
+                           @ModelAttribute("playerSearchDTO") SoccerPlayerSearchDTO searchDTO,
+                           @ModelAttribute("favoritePlayerSession") List<Long> favoritePlayerSession,
+                           @CookieValue(value = "favoritePlayerCookie", defaultValue = "") String favoritePlayersCookie,
+                           @RequestParam(value = "page", required = false) Integer page,
+                           @RequestParam(value = "size", required = false) Integer size) {
 
         if (favoritePlayerSession.isEmpty() && !favoritePlayersCookie.isEmpty()) {
             String decodedCookie;
@@ -84,12 +84,14 @@ public class SoccerPlayerController {
                 searchDTO.getSearchPosition(),
                 pageable));
 
-        return "/soccer_players/list-card";
+        model.addAttribute("nationalTeams", nationalTeamService.findAll());
+
+        return "/soccer_players/list-card-ajax";
     }
 
     @GetMapping("/favorites")
     public String showFavorites(@ModelAttribute("favoritePlayerSession") List<Long> favoritePlayerSession,
-            Model model) {
+                                Model model) {
         List<SoccerPlayer> favorites = new ArrayList<>();
         if (!favoritePlayerSession.isEmpty()) {
             favorites = soccerPlayerService.findAllById(favoritePlayerSession);
@@ -100,10 +102,10 @@ public class SoccerPlayerController {
 
     @GetMapping("/favorite/{id}")
     public String toggleFavorite(@PathVariable("id") Long id,
-            @ModelAttribute("favoritePlayerSession") List<Long> favoritePlayerSession,
-            HttpServletResponse response,
-            @RequestHeader(value = "referer", required = false) String referer,
-            RedirectAttributes redirectAttributes) {
+                                 @ModelAttribute("favoritePlayerSession") List<Long> favoritePlayerSession,
+                                 HttpServletResponse response,
+                                 @RequestHeader(value = "referer", required = false) String referer,
+                                 RedirectAttributes redirectAttributes) {
 
         SoccerPlayer player = soccerPlayerService.findById(id);
         String name = (player != null) ? player.getNamePlayer() : "Cầu thủ";
@@ -116,7 +118,6 @@ public class SoccerPlayerController {
             redirectAttributes.addFlashAttribute("success", "Đã thêm " + name + " vào danh sách yêu thích!");
         }
 
-        // Update Cookie
         String cookieValue = favoritePlayerSession.stream()
                 .map(String::valueOf)
                 .collect(Collectors.joining(","));
@@ -150,10 +151,10 @@ public class SoccerPlayerController {
 
     @PostMapping("/add")
     public String addNewPlayer(@Valid @ModelAttribute("soccerPlayer") SoccerPlayer soccerPlayer,
-            BindingResult result,
-            Model model,
-            RedirectAttributes redirectAttributes,
-            @RequestParam(value = "imageFile", required = false) org.springframework.web.multipart.MultipartFile imageFile) {
+                               BindingResult result,
+                               Model model,
+                               RedirectAttributes redirectAttributes,
+                               @RequestParam(value = "imageFile", required = false) org.springframework.web.multipart.MultipartFile imageFile) {
 
         if (soccerPlayerService.existsByCodePlayer(soccerPlayer.getCodePlayer())) {
             result.rejectValue("codePlayer", "duplicate", "Mã cầu thủ đã tồn tại");
@@ -175,7 +176,6 @@ public class SoccerPlayerController {
             return "/soccer_players/add";
         }
 
-        // Handle file upload
         if (imageFile != null && !imageFile.isEmpty()) {
             String imagePath = fileStorageService.saveFile(imageFile, "players");
             soccerPlayer.setUrlImage(imagePath);
@@ -200,10 +200,13 @@ public class SoccerPlayerController {
 
     @PostMapping("/edit")
     public String editInfoPlayer(@Valid @ModelAttribute("soccerPlayer") SoccerPlayer soccerPlayer,
-            BindingResult result,
-            Model model,
-            RedirectAttributes redirectAttributes,
-            @RequestParam(value = "imageFile", required = false) org.springframework.web.multipart.MultipartFile imageFile) {
+                                 BindingResult result,
+                                 Model model,
+                                 RedirectAttributes redirectAttributes,
+                                 @RequestParam(value = "imageFile", required = false) org.springframework.web.multipart.MultipartFile imageFile) {
+
+        soccerPlayer.setPlayerStatus(soccerPlayerService.findById(soccerPlayer.getId()).isPlayerStatus());
+
         if (soccerPlayerService.existsByCodePlayerAndIdNot(soccerPlayer.getCodePlayer(), soccerPlayer.getId())) {
             result.rejectValue("codePlayer", "codePlayer.duplicate", "Trùng mã với cầu thủ khác");
         }
@@ -242,7 +245,7 @@ public class SoccerPlayerController {
 
     @PostMapping("/{id}/delete")
     public String deleteSoccerPlayer(@PathVariable("id") Long id, RedirectAttributes redirectAttributes,
-            @RequestParam String namePlayer) {
+                                     @RequestParam String namePlayer) {
         if (soccerPlayerService.deleteById(id)) {
             redirectAttributes.addFlashAttribute("success", "Xóa cầu thủ " + namePlayer + " thành công!");
         } else {
@@ -253,7 +256,7 @@ public class SoccerPlayerController {
 
     @PostMapping("/{id}/register")
     public String registerToCompete(@Valid @ModelAttribute("soccerPlayer") SoccerPlayer soccerPlayer,
-            RedirectAttributes redirectAttributes) {
+                                    RedirectAttributes redirectAttributes) {
         if (soccerPlayer.isPlayerStatus()) {
             soccerPlayer.setPlayerStatus(false);
             if (soccerPlayerService.save(soccerPlayer) != null) {
@@ -282,4 +285,5 @@ public class SoccerPlayerController {
 
         return "/soccer_players/lineup";
     }
+
 }

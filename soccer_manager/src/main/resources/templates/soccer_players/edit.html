@@ -17,7 +17,7 @@
             <form th:action="@{/soccers/edit}" th:object="${soccerPlayer}" method="post" enctype="multipart/form-data">
               <input type="hidden" th:field="*{id}">
               <input type="hidden" th:field="*{urlImage}">
-
+<!--              <input type="hidden" name="playerStatus" th:value="${soccerPlayer.playerStatus}">-->
               <div class="row g-3">
                 <div class="col-md-4 text-center">
                   <img th:src="*{urlImage}" class="img-thumbnail mb-2"

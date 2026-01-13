@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface INationalTeamService {
     List<NationalTeam> findAll();
+
+    NationalTeam findById(Long id);
 }

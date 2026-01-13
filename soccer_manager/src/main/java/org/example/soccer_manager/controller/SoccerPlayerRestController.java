@@ -24,13 +24,19 @@ import java.util.Map;
 @CrossOrigin("*")
 public class SoccerPlayerRestController {
     private final ISoccerPlayerService soccerPlayerService;
+    private final org.example.soccer_manager.service.INationalTeamService nationalTeamService;
+    private final org.example.soccer_manager.service.IFileStorageService fileStorageService;
 
     @GetMapping
     public ResponseEntity<Page<SoccerPlayer>> getAllSoccerPlayers(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String position,
+            @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) java.time.LocalDate dobFrom,
+            @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) java.time.LocalDate dobTo,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "4") int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("codePlayer").ascending());
-        Page<SoccerPlayer> players = soccerPlayerService.search(null, null, null, null, pageable);
+        Page<SoccerPlayer> players = soccerPlayerService.search(name, dobFrom, dobTo, position, pageable);
         return new ResponseEntity<>(players, HttpStatus.OK);
     }
 
@@ -45,8 +51,10 @@ public class SoccerPlayerRestController {
         return new ResponseEntity<>(player, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<?> createSoccerPlayer(@Valid @RequestBody SoccerPlayer soccerPlayer) {
+    @PostMapping(consumes = { "multipart/form-data" })
+    public ResponseEntity<?> createSoccerPlayer(@Valid @ModelAttribute SoccerPlayer soccerPlayer,
+            @RequestParam(value = "imageFile", required = false) org.springframework.web.multipart.MultipartFile imageFile) {
+
         if (soccerPlayerService.existsByCodePlayer(soccerPlayer.getCodePlayer())) {
             Map<String, String> error = new HashMap<>();
             error.put("codePlayer", "Mã cầu thủ đã tồn tại");
@@ -54,14 +62,21 @@ public class SoccerPlayerRestController {
         }
 
         if (soccerPlayer.getNationalTeam() != null) {
-            try {
-                soccerPlayerService.validateCodePlayer(soccerPlayer.getCodePlayer(),
-                        soccerPlayer.getNationalTeam().getCountryCode());
-            } catch (IllegalArgumentException ex) {
-                Map<String, String> error = new HashMap<>();
-                error.put("codePlayer", ex.getMessage());
-                return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+            var team = nationalTeamService.findById(soccerPlayer.getNationalTeam().getId());
+            if (team != null) {
+                try {
+                    soccerPlayerService.validateCodePlayer(soccerPlayer.getCodePlayer(), team.getCountryCode());
+                } catch (IllegalArgumentException ex) {
+                    Map<String, String> error = new HashMap<>();
+                    error.put("codePlayer", ex.getMessage());
+                    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+                }
             }
+        }
+
+        if (imageFile != null && !imageFile.isEmpty()) {
+            String imagePath = fileStorageService.saveFile(imageFile, "players");
+            soccerPlayer.setUrlImage(imagePath);
         }
 
         SoccerPlayer savedPlayer = soccerPlayerService.save(soccerPlayer);
