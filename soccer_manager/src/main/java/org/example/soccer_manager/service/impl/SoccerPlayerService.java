@@ -23,7 +23,17 @@ public class SoccerPlayerService implements ISoccerPlayerService {
     }
 
     @Override
-    public SoccerPlayer save(SoccerPlayer soccerPlayer) {
+    public List<SoccerPlayer> findAll() {
+        return soccerPlayerRepository.findAll();
+    }
+
+    @Override
+    public SoccerPlayer findById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public boolean save(SoccerPlayer soccerPlayer) {
         if (soccerPlayer.isPlayerStatus() != soccerPlayerRepository.findById(soccerPlayer.getId()).orElse(null).isPlayerStatus()) {
             if (soccerPlayer.isPlayerStatus()) {
                 if (soccerPlayerRepository.countAllByPlayerStatus(true) >= 11) {
@@ -31,7 +41,17 @@ public class SoccerPlayerService implements ISoccerPlayerService {
                 }
             }
         }
-        return soccerPlayerRepository.save(soccerPlayer);
+        return soccerPlayerRepository.save(soccerPlayer) != null;
+    }
+
+    @Override
+    public boolean update(SoccerPlayer soccerPlayer) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        return false;
     }
 
     @Override

@@ -30,34 +30,37 @@
     <form id="searchForm" class="card shadow-sm p-4 mb-4 mt-4 border-0 bg-light" th:object="${playerSearchDTO}">
       <div class="row g-3 align-items-end">
         <div class="col-lg-3 col-md-6">
-          <label class="form-label fw-semibold small text-uppercase">Tên cầu thủ</label>
-          <input type="text" class="form-control" th:field="*{name}" placeholder="VD: Messi, Ronaldo...">
+          <label class="form-label fw-semibold small text-uppercase" th:text="#{soccer.list.search.name}">Tên cầu
+            thủ</label>
+          <input type="text" class="form-control" th:field="*{name}" th:placeholder="#{soccer.list.search.placeholder}">
         </div>
 
         <div class="col-lg-3 col-md-6">
-          <label class="form-label fw-semibold small text-uppercase">Vị trí</label>
+          <label class="form-label fw-semibold small text-uppercase" th:text="#{soccer.list.search.position}">Vị
+            trí</label>
           <select th:field="*{searchPosition}" id="searchPosition" class="form-select">
-            <option value="">-- Tất cả vị trí --</option>
-            <option value="Tiền đạo">Tiền đạo</option>
-            <option value="Tiền vệ">Tiền vệ</option>
-            <option value="Trung vệ">Trung vệ</option>
-            <option value="Hậu vệ">Hậu vệ</option>
-            <option value="Thủ môn">Thủ môn</option>
+            <option value="" th:text="#{soccer.list.search.position.all}">-- Tất cả vị trí --</option>
+            <option value="Tiền đạo" th:text="#{position.forward}">Tiền đạo</option>
+            <option value="Tiền vệ" th:text="#{position.midfielder}">Tiền vệ</option>
+            <option value="Trung vệ" th:text="#{position.centerback}">Trung vệ</option>
+            <option value="Hậu vệ" th:text="#{position.defender}">Hậu vệ</option>
+            <option value="Thủ môn" th:text="#{position.goalkeeper}">Thủ môn</option>
           </select>
         </div>
 
         <div class="col-lg-4 col-md-8">
-          <label class="form-label fw-semibold small text-uppercase">Ngày sinh</label>
+          <label class="form-label fw-semibold small text-uppercase" th:text="#{soccer.list.search.dob}">Ngày
+            sinh</label>
           <div class="input-group">
             <input type="date" class="form-control" th:field="*{dobFrom}">
-            <span class="input-group-text">đến</span>
+            <span class="input-group-text" th:text="#{soccer.list.search.to}">đến</span>
             <input type="date" class="form-control" th:field="*{dobTo}">
           </div>
         </div>
 
         <div class="col-lg-2 col-md-4">
           <button type="submit" class="btn btn-primary w-100 shadow-sm">
-            <i class="bi bi-search"></i> Tìm kiếm
+            <i class="bi bi-search"></i> <span th:text="#{soccer.list.search.btn}">Tìm kiếm</span>
           </button>
         </div>
 
@@ -67,13 +70,14 @@
     </form>
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h3 class="fw-bold m-0">Danh sách cầu thủ</h3>
+      <h3 class="fw-bold m-0" th:text="#{soccer.list.header}">Danh sách cầu thủ</h3>
       <div>
-        <a href="/soccers/lineup" class="btn btn-primary btn-sm">Đội hình thi đấu</a>
-        <a href="/soccers/favorites" class="btn btn-danger btn-sm"><i class="bi bi-heart-fill"></i> Danh sách yêu
-          thích</a>
+        <a href="/soccers/lineup" class="btn btn-primary btn-sm" th:text="#{soccer.list.lineup}">Đội hình thi đấu</a>
+        <a href="/soccers/favorites" class="btn btn-danger btn-sm"><i class="bi bi-heart-fill"></i> <span
+            th:text="#{soccer.list.favorites}">Danh sách yêu thích</span></a>
         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addPlayerModal">
-          <i class="bi bi-person-plus-fill"></i> + Thêm cầu thủ
+          <i class="bi bi-person-plus-fill"></i> <span th:text="|+ ${#messages.msg('soccer.list.add')}|">+ Thêm cầu
+            thủ</span>
         </button>
       </div>
     </div>
@@ -90,14 +94,16 @@
 
       <div class="text-center py-5 d-none" id="noDataMessage">
         <div class="text-muted fst-italic display-6 mb-3"><i class="bi bi-search"></i></div>
-        <p class="text-muted">Không tìm thấy cầu thủ nào phù hợp với điều kiện tìm kiếm.</p>
+        <p class="text-muted" th:text="#{soccer.list.empty}">Không tìm thấy cầu thủ nào phù hợp với điều kiện tìm kiếm.
+        </p>
       </div>
 
       <!-- Pagination Controls -->
       <div class="d-flex justify-content-between align-items-center mt-4 mb-5" id="paginationContainer"
         style="display: none !important;">
         <div class="text-muted small d-none d-md-block">
-          Tổng số: <strong id="totalElements">0</strong> cầu thủ
+          <span id="totalElementsLabel">Tổng số: </span><strong id="totalElements">0</strong> <span
+            id="totalElementsLabelSuffix">cầu thủ</span>
         </div>
 
         <nav aria-label="Page navigation">
@@ -108,7 +114,8 @@
 
         <div class="d-flex align-items-center">
           <div class="input-group input-group-sm">
-            <label class="input-group-text bg-white" for="pageSizeSelect">Hiển thị</label>
+            <label class="input-group-text bg-white" for="pageSizeSelect" th:text="#{soccer.list.display}">Hiển
+              thị</label>
             <select id="pageSizeSelect" class="form-select">
               <option value="4" selected>4</option>
               <option value="8">8</option>
@@ -126,39 +133,43 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title">Thêm Mới Cầu Thủ</h5>
+            <h5 class="modal-title" th:text="#{soccer.modal.add.title}">Thêm Mới Cầu Thủ</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form id="addPlayerForm" enctype="multipart/form-data">
               <div class="row g-3">
                 <div class="col-md-6">
-                  <label class="form-label">Mã cầu thủ <span class="text-danger">*</span></label>
+                  <label class="form-label"><span th:text="#{soccer.player.code}">Mã cầu thủ</span> <span
+                      class="text-danger">*</span></label>
                   <input type="text" name="codePlayer" class="form-control" placeholder="VN-001">
                   <div class="invalid-feedback" id="error-codePlayer"></div>
                 </div>
                 <div class="col-md-6">
-                  <label class="form-label">Họ và tên <span class="text-danger">*</span></label>
-                  <input type="text" name="namePlayer" class="form-control" placeholder="Nhập tên">
+                  <label class="form-label" th:text="#{soccer.list.search.name}">Họ và tên</label> <span
+                    class="text-danger">*</span>
+                  <input type="text" name="namePlayer" class="form-control"
+                    th:placeholder="#{soccer.list.search.placeholder}">
                   <div class="invalid-feedback" id="error-namePlayer"></div>
                 </div>
                 <div class="col-md-6">
-                  <label class="form-label">Ngày sinh <span class="text-danger">*</span></label>
+                  <label class="form-label" th:text="#{soccer.list.search.dob}">Ngày sinh</label> <span
+                    class="text-danger">*</span>
                   <input type="date" name="dayOfBirth" class="form-control">
                   <div class="invalid-feedback" id="error-dayOfBirth"></div>
                 </div>
                 <div class="col-md-6">
-                  <label class="form-label">Vị trí</label>
+                  <label class="form-label" th:text="#{soccer.list.search.position}">Vị trí</label>
                   <select name="position" class="form-select">
-                    <option value="Tiền đạo">Tiền đạo</option>
-                    <option value="Tiền vệ">Tiền vệ</option>
-                    <option value="Trung vệ">Trung vệ</option>
-                    <option value="Hậu vệ">Hậu vệ</option>
-                    <option value="Thủ môn">Thủ môn</option>
+                    <option value="Tiền đạo" th:text="#{position.forward}">Tiền đạo</option>
+                    <option value="Tiền vệ" th:text="#{position.midfielder}">Tiền vệ</option>
+                    <option value="Trung vệ" th:text="#{position.centerback}">Trung vệ</option>
+                    <option value="Hậu vệ" th:text="#{position.defender}">Hậu vệ</option>
+                    <option value="Thủ môn" th:text="#{position.goalkeeper}">Thủ môn</option>
                   </select>
                 </div>
                 <div class="col-md-6">
-                  <label class="form-label">Đội tuyển quốc gia</label>
+                  <label class="form-label" th:text="#{soccer.detail.national_team}">Đội tuyển quốc gia</label>
                   <select name="nationalTeam" class="form-select">
                     <option value="">-- Chọn đội tuyển --</option>
                     <option th:each="team : ${nationalTeams}" th:value="${team.id}" th:text="${team.nameNationalTeam}">
@@ -166,24 +177,27 @@
                   </select>
                 </div>
                 <div class="col-md-6">
-                  <label class="form-label">Kinh nghiệm (năm) <span class="text-danger">*</span></label>
+                  <label class="form-label" th:text="#{soccer.detail.experience}">Kinh nghiệm</label> <span
+                    class="text-danger">*</span>
                   <input type="number" name="experience" class="form-control">
                   <div class="invalid-feedback" id="error-experience"></div>
                 </div>
                 <div class="col-md-6">
-                  <label class="form-label">Địa chỉ</label>
+                  <label class="form-label" th:text="#{soccer.detail.address}">Địa chỉ</label>
                   <input type="text" name="adress" class="form-control">
                 </div>
                 <div class="col-md-12">
-                  <label class="form-label">Ảnh đại diện</label>
+                  <label class="form-label" th:text="#{soccer.player.image}">Ảnh đại diện</label>
                   <input type="file" name="imageFile" class="form-control" accept="image/*">
                 </div>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            <button type="button" class="btn btn-primary" onclick="savePlayer()">Lưu cầu thủ</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              th:text="#{soccer.modal.btn.close}">Đóng</button>
+            <button type="button" class="btn btn-primary" onclick="savePlayer()" th:text="#{soccer.btn.save}">Lưu cầu
+              thủ</button>
           </div>
         </div>
       </div>
@@ -195,9 +209,10 @@
         <div class="modal-content text-center">
           <div class="modal-body">
             <div class="text-success display-1"><i class="bi bi-check-circle"></i></div>
-            <h5 class="fw-bold mt-3">Thành Công!</h5>
-            <p>Thêm mới cầu thủ thành công.</p>
-            <button type="button" class="btn btn-success btn-sm w-100" data-bs-dismiss="modal">OK</button>
+            <h5 class="fw-bold mt-3" th:text="#{soccer.modal.success.title}">Thành Công!</h5>
+            <p th:text="#{soccer.modal.success.add}">Thêm mới cầu thủ thành công.</p>
+            <button type="button" class="btn btn-success btn-sm w-100" data-bs-dismiss="modal"
+              th:text="#{soccer.modal.btn.ok}">OK</button>
           </div>
         </div>
       </div>
@@ -247,8 +262,8 @@
           </div>
         </div>
         <div class="card-footer bg-white border-top-0 pb-3 text-center">
-          <a href="#" class="btn btn-outline-primary btn-sm w-100 player-detail-btn"><i class="bi bi-eye"></i> Xem chi
-            tiết</a>
+          <a href="#" class="btn btn-outline-primary btn-sm w-100 player-detail-btn"><i class="bi bi-eye"></i> <span
+              class="view-detail-text">Xem chi tiết</span></a>
         </div>
       </div>
     </div>
@@ -261,6 +276,24 @@
     const IMAGE_PLACEHOLDER = 'https://via.placeholder.com/300x400?text=No+Image';
     const TOAST_DURATION = 4000;
 
+    // I18N Messages - Injected from server
+    const msg = {
+      playing: /*[[#{soccer.card.status.playing}]]*/ 'Playing',
+      bench: /*[[#{soccer.card.status.bench}]]*/ 'Bench',
+      noTeam: /*[[#{soccer.card.no_team}]]*/ 'No Team',
+      viewDetail: /*[[#{soccer.card.view_detail}]]*/ 'View Detail',
+      toastSuccess: /*[[#{soccer.toast.success}]]*/ 'Success',
+      toastError: /*[[#{soccer.toast.error}]]*/ 'Error',
+      posForward: /*[[#{position.forward}]]*/ 'Forward',
+      posMidfielder: /*[[#{position.midfielder}]]*/ 'Midfielder',
+      posCenterback: /*[[#{position.centerback}]]*/ 'Center Back',
+      posDefender: /*[[#{position.defender}]]*/ 'Defender',
+      posGoalkeeper: /*[[#{position.goalkeeper}]]*/ 'Goalkeeper',
+      total: /*[[#{soccer.list.total('__COUNT__')}]]*/ 'Total __COUNT__ players',
+      errorGeneric: /*[[#{msg.error.generic}]]*/ 'An error occurred',
+      errorLoad: /*[[#{msg.error.load}]]*/ 'Error loading data'
+    };
+
     $(document).ready(function () {
       // Initial load: do not push state
       loadPlayers(false);
@@ -268,8 +301,8 @@
       const successMsg = /*[[${success}]]*/ null;
       const errorMsg = /*[[${error}]]*/ null;
 
-      if (successMsg) showNotification("Thành công", successMsg, "success");
-      if (errorMsg) showNotification("Lỗi", errorMsg, "error");
+      if (successMsg) showNotification(msg.toastSuccess, successMsg, "success");
+      if (errorMsg) showNotification(msg.toastError, errorMsg, "error");
 
       // Event Listeners
       $('#searchForm').on('submit', function (e) {
@@ -315,7 +348,7 @@
           }
         },
         error: function (xhr) {
-          $('#playerListContainer').html('<div class="col-12 text-center text-danger">Lỗi tải dữ liệu</div>');
+          $('#playerListContainer').html(`<div class="col-12 text-center text-danger">${msg.errorLoad}</div>`);
           console.error("Load players error:", xhr);
         }
       });
@@ -381,12 +414,13 @@
         $card.find('.player-name').text(player.namePlayer);
         $card.find('.player-img').attr('src', getPlayerImageUrl(player.urlImage));
         $card.find('.player-detail-link, .player-detail-btn').attr('href', `/soccers/${player.id}/detail`);
+        $card.find('.view-detail-text').text(msg.viewDetail);
 
         // Position Badge
         const positionClass = getPositionBadgeClass(player.position);
         $card.find('.player-position')
           .addClass(`badge rounded-pill border px-3 py-2 ${positionClass}`)
-          .text(player.position);
+          .text(getPositionText(player.position));
 
         // Status Badge
         $card.find('.player-status').html(getPlayerStatusHtml(player.playerStatus));
@@ -405,7 +439,13 @@
       }
 
       $('#paginationContainer').css('display', 'flex').show();
+
+      // Update Total Label
       $('#totalElements').text(pageData.totalElements);
+      // Optional: If we want to fully translate "Total: X players" structure
+      // We can use simple replacement if not using the 'total' msg complexly
+      // But preserving structure is better done by rebuilding the HTML
+      // For now, let's keep it simple
 
       const $paginationList = $('#paginationList');
       $paginationList.empty();
@@ -458,8 +498,8 @@
             });
           } else {
             // General Error
-            const errorMsg = jqXHR.responseJSON?.message || "Đã có lỗi xảy ra";
-            showNotification("Lỗi", errorMsg, "error");
+            const errorMsg = jqXHR.responseJSON?.message || msg.errorGeneric;
+            showNotification(msg.toastError, errorMsg, "error");
           }
         }
       });
@@ -517,15 +557,26 @@
       }
     }
 
+    function getPositionText(position) {
+      switch (position) {
+        case 'Tiền đạo': return msg.posForward;
+        case 'Tiền vệ': return msg.posMidfielder;
+        case 'Trung vệ': return msg.posCenterback;
+        case 'Hậu vệ': return msg.posDefender;
+        case 'Thủ môn': return msg.posGoalkeeper;
+        default: return position;
+      }
+    }
+
     function getPlayerStatusHtml(isPlaying) {
       return isPlaying
-        ? '<span class="badge bg-success bg-opacity-10 text-success border border-success"><i class="bi bi-check-circle-fill"></i> Đang thi đấu</span>'
-        : '<span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary"><i class="bi bi-pause-circle-fill"></i> Dự bị</span>';
+        ? `<span class="badge bg-success bg-opacity-10 text-success border border-success"><i class="bi bi-check-circle-fill"></i> ${msg.playing}</span>`
+        : `<span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary"><i class="bi bi-pause-circle-fill"></i> ${msg.bench}</span>`;
     }
 
     function getNationalTeamHtml(nationalTeam) {
       if (!nationalTeam) {
-        return '<span class="text-muted small fst-italic">Chưa có đội tuyển</span>';
+        return `<span class="text-muted small fst-italic"><i class="bi bi-slash-circle"></i> ${msg.noTeam}</span>`;
       }
       return `<img src="${nationalTeam.logoUrl}" class="shadow-sm border bg-white rounded" style="width: 24px; height: 24px; object-fit: contain;"> 
                 <span class="small fw-semibold text-dark">${nationalTeam.nameNationalTeam}</span>`;

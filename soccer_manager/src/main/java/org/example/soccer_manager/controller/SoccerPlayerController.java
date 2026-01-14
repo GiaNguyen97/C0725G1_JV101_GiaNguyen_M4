@@ -181,7 +181,7 @@ public class SoccerPlayerController {
             soccerPlayer.setUrlImage(imagePath);
         }
 
-        if (soccerPlayerService.save(soccerPlayer) != null) {
+        if (soccerPlayerService.save(soccerPlayer)) {
             redirectAttributes.addFlashAttribute("success",
                     "Thêm mới cầu thủ " + soccerPlayer.getNamePlayer() + " thành công!");
         } else {
@@ -232,7 +232,7 @@ public class SoccerPlayerController {
         }
         // If no new file, keep existing urlImage (already bound from form)
 
-        if (soccerPlayerService.save(soccerPlayer) != null) {
+        if (soccerPlayerService.save(soccerPlayer)) {
             redirectAttributes.addFlashAttribute("success",
                     "Cập nhập thông tin cầu thủ " + soccerPlayer.getNamePlayer() + " thành công!");
         } else {
@@ -259,7 +259,7 @@ public class SoccerPlayerController {
                                     RedirectAttributes redirectAttributes) {
         if (soccerPlayer.isPlayerStatus()) {
             soccerPlayer.setPlayerStatus(false);
-            if (soccerPlayerService.save(soccerPlayer) != null) {
+            if (soccerPlayerService.save(soccerPlayer)) {
                 redirectAttributes.addFlashAttribute("success",
                         "Chuyển trạng thái cầu thủ " + soccerPlayer.getNamePlayer() + " sang dự bị thành công!");
             } else {
@@ -268,7 +268,7 @@ public class SoccerPlayerController {
             }
         } else {
             soccerPlayer.setPlayerStatus(true);
-            if (soccerPlayerService.save(soccerPlayer) != null) {
+            if (soccerPlayerService.save(soccerPlayer)) {
                 redirectAttributes.addFlashAttribute("success",
                         "Đăng ký thi đấu cho cầu thủ " + soccerPlayer.getNamePlayer() + " thành công!");
             } else {

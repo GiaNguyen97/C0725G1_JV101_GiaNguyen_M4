@@ -28,13 +28,7 @@ public class SoccerPlayerRestController {
     private final org.example.soccer_manager.service.IFileStorageService fileStorageService;
 
     @GetMapping
-    public ResponseEntity<Page<SoccerPlayer>> getAllSoccerPlayers(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String position,
-            @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) java.time.LocalDate dobFrom,
-            @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) java.time.LocalDate dobTo,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "4") int size) {
+    public ResponseEntity<Page<SoccerPlayer>> getAllSoccerPlayers(@RequestParam(required = false) String name, @RequestParam(required = false) String position, @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) java.time.LocalDate dobFrom, @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) java.time.LocalDate dobTo, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("codePlayer").ascending());
         Page<SoccerPlayer> players = soccerPlayerService.search(name, dobFrom, dobTo, position, pageable);
         return new ResponseEntity<>(players, HttpStatus.OK);
@@ -51,9 +45,8 @@ public class SoccerPlayerRestController {
         return new ResponseEntity<>(player, HttpStatus.OK);
     }
 
-    @PostMapping(consumes = { "multipart/form-data" })
-    public ResponseEntity<?> createSoccerPlayer(@Valid @ModelAttribute SoccerPlayer soccerPlayer,
-            @RequestParam(value = "imageFile", required = false) org.springframework.web.multipart.MultipartFile imageFile) {
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseEntity<?> createSoccerPlayer(@Valid @ModelAttribute SoccerPlayer soccerPlayer, @RequestParam(value = "imageFile", required = false) org.springframework.web.multipart.MultipartFile imageFile) {
 
         if (soccerPlayerService.existsByCodePlayer(soccerPlayer.getCodePlayer())) {
             Map<String, String> error = new HashMap<>();
@@ -79,19 +72,21 @@ public class SoccerPlayerRestController {
             soccerPlayer.setUrlImage(imagePath);
         }
 
-        SoccerPlayer savedPlayer = soccerPlayerService.save(soccerPlayer);
-        if (savedPlayer != null) {
-            return new ResponseEntity<>(savedPlayer, HttpStatus.CREATED);
+        boolean isSaved = soccerPlayerService.save(soccerPlayer);
+
+        if (isSaved) {
+            return new ResponseEntity<>("Thêm mới cầu thủ thành công", HttpStatus.CREATED);
         } else {
             Map<String, String> error = new HashMap<>();
             error.put("message", "Thêm mới cầu thủ thất bại");
+
             return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateSoccerPlayer(@PathVariable Long id,
-            @Valid @RequestBody SoccerPlayer soccerPlayer) {
+    public ResponseEntity<?> updateSoccerPlayer(@PathVariable Long id, @Valid @RequestBody SoccerPlayer soccerPlayer) {
         SoccerPlayer existingPlayer = soccerPlayerService.findById(id);
         if (existingPlayer == null) {
             Map<String, String> error = new HashMap<>();
@@ -107,8 +102,7 @@ public class SoccerPlayerRestController {
 
         if (soccerPlayer.getNationalTeam() != null) {
             try {
-                soccerPlayerService.validateCodePlayer(soccerPlayer.getCodePlayer(),
-                        soccerPlayer.getNationalTeam().getCountryCode());
+                soccerPlayerService.validateCodePlayer(soccerPlayer.getCodePlayer(), soccerPlayer.getNationalTeam().getCountryCode());
             } catch (IllegalArgumentException ex) {
                 Map<String, String> error = new HashMap<>();
                 error.put("codePlayer", ex.getMessage());
@@ -117,12 +111,14 @@ public class SoccerPlayerRestController {
         }
 
         soccerPlayer.setId(id);
-        SoccerPlayer updatedPlayer = soccerPlayerService.save(soccerPlayer);
-        if (updatedPlayer != null) {
-            return new ResponseEntity<>(updatedPlayer, HttpStatus.OK);
+        boolean isUpdated = soccerPlayerService.save(soccerPlayer);
+
+        if (isUpdated) {
+            return new ResponseEntity<>("Cập nhật cầu thủ thành công", HttpStatus.OK);
         } else {
             Map<String, String> error = new HashMap<>();
             error.put("message", "Cập nhật cầu thủ thất bại");
+
             return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

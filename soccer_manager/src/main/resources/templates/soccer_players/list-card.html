@@ -31,34 +31,37 @@
       th:object="${playerSearchDTO}">
       <div class="row g-3 align-items-end">
         <div class="col-lg-3 col-md-6">
-          <label class="form-label fw-semibold small text-uppercase">Tên cầu thủ</label>
-          <input type="text" class="form-control" th:field="*{name}" placeholder="VD: Messi, Ronaldo...">
+          <label class="form-label fw-semibold small text-uppercase" th:text="#{soccer.list.search.name}">Tên cầu
+            thủ</label>
+          <input type="text" class="form-control" th:field="*{name}" th:placeholder="#{soccer.list.search.placeholder}">
         </div>
 
         <div class="col-lg-3 col-md-6">
-          <label class="form-label fw-semibold small text-uppercase">Vị trí</label>
+          <label class="form-label fw-semibold small text-uppercase" th:text="#{soccer.list.search.position}">Vị
+            trí</label>
           <select th:field="*{searchPosition}" class="form-select">
-            <option value="">-- Tất cả vị trí --</option>
-            <option value="Tiền đạo">Tiền đạo</option>
-            <option value="Tiền vệ">Tiền vệ</option>
-            <option value="Trung vệ">Trung vệ</option>
-            <option value="Hậu vệ">Hậu vệ</option>
-            <option value="Thủ môn">Thủ môn</option>
+            <option value="" th:text="#{soccer.list.search.position.all}">-- Tất cả vị trí --</option>
+            <option value="Tiền đạo" th:text="#{position.forward}">Tiền đạo</option>
+            <option value="Tiền vệ" th:text="#{position.midfielder}">Tiền vệ</option>
+            <option value="Trung vệ" th:text="#{position.centerback}">Trung vệ</option>
+            <option value="Hậu vệ" th:text="#{position.defender}">Hậu vệ</option>
+            <option value="Thủ môn" th:text="#{position.goalkeeper}">Thủ môn</option>
           </select>
         </div>
 
         <div class="col-lg-4 col-md-8">
-          <label class="form-label fw-semibold small text-uppercase">Ngày sinh</label>
+          <label class="form-label fw-semibold small text-uppercase" th:text="#{soccer.list.search.dob}">Ngày
+            sinh</label>
           <div class="input-group">
             <input type="date" class="form-control" th:field="*{dobFrom}">
-            <span class="input-group-text">đến</span>
+            <span class="input-group-text" th:text="#{soccer.list.search.to}">đến</span>
             <input type="date" class="form-control" th:field="*{dobTo}">
           </div>
         </div>
 
         <div class="col-lg-2 col-md-4">
           <button type="submit" class="btn btn-primary w-100 shadow-sm">
-            <i class="bi bi-search"></i> Tìm kiếm
+            <i class="bi bi-search"></i> <span th:text="#{soccer.list.search.btn}">Tìm kiếm</span>
           </button>
         </div>
 
@@ -67,11 +70,12 @@
     </form>
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h3 class="fw-bold m-0">Danh sách cầu thủ</h3>
-      <a href="/soccers/lineup" class="btn btn-primary btn-sm">Đội hình thi đấu</a>
-      <a href="/soccers/favorites" class="btn btn-danger btn-sm"><i class="bi bi-heart-fill"></i> Danh sách yêu
-        thích</a>
-      <a th:href="@{/soccers/add}" class="btn btn-success btn-sm">+ Thêm cầu thủ</a>
+      <h3 class="fw-bold m-0" th:text="#{soccer.list.header}">Danh sách cầu thủ</h3>
+      <a href="/soccers/lineup" class="btn btn-primary btn-sm" th:text="#{soccer.list.lineup}">Đội hình thi đấu</a>
+      <a href="/soccers/favorites" class="btn btn-danger btn-sm"><i class="bi bi-heart-fill"></i> <span
+          th:text="#{soccer.list.favorites}">Danh sách yêu thích</span></a>
+      <a th:href="@{/soccers/add}" class="btn btn-success btn-sm" th:text="|+ ${#messages.msg('soccer.list.add')}|">+
+        Thêm cầu thủ</a>
 
     </div>
 
@@ -93,7 +97,7 @@
                   <div class="d-flex align-items-center justify-content-center h-100">
                     <a th:href="@{/soccers/{id}/detail(id=${row.id})}">
                       <img th:if="${row.urlImage != null && !row.urlImage.isEmpty()}" th:src="${row.urlImage}"
-                        class="w-100 h-100" style="object-fit: cover; object-position: top;" alt="Ảnh cầu thủ">
+                        class="w-100 h-100" style="object-fit: cover; object-position: top;" alt="Ah cu th">
                     </a>
                     <div th:unless="${row.urlImage != null && !row.urlImage.isEmpty()}"
                       class="d-flex flex-column align-items-center justify-content-center text-secondary h-100 w-100">
@@ -109,19 +113,19 @@
                 <span th:switch="${row.position}">
                   <span th:case="'Tiền đạo'"
                     class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle px-3 py-2"
-                    th:text="${row.position}"></span>
+                    th:text="#{position.forward}"></span>
                   <span th:case="'Tiền vệ'"
                     class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2"
-                    th:text="${row.position}"></span>
+                    th:text="#{position.midfielder}"></span>
                   <span th:case="'Trung vệ'"
                     class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2"
-                    th:text="${row.position}"></span>
+                    th:text="#{position.centerback}"></span>
                   <span th:case="'Hậu vệ'"
                     class="badge rounded-pill bg-info-subtle text-info border border-info-subtle px-3 py-2"
-                    th:text="${row.position}"></span>
+                    th:text="#{position.defender}"></span>
                   <span th:case="'Thủ môn'"
                     class="badge rounded-pill bg-warning-subtle text-warning-emphasis border border-warning-subtle px-3 py-2"
-                    th:text="${row.position}"></span>
+                    th:text="#{position.goalkeeper}"></span>
                   <span th:case="*"
                     class="badge rounded-pill bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-2"
                     th:text="${row.position}"></span>
@@ -129,10 +133,12 @@
                 <div class="mt-2">
                   <span th:if="${row.playerStatus}"
                     class="badge bg-success bg-opacity-10 text-success border border-success"><i
-                      class="bi bi-check-circle-fill"></i> Đang thi đấu</span>
+                      class="bi bi-check-circle-fill"></i> <span th:text="#{soccer.card.status.playing}">Đang thi
+                      đấu</span></span>
                   <span th:unless="${row.playerStatus}"
                     class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary"><i
-                      class="bi bi-pause-circle-fill"></i> Dự bị</span>
+                      class="bi bi-pause-circle-fill"></i> <span th:text="#{soccer.card.status.bench}">Dự
+                      bị</span></span>
                 </div>
               </div>
 
@@ -143,13 +149,14 @@
                   <span class="small fw-semibold text-dark" th:text="${row.nationalTeam.nameNationalTeam}">Team</span>
                 </th:block>
                 <th:block th:if="${row.nationalTeam == null}">
-                  <span class="text-muted fst-italic small"><i class="bi bi-slash-circle"></i> Chưa có đội tuyển</span>
+                  <span class="text-muted fst-italic small"><i class="bi bi-slash-circle"></i> <span
+                      th:text="#{soccer.card.no_team}">Chưa có đội tuyển</span></span>
                 </th:block>
               </div>
             </div>
             <div class="card-footer bg-white border-top-0 pb-3 text-center">
               <a th:href="@{/soccers/{id}/detail(id=${row.id})}" class="btn btn-outline-primary btn-sm w-100">
-                <i class="bi bi-eye"></i> Xem chi tiết
+                <i class="bi bi-eye"></i> <span th:text="#{soccer.card.view_detail}">Xem chi tiết</span>
               </a>
             </div>
           </div>
@@ -158,13 +165,14 @@
 
       <div class="text-center py-5" th:if="${soccers.isEmpty()}">
         <div class="text-muted fst-italic display-6 mb-3"><i class="bi bi-search"></i></div>
-        <p class="text-muted">Không tìm thấy cầu thủ nào phù hợp với điều kiện tìm kiếm.</p>
+        <p class="text-muted" th:text="#{soccer.list.empty}">Không tìm thấy cầu thủ nào phù hợp với điều kiện tìm kiếm.
+        </p>
       </div>
 
       <div class="d-flex justify-content-between align-items-center mt-4 mb-5" th:if="${soccers.totalPages > 0}">
 
         <div class="text-muted small d-none d-md-block">
-          Tổng số: <strong th:text="${soccers.totalElements}">0</strong> cầu thủ
+          <span th:text="#{soccer.list.total(${soccers.totalElements})}">Tổng số: 0 cầu thủ</span>
         </div>
 
         <nav aria-label="Page navigation">
@@ -186,7 +194,8 @@
 
         <form th:action="@{/soccers}" method="get" class="d-flex align-items-center">
           <div class="input-group input-group-sm">
-            <label class="input-group-text bg-white" for="pageSizeSelect">Hiển thị</label>
+            <label class="input-group-text bg-white" for="pageSizeSelect" th:text="#{soccer.list.display}">Hiển
+              thị</label>
             <select id="pageSizeSelect" name="size" class="form-select" onchange="this.form.submit()">
               <option th:value="4" th:selected="${playerSearchDTO.size == 4}">4</option>
               <option th:value="8" th:selected="${playerSearchDTO.size == 8}">8</option>
@@ -216,8 +225,8 @@
     <script th:inline="javascript">
       document.addEventListener("DOMContentLoaded", function () {
         // Lấy dữ liệu từ FlashAttribute (Thymeleaf Inline)
-        const successMsg = [[${ success }]];
-        const errorMsg = [[${ error }]];
+        const successMsg = /*[[${success}]]*/ null;
+        const errorMsg = /*[[${error}]]*/ null;
 
         const toastEl = document.getElementById("toastMessage");
         const toastIcon = document.getElementById("toastIcon");
@@ -228,14 +237,14 @@
         let show = false;
 
         if (successMsg) {
-          toastTitle.innerText = "Thành công";
+          toastTitle.innerText = /*[[#{soccer.toast.success}]]*/ "Thành công";
           toastTitle.className = "me-auto text-success";
           toastBody.innerText = successMsg;
           toastIcon.innerHTML = "✅"; // Hoặc dùng icon Bootstrap: <i class="bi bi-check-circle"></i>
           progressBar.style.backgroundColor = "#198754";
           show = true;
         } else if (errorMsg) {
-          toastTitle.innerText = "Thông báo lỗi";
+          toastTitle.innerText = /*[[#{soccer.toast.error}]]*/ "Thông báo lỗi";
           toastTitle.className = "me-auto text-danger";
           toastBody.innerText = errorMsg;
           toastIcon.innerHTML = "❌";

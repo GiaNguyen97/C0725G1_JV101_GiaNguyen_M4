@@ -7,11 +7,11 @@ import org.springframework.data.domain.Pageable;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface ISoccerPlayerService {
+public interface ISoccerPlayerService extends IService<SoccerPlayer> {
 
     SoccerPlayer findById(Long id);
 
-    SoccerPlayer save(SoccerPlayer soccerPlayer);
+    boolean save(SoccerPlayer soccerPlayer);
 
     boolean deleteById(Long id);
 
