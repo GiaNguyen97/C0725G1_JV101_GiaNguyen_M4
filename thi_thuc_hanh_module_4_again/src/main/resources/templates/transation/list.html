@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách sản phẩm</title>
+    <!-- Bootstrap 5 CDN -->
+    <!-- Bootstrap 5 Local -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1055;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Quản lý Đơn Hàng</h2>
+
+    <!-- Toast Notification -->
+    <div class="toast-container" th:if="${message}">
+        <div class="toast show align-items-center text-white bg-success border-0" role="alert" aria-live="assertive"
+             aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" th:text="${message}"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container" th:if="${error}">
+        <div class="toast show align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive"
+             aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" th:text="${error}"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions -->
+
+    <!-- Search Form -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form action="/transations" method="get">
+                <div class="row g-3">
+                    <!-- Tìm theo khoảng ngày -->
+                    <div class="col-md-4">
+                        <label class="form-label">Danh sách từ: </label>
+                        <input type="date" class="form-control" name="dateFrom" th:value="${searchDateFrom}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label"> đến: </label>
+                        <input type="date" class="form-control" name="dateTo" th:value="${searchDateTo}">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-label"></div>
+                        <button type="submit" class="btn btn-secondary">Xem</button>
+                    </div>
+
+                    <div class="input-group input-group-sm col-md-4">
+                        <label class="input-group-text bg-white" for="pageSizeSelect">Top</label>
+                        <select id="pageSizeSelect" name="size" class="form-select" onchange="this.form.submit()">
+                            <option th:value="5" th:selected="${size == 5}">5</option>
+                            <option th:value="10" th:selected="${size == 10}">10</option>
+                            <option th:value="15" th:selected="${size == 15}">15</option>
+                            <option th:value="20" th:selected="${size == 20}">20</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Đơn hàng có tổng số tiền bán cao nhất: </label>
+                        <button type="submit" class="btn btn-secondary">Xem top</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark text-center align-middle">
+            <tr>
+                <th>STT</th>
+                <th>Mã đơn hàng</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Loại sản phẩm</th>
+                <th>Ngày mua</th>
+                <th>Số lượng</th>
+                <th>Tổng tiền (USD)</th>
+                <th>Hành động</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="transation, stat : ${transationPage.content}">
+                <td class="text-center align-middle"
+                    th:text="${stat.count + (transationPage.number * transationPage.size)}"></td>
+                <td class="text-center align-middle" th:text="${transation.id}"></td>
+                <td class="align-middle" th:text="${transation.product != null ? transation.product.name : '-'}"></td>
+                <td class="text-end align-middle"
+                    th:text="${transation.product != null ? #numbers.formatDecimal(transation.product.price, 0, 'COMMA', 0, 'POINT') : '-'} "></td>
+                <td class="align-middle"
+                    th:text="${transation.product != null ? (transation.product.category != null ? transation.product.category.name : '-') : '-'}"></td>
+                <td class="text-center align-middle"
+                    th:text="${#temporals.format(transation.buyDate, 'dd/MM/yyyy')}"></td>
+                <td class="text-end align-middle" th:text="${transation.quantity}"></td>
+                <td class="text-end align-middle"
+                    th:text="${#numbers.formatDecimal(transation.product.price * transation.quantity, 0, 'COMMA', 0, 'POINT')}"></td>
+                <td class="text-center align-middle">
+                    <button type="button" class="btn btn-warning btn-sm text-white" data-bs-toggle="modal"
+                            data-bs-target="#editModal" th:data-id="${transation.id}"
+                            th:data-name="${transation.product != null ? transation.product.name : ' '}"
+                            th:data-category-id="${transation.product != null ? (transation.product.category != null ? transation.product.category.id : '') :' '}"
+                            th:data-price="${transation.product != null ? transation.product.price : ' '}"
+                            th:data-quantity="${transation.quantity}"
+                            th:data-buy-date="${transation.buyDate}"
+                            onclick="showEditModal(this)">
+                        Sửa
+                    </button>
+                </td>
+            </tr>
+            <tr th:if="${transationPage.content.isEmpty()}">
+                <td colspan="9" class="text-center text-muted">Không tìm thấy dữ liệu</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <nav th:if="${transationPage.totalPages > 1}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${transationPage.first} ? 'disabled'">
+                <!-- Giữ lại các tham số tìm kiếm khi chuyển trang -->
+                <a class="page-link"
+                   th:href="@{/transations(page=${transationPage.number - 1}, dateFrom=${searchDateFrom}, dateTo=${searchDateTo})}">Trước</a>
+            </li>
+
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, transationPage.totalPages - 1)}"
+                th:classappend="${i == transationPage.number} ? 'active'">
+                <a class="page-link" th:text="${i + 1}"
+                   th:href="@{/transations(page=${i}, dateFrom=${searchDateFrom}, dateTo=${searchDateTo})}"></a>
+            </li>
+
+            <li class="page-item" th:classappend="${transationPage.last} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/transations(page=${transationPage.number + 1}, dateFrom=${searchDateFrom}, dateTo=${searchDateTo})}">Sau</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!-- ====================================================== -->
+<!-- MODAL SỬA (Dùng cho Cách 2) -->
+<!-- ====================================================== -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h5 class="modal-title">Cập nhật đơn hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" method="post" action="/transations/edit">
+                    <input type="hidden" id="editId" name="id">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Loại sản phẩm</label><span
+                                style="color: red">*</span>
+                            <select class="form-select" id="editCategory" name="category">
+                                <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Sản phẩm</label><span
+                                style="color: red">*</span>
+                            <select class="form-select" id="editProduct" name="category">
+                                <option th:each="p : ${products}" th:value="${p.id}" th:text="${p.name}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Ngày mua</label><span
+                                style="color: red">*</span>
+                            <input type="date" class="form-control" id="editBuyDate" name="buyDate">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Số lượng</label><span
+                                style="color: red">*</span>
+                            <input type="number" class="form-control" id="editQuantity" name="quantity">
+                        </div>
+                        <div class="text-end">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-warning">Sửa</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script>
+    // ==========================================
+    // CẤU HÌNH TOAST THÔNG BÁO
+    // ==========================================
+
+    // CÁCH 1: TỰ ĐỘNG TẮT SAU 3 GIÂY (ĐANG BẬT)
+    document.addEventListener('DOMContentLoaded', function () {
+        var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        var toastList = toastElList.map(function (toastEl) {
+            // Tạo instance Bootstrap Toast
+            // autohide: false để mình tự control timer hoặc true (mặc định 5000ms)
+            return new bootstrap.Toast(toastEl, {autohide: false});
+        });
+
+        toastList.forEach(function (toast) {
+            // Hiện toast (nếu chưa hiện) - dù class 'show' có sẵn ở HTML, gọi .show() vẫn an toàn
+            toast.show();
+
+            // Set timeout tắt sau 3 giây
+            setTimeout(function () {
+                toast.hide();
+            }, 3000);
+        });
+    });
+
+
+    // ==========================================
+    // XỬ LÝ MODAL
+    // ==========================================
+
+    // Hàm xử lý hiển thị modal Sửa (Cách 2)
+    function showEditModal(button) {
+        document.getElementById('editId').value = button.getAttribute('data-id');
+        document.getElementById('editCode').value = button.getAttribute('data-code');
+        document.getElementById('editName').value = button.getAttribute('data-name');
+        document.getElementById('editCategory').value = button.getAttribute('data-category-id');
+        document.getElementById('editQuantity').value = button.getAttribute('data-quantity');
+        document.getElementById('editBuyDate').value = button.getAttribute('data-buy-date');
+    }
+</script>
+
+</body>
+
+</html>

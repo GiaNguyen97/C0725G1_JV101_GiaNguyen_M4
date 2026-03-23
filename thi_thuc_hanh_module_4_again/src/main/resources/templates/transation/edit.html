@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cập nhật sản phẩm</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-warning text-dark">
+                        <h4 class="mb-0">Cập nhật sản phẩm</h4>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/products/edit}" th:object="${product}" method="post">
+                            <input type="hidden" th:field="*{id}">
+
+                            <!-- Mã sản phẩm -->
+                            <div class="mb-3">
+                                <label class="form-label">Mã sản phẩm <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control bg-secondary bg-opacity-25" th:field="*{code}"
+                                    th:classappend="${#fields.hasErrors('code')} ? 'is-invalid' : ''"
+                                    placeholder="VD: MSP-0001" readonly>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('code')}" th:errors="*{code}">
+                                </div>
+                            </div>
+
+                            <!-- Tên sản phẩm -->
+                            <div class="mb-3">
+                                <label class="form-label">Tên sản phẩm <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" th:field="*{name}"
+                                    th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                                </div>
+                            </div>
+
+                            <!-- Loại sản phẩm -->
+                            <div class="mb-3">
+                                <label class="form-label">Loại sản phẩm <span class="text-danger">*</span></label>
+                                <select class="form-select" th:field="*{category}"
+                                    th:classappend="${#fields.hasErrors('category')} ? 'is-invalid' : ''">
+                                    <option value="">-- Chọn loại --</option>
+                                    <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}">
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('category')}"
+                                    th:errors="*{category}">
+                                </div>
+                            </div>
+
+                            <!-- Giá -->
+                            <div class="mb-3">
+                                <label class="form-label">Giá (VNĐ) <span class="text-danger">*</span></label>
+                                <input type="number" step="1000" class="form-control" th:field="*{price}"
+                                    th:classappend="${#fields.hasErrors('price')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}"
+                                    th:errors="*{price}"></div>
+                            </div>
+
+                            <!-- Số lượng -->
+                            <div class="mb-3">
+                                <label class="form-label">Số lượng <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" th:field="*{quantity}"
+                                    th:classappend="${#fields.hasErrors('quantity')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('quantity')}"
+                                    th:errors="*{quantity}"></div>
+                            </div>
+
+                            <!-- Ngày sản xuất -->
+                            <div class="mb-3">
+                                <label class="form-label">Ngày sản xuất <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" th:field="*{manufactureDate}"
+                                    th:classappend="${#fields.hasErrors('manufactureDate')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('manufactureDate')}"
+                                    th:errors="*{manufactureDate}"></div>
+                            </div>
+
+                            <!-- Hạn sử dụng -->
+                            <div class="mb-3">
+                                <label class="form-label">Hạn sử dụng <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" th:field="*{expiryDate}"
+                                    th:classappend="${#fields.hasErrors('expiryDate')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('expiryDate')}"
+                                    th:errors="*{expiryDate}"></div>
+                            </div>
+
+                            <!-- Mô tả -->
+                            <div class="mb-3">
+                                <label class="form-label">Mô tả</label>
+                                <textarea class="form-control" th:field="*{description}" rows="3"></textarea>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-2">
+                                <a href="/products" class="btn btn-secondary">Quay lại</a>
+                                <button type="submit" class="btn btn-warning">Cập nhật</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
